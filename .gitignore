@@ -5,3 +5,6 @@
 /cuthesis_phd.pdf
 *.synctex.gz
 *.toc
+.DS_Store
+*.bbl
+*.blg
