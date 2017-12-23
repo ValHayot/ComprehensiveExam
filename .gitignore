@@ -1,0 +1,7 @@
+*.aux
+*.lof
+*.log
+*.lot
+/cuthesis_phd.pdf
+*.synctex.gz
+*.toc
