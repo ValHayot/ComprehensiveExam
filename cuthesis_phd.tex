@@ -1,5 +1,7 @@
-\documentstyle[cuthesis]{report}
-
+\documentclass{report}
+\usepackage{cuthesis}
+\usepackage{hyperref}
+\usepackage{xcolor}
 \author{Valerie Hayot-Sasson}
 \title{Thesis Title}
 \titleOfPhDAuthor{Ms.}          % or Ms., Mrs., Miss, etc. (only for PhD's)
@@ -10,8 +12,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{document}
+\newcommand{\note}[1]{\textcolor{green}{\textit{note}: #1}}
 
+\begin{document}
 \begin{abstract}
   Text of abstract.  
 \end{abstract}
@@ -24,7 +27,40 @@
 \section{Databases}
 \section{Pipelining engines}
 \chapter{MapReduce}
-\cite{mapred}
+Summary of ~\cite{mapred}
+
+Typically simple computations need to be performed on increasingly growing large datasets. Processing of such large datasets require parallelization. As a result, these computations are complicated by details of parallelization, fault tolerance, data distribution and load balancing. The MapReduce library addresses this issue by allowing the expression of simple computations while abstracting the other details. The map and reduce paradigm was selected for this purpose as it was already commonly used in functional programming languages, such as Lisp, and it was observed that many computations could be expressed as such.
+
+The MapReduce library operates by first dividing the data into manageable chunks (16 to 64MB). It then creates multiple copies of the program and distributes them across nodes. There exists a single master node; the remainder are worker nodes. The master node is responsible for delegating map and reduce tasks to the idle workers. There are two data structures found in the master. The first stores the state (\textit{idle}, \textit{in-progress} or \textit{completed}) of each \textit{map} and \textit{reduce} task, and the second stores the identity of the non-idle worker nodes. In contrast, the worker nodes are responsible for the execution of \textit{map} or \textit{reduce} tasks. A worker node assigned a \textit{map} task will parse out the key-value pairs from the input file and pass it to the \textit{map} function. The intermediate keys produced by the \textit{map} function are buffered in memory and periodically written to disk. The locations of these intermediate files are sent to the master who is responsible for forwarding these locations to the reducer. A worker node assigned a \textit{reduce} task uses remote procedure calls to obtain the intermediate local files created by the map tasks and sorts the keys such that identical keys are grouped together. Each unique key and its list of values are then submitted to the the \textit{reduce} task and the output of the \textit{reduce} task is stored in a final output file. Once all \textit{reduce} tasks have completed, the master resumes the program and the output is returned to the user.
+
+In order to ensure fault tolerance, the master regularly pings the worker nodes. Should a worker node not respond after a certain delay, the master labels the worker as failed. The \textit{map} tasks that were completed by the worker are all returned to their original state (\textit{idle}) as \textit{map} task data is stored locally. Both the completed and in-progress worker's \textit{map} tasks are subsequently reassigned to other workers. Only the failed worker's \textit{in-progress} \textit{reduce} tasks need to be reassigned.
+
+The master node undergoes periodic checkpoints, such that the master node can be reinitialized from its last checkpoint in case of failure. Master node failure is, however, unlikely.
+
+As network bandwidth is a scarce resource, the master attempts to schedule \textit{map} tasks closest to where the data is located. it will first attempt to schedule a map task on the host that contains the data; should that option not be available, the master the will attempts to schedule the \textit{map} task on a host nearest to the data (e.g. same network switch)
+
+Ideally, the number of \textit{map} and \textit{reduce} tasks should be much larger than the number of available worker nodes. Having it as such improves both dynamic load balancing and recovery time. The number of \textit{map} tasks used in practice typically corresponds to the size of the input chunks, whereas the number of \textit{reduce} tasks are a small multiple of the number of worker nodes used.
+
+When nearing completion of the MapReduce program, it is possible for  ``stragglers" (\textit{in-progress} tasks running on nodes with below average performance) to delay completion. As a measure to counteract this, the master node assigns the same task to idle workers. The task is then marked as completed as soon as either the primary or the backups complete the task. This strategy has been found to significantly improve performance when used with very large datasets. \note{44\% speedup with their sort program}.
+
+A few extensions have also been added to the library in order to improve user experience. An important extension is the introduction of a \textit{combiner}, which enables the commutative and associative reduce function to be applied to the same keys on the hosts where the \textit{map} task was executed. Like the \textit{map} task, the \textit{combiner} produces intermediate output which is sent to the \textit{reducer}. This alleviates the amount of key-value pairs that must be transferred over the network from the map host to the reduce host, and as a result, improves performance. Other extensions include the ability to create user-defined partitioning functions, a guaranteed increasing key sort order, the ability for the user to specify input types, an option to skip records that continuously result in execution failure, the ability to produce auxiliary output files in \textit{map} or \textit{reduce} task, live status updates stream to HTTP server,  the ability to run all code on a single local machine, and a \textit{Counter} class.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Hadoop}
 \cite{hadoop}
