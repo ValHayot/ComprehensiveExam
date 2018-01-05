@@ -1,34 +1,84 @@
 \documentclass{report}
-\usepackage{cuthesis}
+
 \usepackage{hyperref}
 \usepackage{xcolor}
-\author{Valerie Hayot-Sasson}
-\title{Thesis Title}
-\titleOfPhDAuthor{}          % or Ms., Mrs., Miss, etc. (only for PhD's)
-\PhD                            % Masters by default
-\degree{Computer Science}
-% \dept{Computer Science}       % default is Comp.Sci.
-\cosupervisor                   % if you also have a co-supervisor
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\note}[1]{\textcolor{green}{\textit{note}: #1}}
 
 \begin{document}
+\title{Pipeline systems and infrastructure for the efficient and open processing of Big neuroimaging Data}
+\author{Valerie Hayot-Sasson}
+\maketitle
 \begin{abstract}
   Text of abstract.  
 \end{abstract}
-
-\begin{acknowledgments}
-  Text of acknowledgments.
-\end{acknowledgments}
-
+\tableofcontents
 \chapter{Introduction}
 intro here
-\chapter{Parallelization frameworks}
-\section{Databases}
-\section{Pipelining engines}
-\chapter{MapReduce}
+\chapter{BigData in neuroscience}
+    \note{Likely will not be split in two separate sections}
+    \section{large images}
+        \begin{itemize}  
+            \item BigBrain
+            \item Micro CT 
+            \item EM 
+        \end{itemize}
+    \section{large datasets}
+    	\note{off the top of my head, but need to double check}
+        \begin{itemize}
+            \item HCP
+            \item ADNI
+            \item OpenFMRI
+        \end{itemize}
+    An effective engine to process such data requires the following characteristics
+        \begin{itemize}
+            \item in-memory computing
+            \item data locality
+            \item lazy evaluation
+        \end{itemize}
+\chapter{Workflow engines for neuroimaging data}
+    \begin{itemize}
+        \item Nipype
+        \item PSOAM
+        \item SPM
+        \item these engines do not currently support processing big data
+      	\begin{itemize}
+        		\item PSOAM - can't do data locality
+		\item none do in-memory processing?
+	\end{itemize}
+    \end{itemize}
+\chapter{CBRAIN}
+\chapter{Domain nonspecific BigData frameworks}
+	\section{mapreduce}
+		\begin{itemize}
+			\item many computations can be described through map and reduce
+			\item fault tolerant
+		\end{itemize}
+	\section{spark}
+		\begin{itemize}
+			\item based on map-reduce
+			\item in-memory processing
+			\item lazy evaluation
+			\item general framework
+		\end{itemize}
+	\section{Hadoop Distributed file system}
+		\note{maybe should go in between mapreduce and spark}
+		\begin{itemize}
+			\item enables data-locality in Spark/ decouples data locality logic from mapreduce\
+			\item data replication
+			\item fault-tolerance
+		\end{itemize}
+\chapter{Current status of Big Data frameworks in neuroscience}
+	\section{Ariel's paper}
+	\section{Thunder}
+\chapter{Use of containers in Workflow engines}
+	\section{use of containers in nipype, psoam, spm}
+	\section{using containers w/ Spark}
+
+\chapter{Summaries}
+
+This section contains summaries and/or notes on the 5 main papers to aid with writing and structuring of ideas.
+\section{MapReduce}
 Summary of ~\cite{mapred}
 
 Typically simple computations need to be performed on increasingly growing large datasets. 
@@ -142,11 +192,9 @@ The \textit{journal} is the modification log stored on the local filesystem.
 
 \section{Apache Spark}
 \cite{spark}
-\chapter{MapReduce applications in neuroscience}
+\section{Thunder}
 \cite{thunder}
-
-\section{Schedulers}
-\chapter{Pipelining engines used in neuroscience}
+\section{NiPype}
 \cite{nipype}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Body of Thesis goes here.
