@@ -1,0 +1,102 @@
+\documentclass{report}
+
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+\newcommand{\note}[1]{\textcolor{green}{\textit{note}: #1}}
+
+\begin{document}
+\title{Pipeline systems and infrastructure for the efficient and open processing of Big neuroimaging Data}
+\author{Valerie Hayot-Sasson}
+\maketitle
+\begin{abstract}
+  Text of abstract.  
+\end{abstract}
+\tableofcontents
+\chapter{Introduction}
+intro here
+\chapter{BigData and Open science in neuroimaging}
+    \note{Likely will not be split in two separate sections}
+    \section{large images}
+        \begin{itemize}  
+            \item BigBrain
+            \item Micro CT 
+            \item EM 
+        \end{itemize}
+    \section{large datasets}
+    	\note{off the top of my head, but need to double check}
+        \begin{itemize}
+            \item HCP
+            \item ADNI
+            \item OpenFMRI
+        \end{itemize}
+    An effective engine to process such data requires the following characteristics
+        \begin{itemize}
+            \item in-memory computing
+            \item data locality
+            \item lazy evaluation
+        \end{itemize}
+        \section{open-science platforms for neuroimaging}
+        		\subsection{Introduction}
+		\subsection{CBRAIN}
+		\subsection{OpenNEURO}
+		\subsection{NeuroData}
+\chapter{Workflow engines for neuroimaging data}
+	\section{Definition of workflows/pipelines}
+	\section{Nipype}
+		\subsection{summary}
+		\subsection{limitations of nipype}
+	\section{PSOM}
+		\subsection{summary}
+		\subsection{limitations of PSOM}
+	\section{SPM}
+		\subsection{summary}
+		\subsection{limitations of SPM}
+	\section{Use of containers in Workflow engines}
+		\subsection{use of containers in nipype, psoam, spm}
+
+\chapter{Domain nonspecific BigData frameworks}
+	\section{mapreduce}
+		\begin{itemize}
+			\item many computations can be described through map and reduce
+			\item fault tolerant
+		\end{itemize}
+	\section{spark}
+		\begin{itemize}
+			\item based on map-reduce
+			\item in-memory processing
+			\item lazy evaluation
+			\item general framework
+		\end{itemize}
+	\section{Use of containers with Big Data frameworks}
+	\section{Hadoop Distributed file system}
+		\note{maybe should go in between mapreduce and spark}
+		\begin{itemize}
+			\item enables data-locality in Spark/ decouples data locality logic from mapreduce\
+			\item data replication
+			\item fault-tolerance
+		\end{itemize}
+\chapter{High-Performance Computing and Grid Computing with Big Data}
+	\section{Definition}
+	\section{Why is use of such systems important}
+	\section{Scheduling}
+		\subsection{HPC schedulers: SLURM/QSUB}
+		\subsection{Big Data schedulers: YARN/MESOS}
+		\subsection{Multi-level scheduling w/ BigData schedulers}
+\chapter{Current status of Big Data frameworks in neuroscience}
+	\section{Ariel's paper}
+	\section{Thunder}
+\chapter{Conclusion}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Body of Thesis goes here.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{bibliography}
+\bibliographystyle{ieeetr}
+%\bibliography{abbr,chalin,common,larch,tn}  %place your .bib files here
+%\bibliographystyle{alpha}                   %the bibliography style to use
+
+\end{document}
