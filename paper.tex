@@ -76,8 +76,32 @@ intro here
 			\item data replication
 			\item fault-tolerance
 		\end{itemize}
-\chapter{High-Performance Computing and Grid Computing with Big Data}
-	\section{Definition}
+\chapter{Optimizing Big Data frameworks for High-Performance Computing}
+	\section{Introduction}
+	High-Performance Computing (HPC) clusters (Compute grids) are extensively used by the scientific community to process complex, computation intensive problems. Due to their importance in the advancement of scientific research, it is necessary that Big Data frameworks used to process scientific data are compatible with them. 
+	
+	Big Data frameworks were not designed with high-performance computing in mind. Big Data filesystems such as were intended to run in data centers with homogenous storage (ex. HDDs, SDDs. etc,.). In such infrastructures, data movement is expensive. To counteract this, strategies were employed to avoid moving data around (data locality). In contrast, HPC clusters use heterogenous storage (ex. a combination of HDD, SSD, Ram Disk and Parallel file systems) with compute nodes connected by high-performance interconnects. HPC nodes may therefore not all be equipped with the same type of storage devices, some of which may be faster than others. Unlike data centers, HPC compute nodes do not have local storage. Moreover, the high-performance interconnects ensure low latency and high throughput of the system. In some instances, it may be even more performant to move data around rather than ensuring data locality. When a single-node HPC cluster using the Luster parallel file system was compared to a workstation with local SSD, it was found that Spark performed about 4x slower on the HPC cluster \cite{Chaimov:2016}.  As HDFS is not conscientious of the underlying infrastructure and expects a data center-type infrastructure, it cannot achieve its full performance potential. 
+	
+	Prior to examining how Big Data frameworks could be improved on HPC clusters, it is important to have a baseline of how it performs natively on an HPC cluster. Particularly, how it behave when processing scientific workflows. In a recent study done by \cite{valduriez}, they examined the scalability of Spark on an HPC cluster using a black-box scientific workflow. Five tests were performed in their study: 1) Measuring execution time when task and resources available increase proportionally, 2) Measuring the execution time of very short and short tasks, 3) Measuring the execution time of short (5s) to long tasks (120s), 4) Varying the number of tasks with fixed task durations, 5) Mixed task durations and varied number of tasks. Their results show Spark behaves as expected when tasks and resources are increased exponentially, and that Spark scales better than expected with tasks of longer durations. This is due to the fact that the scheduler is overloaded in the case of many short tasks in addition to their being a significant amount of I/O occurring between each task. Although I/O is problematic in both data center and HPC infrastructures, HPC is optimized for data transfer over the network rather than disk I/O, and therefore, such frequent I/O negatively impacts the system. However, many scientific workflows are composed of longer tasks, and therefore, Spark scales very well with scientific workflows in an HPC environment.
+	
+	This chapter will examine the various efforts by the community to improve Big Data framework performance on HPC clusters.
+	
+	\section{In-memory file systems for Spark}
+	
+	Using Spark against a typical HPC parallel file system such a Luster has been found to impede scalability. This was found to be due the file system metadata latency, which limits Spark scalability to \textit{O}(10\textsuperscript{2}) cores \cite{Chaimov:2016}.
+	
+	
+
+	%%%Compute Grids, interconnected networks of computing resources, are heavily used in scientific research for the processing of data. Due to their use and importance to the scientific community, it is necessary that big data frameworks used for processing neuroimaging data are compatible with them. Compute grids typically utilize heterogenous storage, such as a mixture of SSD, HDD, RAM Disk and parallel file systems (e.g. Luster). However, big data frameworks, such as Spark are designed to work efficiently with homogenous storage. Such differences result in reduced performance and inefficient storage use when big data frameworks are used on HPC clusters. This chapter will review the difference techniques applied to big data frameworks as well as HPC and grids to improve collocation of both services.%%%
+	
+	%%%\subsection{Anatomy of Grid storage}
+	%%%Typical grids consist of a cluster of data nodes possibly connected to local storage (e.g. RAM Disk, HDD, SDD), but is also connected through a network to another cluster representing a parallel file system such as Lustre. RAM Disk is the fastest storage as all data is located in memory, whereas SSD provides slightly slower, persistent storage, but is a good alternative for big data. HDDs are the least performant form of local storage.%%% 
+	%%%Lustre is a stateful, object-based parallel file system. It consists of three components: 1) the meta data server (MDS), 2) the Object Storage Server (OSS) and 3) the Luster Network (LNET), which enables clients to communicate with each other.%%%
+
+	
+	
+	
+	In an attempt to improve performance of HDFS on HPC clusters, Triple-H was created.
 	\section{Why is use of such systems important}
 	\section{Scheduling}
 		\subsection{HPC schedulers: SLURM/QSUB}
