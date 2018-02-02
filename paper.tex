@@ -29,6 +29,7 @@ intro here
             \item HCP
             \item ADNI
             \item OpenFMRI
+            \item BIDS/BIDS apps
         \end{itemize}
     An effective engine to process such data requires the following characteristics
         \begin{itemize}
@@ -36,7 +37,8 @@ intro here
             \item data locality
             \item lazy evaluation
         \end{itemize}
-        \section{open-science platforms for neuroimaging}
+        \section{open-science /data sharing platforms for neuroimaging}
+        		is open science just data sharing, computing. 
         		\subsection{Introduction}
 		\subsection{CBRAIN}
 		\subsection{OpenNEURO}
@@ -53,8 +55,13 @@ intro here
 		\subsection{summary}
 		\subsection{limitations of SPM}
 	\section{Use of containers in Workflow engines}
-		\subsection{use of containers in nipype, psoam, spm}
-
+		\subsection{use of containers in nipype, psom, spm}
+\chapter{Scientific workflows in Spark}
+	\section{Introduction}
+	\section{ariel's paper and thunders astronomy - }
+	\section{Spark on hpc's or }
+	\note{large dataset for valduriez}
+	Prior to examining how Big Data frameworks could be improved on HPC clusters, it is important to have a baseline of how it performs natively on an HPC cluster. Particularly, how it behave when processing scientific workflows. In a recent study done by \cite{valduriez}, they examined the scalability of Spark on an HPC cluster using a black-box scientific workflow. Five tests were performed in their study: 1) Measuring execution time when task and resources available increase proportionally, 2) Measuring the execution time of very short and short tasks, 3) Measuring the execution time of short (5s) to long tasks (120s), 4) Varying the number of tasks with fixed task durations, 5) Mixed task durations and varied number of tasks. Their results show Spark behaves as expected when tasks and resources are increased exponentially, and that Spark scales better than expected with tasks of longer durations. This is due to the fact that the scheduler is overloaded in the case of many short tasks in addition to their being a significant amount of I/O occurring between each task. Although I/O is problematic in both data center and HPC infrastructures, HPC is optimized for data transfer over the network rather than disk I/O, and therefore, such frequent I/O negatively impacts the system. However, many scientific workflows are composed of longer tasks, and therefore, Spark scales very well with scientific workflows in an HPC environment.
 \chapter{Domain nonspecific BigData frameworks}
 	\section{mapreduce}
 		\begin{itemize}
@@ -77,16 +84,49 @@ intro here
 			\item fault-tolerance
 		\end{itemize}
 \chapter{Optimizing Big Data frameworks for High-Performance Computing}
-	\section{Introduction}
-	High-Performance Computing (HPC) clusters (Compute grids) are extensively used by the scientific community to process complex, computation intensive problems. Due to their importance in the advancement of scientific research, it is necessary that Big Data frameworks used to process scientific data are compatible with them. 
 	
-	Big Data frameworks were not designed with high-performance computing in mind. Big Data filesystems such as were intended to run in data centers with homogenous storage (ex. HDDs, SDDs. etc,.). In such infrastructures, data movement is expensive. To counteract this, strategies were employed to avoid moving data around (data locality). In contrast, HPC clusters use heterogenous storage (ex. a combination of HDD, SSD, Ram Disk and Parallel file systems) with compute nodes connected by high-performance interconnects. HPC nodes may therefore not all be equipped with the same type of storage devices, some of which may be faster than others. Unlike data centers, HPC compute nodes do not have local storage. Moreover, the high-performance interconnects ensure low latency and high throughput of the system. In some instances, it may be even more performant to move data around rather than ensuring data locality. When a single-node HPC cluster using the Luster parallel file system was compared to a workstation with local SSD, it was found that Spark performed about 4x slower on the HPC cluster \cite{Chaimov:2016}.  As HDFS is not conscientious of the underlying infrastructure and expects a data center-type infrastructure, it cannot achieve its full performance potential. 
+
+	High-Performance Computing (HPC) clusters are extensively used by the scientific community to process complex, computation intensive problems. Due to their importance in the advancement of scientific research, it is necessary that Big Data frameworks used to process scientific data are compatible with them. 
 	
-	Prior to examining how Big Data frameworks could be improved on HPC clusters, it is important to have a baseline of how it performs natively on an HPC cluster. Particularly, how it behave when processing scientific workflows. In a recent study done by \cite{valduriez}, they examined the scalability of Spark on an HPC cluster using a black-box scientific workflow. Five tests were performed in their study: 1) Measuring execution time when task and resources available increase proportionally, 2) Measuring the execution time of very short and short tasks, 3) Measuring the execution time of short (5s) to long tasks (120s), 4) Varying the number of tasks with fixed task durations, 5) Mixed task durations and varied number of tasks. Their results show Spark behaves as expected when tasks and resources are increased exponentially, and that Spark scales better than expected with tasks of longer durations. This is due to the fact that the scheduler is overloaded in the case of many short tasks in addition to their being a significant amount of I/O occurring between each task. Although I/O is problematic in both data center and HPC infrastructures, HPC is optimized for data transfer over the network rather than disk I/O, and therefore, such frequent I/O negatively impacts the system. However, many scientific workflows are composed of longer tasks, and therefore, Spark scales very well with scientific workflows in an HPC environment.
+	Big Data frameworks were optimized for a commodity cluster.  Such clusters are made up of nodes with homogenous storage connected by lower-end network cables (e.g. Ethernet). As a result, moving data from local storage to memory was much less costly in these infrastructures than moving data across the network. Thus, Big Data frameworks implemented data locality in an attempt to reduce costly network (horizontal) transfers and favour more performant local storage to memory (vertical) transfers. HPC clusters, however, are not necessarily commodity clusters. Large HPC clusters are commonly made up of supercomputing nodes connected by a high bandwidth, low-latency network (e.g. InfiniBand). Nodes may contain their own local storage (e.g. HDD, SSD, tmpfs) and are all connected to a distributed file system (e.g GPFS, Lustre).  Due to their employment of a high bandwidth low latency network, network transfers on such an HPC cluster may not be as costly as that of a typical data center, and it may in fact be more costly to do vertical transfers. Furthermore, HPC systems may enforce a batch submission system. This required users to specify number of nodes, cores and total processing time; requirements which are unknown to MapReduce users.
 	
 	This chapter will examine the various efforts by the community to improve Big Data framework performance on HPC clusters.
 	
-	\section{In-memory file systems for Spark}
+	\section{File system improvements}
+	
+	In paper \note{Scaling Spark on HPC Systems} it was found that Spark on a Lustre backend performed significantly (4x) slower than that of a workstation using local fast SSDs for storage. This is due to the fact that file system metadata latency (more specifically, file open) is the determinant factor for performance on HPC, whereas network dominates performance in a typical data centre configuration. It was found by the authors that using either a local in-memory filesystem or a filesystem mounted to a single Lustre file improved performance up to the point where it matched that of a workstation. In addition, use of a cache was found to reduce file system metadata operations, and thus improve overall performance. 
+	The issues related to using an in-memory filesystem is that it is limited by the amount of physical memory available, and a job will fail if physical memory runs out. Moreover, there is not persistence or resilience of data as it is not saved to non-volatile storage (disk). Spark fails with medium to large applications due to "lax garbage collection in block and shuffle managers". To resolve these issues, the authors first attempted to make all executors share a descriptor pool. This allowed files that were already opened by other executors to be accessed by the executor through the descriptor rather than having to reopen it again. However, the node OS image is subject to number of Inode constraints as well Lustre limits on number of open files for a given job. Due to Inode constraints, a livelock may occur when descriptor pool is at capacity and an executor is attempting to open a file.
+	
+	.the authors created mounted a local filesystem backed by a Lustre file \note{requires admin privilege}.
+	\note{for each partition, a shuffle file is created and written to as many times as there are partitions. An index file is also created which contains shuffle file locations and offsets. Metadata access is therefore O(partitions2)}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	%%%In other words, such frameworks would try to limit data movement, as network cables are expected to have low bandwidth and high latency. In addition, each node in a commodity cluster is expected to have access to its own local storage homogenous to that of the rest of the cluster, thus replication is necessary to ensure data availability. This is, however, not necessarily the case for computing grids. Computing grids may have access to Infinibands, which provide high bandwidth and low latency. Moreover, grids may use heterogenous storage in addition to a parallel file system such as Lustre. As a result, it may, in some cases, be faster to transfer data over the network than to access the nearest copy of the data. As well, data replication may burden a system with centralized storage as multiple copies of the data would be created, taking a significant amount of space.%%%
+	
+	
+	
+	%%%Big Data frameworks were not designed with high-performance computing in mind. Big Data filesystems such as were intended to run in data centers with homogenous storage (ex. HDDs, SDDs. etc,.). In such infrastructures, data movement is expensive. To counteract this, strategies were employed to avoid moving data around (data locality). In contrast, HPC clusters use heterogenous storage (ex. a combination of HDD, SSD, Ram Disk and Parallel file systems) with compute nodes connected by high-performance interconnects. HPC nodes may therefore not all be equipped with the same type of storage devices, some of which may be faster than others. Unlike data centers, HPC compute nodes do not have local storage. Moreover, the high-performance interconnects ensure low latency and high throughput of the system. In some instances, it may be even more performant to move data around rather than ensuring data locality. When a single-node HPC cluster using the Luster parallel file system was compared to a workstation with local SSD, it was found that Spark performed about 4x slower on the HPC cluster \cite{Chaimov:2016}.  As HDFS is not conscientious of the underlying infrastructure and expects a data center-type infrastructure, it cannot achieve its full performance potential. %%%
+	
+	\section{Spark in the cloud}
+	
+	
+	
+	
+	
+	
 	
 	Using Spark against a typical HPC parallel file system such a Luster has been found to impede scalability. This was found to be due the file system metadata latency, which limits Spark scalability to \textit{O}(10\textsuperscript{2}) cores \cite{Chaimov:2016}.
 	
