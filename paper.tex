@@ -2,8 +2,12 @@
 
 \usepackage{hyperref}
 \usepackage{xcolor}
+\usepackage{ulem}
+
 
 \newcommand{\note}[1]{\textcolor{green}{\textit{note}: #1}}
+\newcommand{\tristan}[1]{\textcolor{red}{TG: #1}}
+\newcommand{\weird}[1]{\uwave{#1}}
 
 \begin{document}
 \title{Pipeline systems and infrastructure for the efficient and open processing of Big neuroimaging Data}
@@ -47,25 +51,68 @@ intro here
 	\section{Definition of workflows/pipelines}
 	\section{Nipype}
 		\subsection{summary}
-		Nipype\cite{nipype} is a popular neuroimaging pipelinening framework written in python.
+		Nipype\cite{nipype} is a popular neuroimaging pipelinening framework written in Python.
 		It provides users with uniform access to the rich ecosystem of neuroimaging software
-		libraries (e.g. SPM, FSL, Freesurfer) through its \textit{Interfaces}. Should users want to
-		use their own custom tool, it is also possible to create an interface for that. To execute 
-		python code in Nipype, the \textit{Function} interface can be used. The framework is 
+		libraries (e.g. SPM, FSL, Freesurfer) through its \textit{Interfaces}. \weird{Should users want to
+		use their own custom tool, it is also possible to create an interface for that}. To execute 
+		Python code in Nipype, the \textit{Function} interface can be used \tristan{for arbitrary code?}. The framework is 
 		also easy to use, and thus does not contribute to the steep learning curve new
 		researchers must face.
 		
-		A pipeline in Nipype, consists of a data analysis \textit{Workflow} of connected \textit{interfaces}. The workflow is a directed acyclic graph that connects the outputs of one interface to be the inputs of another. A workflow may also consist of connected workflows. Workflows may be executed in parallel either locally or an a cluster through the use of a plugin in the Workflow's run function. For debugging, Nipype uses \textit{graphiz} to generate a static graph representing the Nodes and their relationships.
+		A pipeline in Nipype, consists of a data analysis
+                \textit{Workflow} of connected
+                \textit{interfaces}. The workflow is a directed
+                acyclic graph that connects the outputs of one
+                interface to be the inputs of another. A workflow may
+                also consist of connected workflows.
+
+                \tristan{The text below is about workflow execution
+                  while the text above is about workflow description,
+                  this should be a new paragraph.}  Workflows may be
+                executed in parallel either locally or an a cluster
+                through the use of a plugin in the Workflow's run
+                function. For debugging, Nipype uses \textit{graphviz}
+                to generate a static graph representing the Nodes and
+                their relationships. \tristan{debugging might be a
+                  third theme, in addition to description and
+                  execution. Provenance might go in debugging.}
 		
-		 Each \textit{interface} within the workflow must be contained within a \textit{Node} or a \textit{MapNode} object. The MapNode class being a subclass of the Node class. Wrapping an interface in such objects ensures that interfaces are executed within a uniquely named directories, which in turn enables provenance tracking. Node objects also hash inputs, provide the ability to iterate over inputs and cache results. Hash inputs are useful in the case of Workflow recomputation, where Nipype will only recompute Nodes whose inputs have changed since the previous run.
+		 Each \textit{interface} within the workflow must be
+                 contained within a \textit{Node} or a
+                 \textit{MapNode} object, the MapNode class being a
+                 subclass of the Node class. Wrapping an interface in
+                 such objects ensures that interfaces are executed
+                 within a uniquely named directories, which in turn
+                 enables provenance tracking. Node objects also hash
+                 inputs, provide the ability to iterate over inputs
+                 and cache results. Hash inputs are useful in the case
+                 of Workflow recomputation, where Nipype will only
+                 recompute Nodes whose inputs have changed since the
+                 previous run.
 		
-		Inspired by the mapreduce paradigm, the MapNode copies the interface to each input and executes it independently. A reduce is subsequently performed by the MapNode to return the output in the form of a list. This differs from a Node object which can only execute the interface on a single input at a time.
+		Inspired by the MapReduce paradigm, the MapNode copies
+                the interface to each input and executes it
+                independently. \tristan{How are inputs defined/combined?} A reduce is subsequently performed by
+                the MapNode to return the output in the form of a
+                list. This differs from a Node object which can only
+                execute the interface on a single input at a time.
 		
-		To enable execution of different parameters on the input, Nodes have a property known as \textit{Iterables}. Similarly to a MapNode, a copy of the \textit{interface} will be made for each input. However, with \textit{iterables}, a copy of each dependent node will also be made.
+		To enable execution of different parameters on the
+                input, Nodes have a property known as
+                \textit{Iterables}. Similarly to a MapNode, a copy of
+                the \textit{interface} will be made for each
+                input. However, with \textit{iterables}, a copy of
+                each dependent node will also be made.
 		 
-		\subsection{limitations of nipype}
-		Nipype, although meeting the various needs of researchers in Neuroinformatics, was not designed with the processing of Big Data in mind. Moreover, its performance relative to current Big Data frameworks remains unknown.
-		\note{nipype performs a lot of disk I/O. Recomputation of workflows vs RDD caching}
+		\subsection{Limitations}
+		Nipype, although meeting the various needs of
+                researchers in Neuroinformatics \tristan{vague}, was
+                not designed with the processing of Big Data in
+                mind. Moreover, its performance relative to current
+                Big Data frameworks remains unknown \tristan{You could
+                  refer to your MS thesis here}.  \note{nipype
+                  performs a lot of disk I/O. Recomputation of
+                  workflows vs RDD caching}
 		
 	\section{PSOM}
 		\subsection{summary}
