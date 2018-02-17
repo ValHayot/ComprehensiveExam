@@ -128,34 +128,37 @@ represented as a directed acyclic graph. The pipeline itself is implemented
 using the Matlab/Octave data type. Each job within the pipeline
 is assigned a unique name. There is only one mandatory field in the job
 description (command). The remaining four optional fields include the list input
-files (files_in), the list output files (files_out), the list of files to be
-deleted after execution (files_clean) and any Octave or Matlab datatype
+files (files\_in), the list output files (files\_out), the list of files to be
+deleted after execution (files\_clean) and any Octave or Matlab datatype
 containing the remaining parameters necessary for job execution (opt).
 Jobs in PSOM run in a protected environment where they only have access to the
 parameters that are passed. 
 
         In order to determine whether the opt field was correctly set, the
-generic function \textit{psom_struct_defaults} may be applied. This function
+generic function \textit{psom\_struct\_defaults} may be applied. This function
 will set the default values, ensure all mandatory fields were supplied and issue
 warnings for all unidentified attributes.
 
         To define modules in PSOM, a special Octave/Matlab function type, known as "bricks"
-is used. Bricks employ the same parameters as jobs but lack the file_clean
-parameter. All bricks contain an opt.flag_test boolean flag, which, if set to
+is used. Bricks employ the same parameters as jobs but lack the file\_clean
+parameter. All bricks contain an opt.flag\_test boolean flag, which, if set to
 true, allows the user to perform a dry-run of the brick. A dry-run of a brick
 consists of updating the default parameters and validating that the brick can
 successfully execute with the parameters provided. Bricks also have an option to
-specify the output folder (opt.output_folder) for brick outputs to be stored.
+specify the output folder (opt.output\_folder) for brick outputs to be stored.
 
         The pipeline generator is an easy way to create complete pipelines with
 minimal information provided. A pipeline generator may accept at most the
-file_in and opt arguments. It then builds the pipeline based on this
+file\_in and opt arguments. It then builds the pipeline based on this
 information and the default parameters specified in each brick applied by the
 pipeline generator.
 
         \note{pipeline execution}
         
-
+        To execute a pipeline, the user must provide the pipeline structure and
+the pipeline configuration options. The latter consists of the log
+directory and the pipepline execution modes (e.g., session, background, batch,
+qsub, msub).
 
         \note{debugging and provenance}
 
