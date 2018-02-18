@@ -124,7 +124,7 @@ languages.
 
         \note{pipeline description}
         A pipeline in PSOM, is a series of connected jobs, which can be
-represented as a directed acyclic graph. The pipeline itself is implemented 
+represented as a (static?) directed acyclic graph. The pipeline itself is implemented 
 using the Matlab/Octave data type. Each job within the pipeline
 is assigned a unique name. There is only one mandatory field in the job
 description (command). The remaining four optional fields include the list input
@@ -225,8 +225,74 @@ execution, in addition to the user name, date, time and operating system used to
 execute the job. Finally, all configuration details are stored in PIPE.mat. 
        
         \subsection{limitations of PSOM}
-    \section{SPM} 
+    \section{SPM and matlabbatch} 
+        \note{This section may not make much sense. Have not really yet fully
+understood matlabbatch}
         \subsection{summary} 
+        SPM is a very popular neuroimaging toolkit, and as a result,
+neuroimaging pipeline engines such as Nipype provide interfaces for it. SPM is
+also equipped with its own neuroimaging pipeline engine known as
+\textit{matlabbatch}. Similarly to PSOM and as its name suggest, it is written
+in Matlab.
+
+        \note{pipeline description}
+        Pipelines in matlabbatch consist of a series of connected data
+processing steps known as "modules" \note{DAG?? probably but not explicitly
+listed anywhere}. All SPM modules, helper modules and their respective
+dependencies can be defined using SPM's GUI \note{can probably also be done
+through command-line}.
+
+        For any matlabbatch job, it is possible to create a skeleton of it. A
+skeleton is a Matlab script containing a commented list of necessary inputs at
+the top and all code necessary to initialize and run the script. Before running,
+the skeleton will need to be configured with the input names and other
+necessary parameters.
+
+        All configuration options can be set/changed by modifying the
+\textit{cfg\_<type>} files. 
+
+        Defaults can be set within the configuration files, through a default
+file, or in a \textit{.def} field for leaf nodes \note{terminal jobs???}. The
+latter updates at the start of the new job execution whereas the former are
+configured at the beginning of the SPM/matlabbatch startup.
+
+
+        Virtual outputs represent the dependencies between jobs \note{unsure}.
+They contain three paramaters of which only one is optional: sname, src\_output,
+tgt\_spec. sname is the display name that will be stored in the dependecies
+list, whereas src\_output is a subscript reference used to refer to the output
+that is produced at runtime. The optional parameter, tgt\_spec, is a description
+of the kind of inputs the outputs produced can be a dependency for. The virtual
+output callbacks are evaluated when cfg\_(ex)branch, cfg\_choice and cfg\_repeat 
+have the correct number of child nodes within all their in-tree nodes. 
+
+        \note{pipeline execution}
+        Pipeline execution can be achieved either through the provided GUI or by
+the command-line interface. The GUI, however, requires significant user
+interaction, as the user must repeat the "Runs" command as many times as
+necessary to reexecute the command on multiple data. The CLI, however, avoids
+this with the help of its \textit{spm\_jobman} interface.
+
+        The first step to running a batch pipeline is to perform the
+initialization. This may include configuring the \textit{spm\_defaults.m} code
+to run in command line and executing the \textit{spm(’defaults’, MODALITY)}
+(where MODALITY represents the modality used in the pipeline) and
+\textit{spm\_jobman(’initcfg’)}.
+
+        After the intialization is complete, a job may be executed using the
+\textit{spm\_jobman(’run’, job[, input1, input2 ...])} command. This command
+requires the job names as well as its necessary inputs specified in the correct
+order. The job can be specified as a variable, the name of a script that will
+generate a job variable or a cell list containing a mixture of scripts and job
+variables. 
+         
+        \note{debugging and provenance}
+        All batch scripts can be saved as a Matlab scripts. These scripts not
+only contain the code that was executed, but also all input parameters. Should
+any script fail in the process of executing, an error will be printed to the
+Matlab console. If the user is using the GUI, the error output may also be saved
+to a Matlab file.
+    
         \subsection{limitations of SPM}
     \section{Nexflow}
         \subsection{summary}
