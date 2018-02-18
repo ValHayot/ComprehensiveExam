@@ -294,10 +294,72 @@ Matlab console. If the user is using the GUI, the error output may also be saved
 to a Matlab file.
     
         \subsection{limitations of SPM}
-    \section{Nexflow}
+    \section{Nextflow}
         \subsection{summary}
+        Nextflow is a POSIX-compatible pipeline engine for scientific workflows.
+It extends the Groovy programming language to provide an  intuitive domain-specific language (DSL) 
+that enables users to easily describe their workflows. Unlike pipeline engines such as Nipype and
+PSOM, Netflow does not employ DAG. It instead adheres to the
+\textit{Dataflow} programming model which decides how data will flow through the pipeline at
+runtime \note{fix this sentence}. Nextflow prides itself on allowing the
+integration of containerized tools to address the issue of numerical stability
+that may arise from different environment setups.
+  
+        \note{Pipeline description}
+        A Nextflow pipeline is represented by the flow of data between processes. These
+processes can be written in any Linux-compatible scripting language. As in Nipype, 
+these processes are executed in an isolated environment. The only means
+of communication between processes is through asynchronous FIFO queues known as
+\textit{channels}. Each process can contain any number of input and output
+channels. Through the use of channels, input and output can be stored not only
+on disk but also in-memory \note{Nipype can also return outputs that are not on
+disk, so this is nothing special}.  
+
+        As with other pipeline engines (nipype, psom, etc.,), the order in which
+the processes appear is irrelevant. Execution order is determined by the dependencies.        
+
+        \note{Pipeline execution}
+        The \textit{executor} is responsible for the execution of a Nextflow
+pipeline. By default, it assumes that the pipeline is to be run locally. The
+local executor will use multithreading in order to exploit available cores
+within the local environment. To configure the executor to run in a remote distributed environment, it is
+necessary to modify the configuration file to specify the environment. By
+following this approach, Nextflow users can seamlessly run their code on various
+processing platforms with a simple modification to a configuration file. In
+addition to local, Nextflow currently has executors for SGE, LSF, SLURM,
+PBS/Torque, NQSII, HTCondor, DRMAA, Ignite, Kubernetes and AWS Batch.
+
+        \note{Debugging and Provenance}
+        When executing a pipeline, it is always possible to specify the
+generation of a execution report. The report is written in HTML and consists of three sections:
+Summary, Resources and Tasks. Summary provides details on the execution command,
+execution status, overall execution time, in addtion to other metadata. The
+Resources tab, on the other hand, contains several HighChart plots representing
+CPU, memory, time and disk read/write rate of each pipeline process. The final
+section, Tasks, contains many metrics including the status and command script of
+each task. 
+
+    Other reports that can be generated at runtime include the Trace report and
+the Timeline report. The Trace report include details such as CPU usage, start
+time, submission time, etc, of each process that was executed, whereas, the
+Timeline report generates an HTML timeline of all processes that have been
+executed.        
+
+    \note{doesn't seem to be anything on provenance...}
+
+    \section{FastR}
+        \subsection{summary}
+        \note{Pipeline description}
+        \note{Pipeline execution}
+        \note{Debugging and Provenance}
     \section{OpenMOLE}
-        \subsection{summary} 
+        \subsection{summary}
+        \note{Pipeline description}
+        \note{Pipeline execution}
+        \note{Debugging and Provenance}
+    \section{LONI}
+    \section{Automatic Analysis}
+    \section{Dipy, Make, Pydiper} 
     \section{Use of containers in Workflow engines} 
         \subsection{use of containers in nipype, psom, spm}
         
