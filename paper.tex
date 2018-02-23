@@ -48,6 +48,8 @@ intro here
 		\subsection{NeuroData}
 \chapter{Workflow engines for neuroimaging data}
 	\section{Definition of workflows/pipelines}
+
+    Broad definition of activities - between the tool and the engine.
 	\section{Nipype}
 		\subsection{summary}
 		Nipype\cite{nipype} is a popular neuroimaging pipelinening framework written in Python.
@@ -58,7 +60,7 @@ intro here
 		also easy to use, and thus does not contribute to the steep learning curve new
 		researchers must face.
 		
-		A pipeline in Nipype, consists of a data analysis
+		A pipeline in Nipype, consists of a data analysis. explicit
                 \textit{Workflow} of connected
                 \textit{interfaces}. The workflow is a directed
                 acyclic graph that connects the outputs of one
@@ -122,7 +124,7 @@ Matlab) was developed. Similarly to Nipype, PSOM is easy-to-use, can run in
 distributed environments and can interface with tools written in other
 languages.
 
-        \note{pipeline description}
+        \subsection{pipeline description}
         A pipeline in PSOM, is a series of connected jobs, which can be
 represented as a (static?) directed acyclic graph. The pipeline itself is implemented 
 using the Matlab/Octave data type. Each job within the pipeline
@@ -153,7 +155,7 @@ file\_in and opt arguments. It then builds the pipeline based on this
 information and the default parameters specified in each brick applied by the
 pipeline generator.
 
-        \note{pipeline execution}
+        \subsection{pipeline execution}
         
         To execute a pipeline, the user must provide the pipeline structure and
 the pipeline configuration options. The latter consists of the log
@@ -205,7 +207,7 @@ the job terminates, the job manager will verify that all output has been
 correctly generated and assigns a job tagged based on this verification that
 will be reported back to the pipeline manager.
 
-        \note{debugging and provenance}
+        \subsection{debugging and provenance}
 
         The information stored in the logs folder is complete with details
 allowing for both debugging and provenance. The logs folder contains six files:
@@ -235,7 +237,7 @@ also equipped with its own neuroimaging pipeline engine known as
 \textit{matlabbatch}. Similarly to PSOM and as its name suggest, it is written
 in Matlab.
 
-        \note{pipeline description}
+        \subsection{pipeline description}
         Pipelines in matlabbatch consist of a series of connected data
 processing steps known as "modules" \note{DAG?? probably but not explicitly
 listed anywhere}. All SPM modules, helper modules and their respective
@@ -266,7 +268,7 @@ of the kind of inputs the outputs produced can be a dependency for. The virtual
 output callbacks are evaluated when cfg\_(ex)branch, cfg\_choice and cfg\_repeat 
 have the correct number of child nodes within all their in-tree nodes. 
 
-        \note{pipeline execution}
+        \subsection{pipeline execution}
         Pipeline execution can be achieved either through the provided GUI or by
 the command-line interface. The GUI, however, requires significant user
 interaction, as the user must repeat the "Runs" command as many times as
@@ -286,7 +288,7 @@ order. The job can be specified as a variable, the name of a script that will
 generate a job variable or a cell list containing a mixture of scripts and job
 variables. 
          
-        \note{debugging and provenance}
+        \subsection{debugging and provenance}
         All batch scripts can be saved as a Matlab scripts. These scripts not
 only contain the code that was executed, but also all input parameters. Should
 any script fail in the process of executing, an error will be printed to the
@@ -305,7 +307,7 @@ runtime \note{fix this sentence}. Nextflow prides itself on allowing the
 integration of containerized tools to address the issue of numerical stability
 that may arise from different environment setups.
   
-        \note{Pipeline description}
+        \subsection{Pipeline description}
         A Nextflow pipeline is represented by the flow of data between processes. These
 processes can be written in any Linux-compatible scripting language. As in Nipype, 
 these processes are executed in an isolated environment. The only means
@@ -318,7 +320,7 @@ disk, so this is nothing special}.
         As with other pipeline engines (nipype, psom, etc.,), the order in which
 the processes appear is irrelevant. Execution order is determined by the dependencies.        
 
-        \note{Pipeline execution}
+        \subsection{Pipeline execution}
         The \textit{executor} is responsible for the execution of a Nextflow
 pipeline. By default, it assumes that the pipeline is to be run locally. The
 local executor will use multithreading in order to exploit available cores
@@ -329,7 +331,7 @@ processing platforms with a simple modification to a configuration file. In
 addition to local, Nextflow currently has executors for SGE, LSF, SLURM,
 PBS/Torque, NQSII, HTCondor, DRMAA, Ignite, Kubernetes and AWS Batch.
 
-        \note{Debugging and Provenance}
+        \subsection{Debugging and Provenance}
         When executing a pipeline, it is always possible to specify the
 generation of a execution report. The report is written in HTML and consists of three sections:
 Summary, Resources and Tasks. Summary provides details on the execution command,
@@ -349,14 +351,60 @@ executed.
 
     \section{FastR}
         \subsection{summary}
-        \note{Pipeline description}
-        \note{Pipeline execution}
-        \note{Debugging and Provenance}
+        FastR is another Python-based neuroimaging pipeline framework that
+provides added features such including access to different versions of the same
+command-line tool \note{criticizes nipype for not having such a feature, but
+nipype can access boutiques tools...so...} and compatibility with various
+possible filesystems. In addition to its added features, FastR also guarantees
+a simple-to-use framework for building pipelines written in any languages, has
+built-in provenance support, provides the seamless ability to parallelize
+pipelines with the use of plugins and avoids the numerical instability issue with
+the simple integration of containerized pipelines. Similary to many other
+pipeline framework, it also employs a DAG to describe data flow.
+ 
+        \subsection{Pipeline description}
+        A pipeline in FastR is a \textit{Network} of connected \textit{Nodes} in
+which the directed edges represent the flow of data.  Each \textit{node}
+contains a JSON or XML template known as a \textit{Tool}. 
+
+\textit{Tools}
+describe the details of the underlying application that is to be executed at the
+node. Tools consist of three components: general metadata, target and interface.
+The general metadata provides details on the Tools such as name, version,
+authors, etc, whereas the target specifies details on the execution environment.
+The interface, on the other hand, provides details on the inputs and outputs of
+the tool. 
+
+A JSON schema is required to validate the python object generated by the Tool. 
+Fastr currently provides two schemas for object validation: the \textit{Tool} schema
+and the \textit{FastrInterface} schema. It is, however, possible to add a custom
+schema to FastR and define an \textit{Interface} for it. 
+
+The \textit{Interface} class is responsible for executing a call to the command line tool.
+It dictates the tags that must be defined within the interface tag of the
+\textit{Tool}. For instance, the generic interface class requires details on the
+input and output's id, cardinality (number of input values) and DataType (a
+python object denoting the details of the Input or Output's data type).
+Verification is done by FastR to determine if the linked Input and Output data
+types are compatible \note{data types can also be grouped, but did not really
+understand that}.
+
+In FastR, there are four types of \textit{Nodes}: normal Nodes, Sink Nodes,
+Source Nodes and Constant Nodes. Data enters the network through Source or
+Constant Nodes and exit through Sink Nodes. Constant nodes differ from Source
+Nodes in that their input data are defined by the network \note{Not sure if
+saying this correctly}. Normal nodes are responsible for processing the
+data. Nodes are connected to each other through links that highlight the
+dependencies and form the \textit{Network}. Once the \textit{Netwokr} is
+defined, it can be executed. 
+
+        \subsection{Pipeline execution}
+        \subsection{Debugging and Provenance}
     \section{OpenMOLE}
         \subsection{summary}
-        \note{Pipeline description}
-        \note{Pipeline execution}
-        \note{Debugging and Provenance}
+        \subsection{Pipeline description}
+        \subsection{Pipeline execution}
+        \subsection{Debugging and Provenance}
     \section{LONI}
     \section{Automatic Analysis}
     \section{Dipy, Make, Pydiper} 
@@ -546,7 +594,9 @@ executed.
         or port change. 
         
 \chapter{Scientific workflows in Spark}
-    \section{Introduction} 
+    \section{Introduction}
+    emphasis on data rather than on interface. transformation describe how
+interfaces interact with the data. 
     \section{ariel's paper and thunders astronomy - }
     \section{Spark on hpc's or } 
         \note{large dataset for valduriez} Prior to
