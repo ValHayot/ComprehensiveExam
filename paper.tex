@@ -17,7 +17,7 @@
 \end{abstract}
 \tableofcontents
 \chapter{Introduction}
-intro here
+intro here -mention hpc, data centre, cloud. 
 \chapter{BigData and Open science in neuroimaging}
     \note{Likely will not be split in two separate sections}
     \section{large images}
@@ -304,7 +304,7 @@ that enables users to easily describe their workflows. Unlike pipeline engines s
 PSOM, Netflow does not employ DAG. It instead adheres to the
 \textit{Dataflow} programming model which decides how data will flow through the pipeline at
 runtime \note{fix this sentence}. Nextflow prides itself on allowing the
-integration of containerized tools to address the issue of numerical stability
+integration of containerized tools to address the issue of numerical instability
 that may arise from different environment setups.
   
         \subsection{Pipeline description}
@@ -385,9 +385,21 @@ It dictates the tags that must be defined within the interface tag of the
 \textit{Tool}. For instance, the generic interface class requires details on the
 input and output's id, cardinality (number of input values) and DataType (a
 python object denoting the details of the Input or Output's data type).
+DataTypes can also be grouped, allowing an inputs containing various files types
+to be inputted to applications which can support the file types.
 Verification is done by FastR to determine if the linked Input and Output data
-types are compatible \note{data types can also be grouped, but did not really
-understand that}.
+types are compatible.
+
+Input samples can consist of one or more values, in which the output is also a
+sample consisting of the same number of values. During the instances in which it
+is desirable to apply the same task to multiple inputs, a multidimensional array of samples, known as a collection, can be supplied to a
+\textit{Node} for processing. If there are multiple input samples, they can be
+passed to a node in pairwise behaviour (e.g. 1-1) or cross-product behaviour
+(e.g. nxn) \textit{need to better explain this}.  
+
+Output samples may need to be expanded (i.e. a single sample of values becomes separate
+samples) or collapsed (i.e. multiple samples become a single sample of values).
+FastR provides data link flow directives for such operations.
 
 In FastR, there are four types of \textit{Nodes}: normal Nodes, Sink Nodes,
 Source Nodes and Constant Nodes. Data enters the network through Source or
@@ -395,10 +407,23 @@ Constant Nodes and exit through Sink Nodes. Constant nodes differ from Source
 Nodes in that their input data are defined by the network \note{Not sure if
 saying this correctly}. Normal nodes are responsible for processing the
 data. Nodes are connected to each other through links that highlight the
-dependencies and form the \textit{Network}. Once the \textit{Netwokr} is
-defined, it can be executed. 
+dependencies and form the \textit{Network}. Once the \textit{Network} is
+defined, it can be executed.
+
+The data type of the Source Node and Sink Node must be defined in the
+\textit{Network} definition.
+The data is define at runtime by evaluation of the uniform resource identifier
+(URI). Multiple URIs can be defined through the use of wildcards and searches. Plugins are used to read and write data to
+different filesystems specified in the URI scheme. Currently, FastR supports
+virtual file system (VSF), csv files and XNAT. Plugins to support other
+filesystems can easily be added to FastR. In addition, plugins that can only
+read, write, or perform searches can also be created.   
+
 
         \subsection{Pipeline execution}
+
+        
+
         \subsection{Debugging and Provenance}
     \section{OpenMOLE}
         \subsection{summary}
