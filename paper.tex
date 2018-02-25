@@ -457,9 +457,83 @@ status and the complete environment description.
          
     \section{OpenMOLE}
         \subsection{summary}
+        OpenMOLE (Open MOdeL Experiment) is a domain agnostic pipelining
+framework that focuses on simplifying workflow creation through its Domain
+Specific Language (DSL) built on top of Scala. Through the use of its DSL, much
+of the backend is abstracted from users. Similarly to other existing pipelining
+frameworks, OpenMOLE enables parallelization through plugins, meaning that the
+workflow need not be changed between different distribution environments.
+Moreover, OpenMOLE supports the deployment of tasks or groups of tasks on different
+computing environments.
+Another key feature of OpenMOLE is that it attempts to address the
+reproducibility issue through the integration of the CARE archiver. CARE allows
+for the execution of command-line applications, written in any language, and
+attempts to simulate the environment in which the application was designed on.
+OpenMOLE also provides embedded methods for parameter exploration.
+
         \subsection{Pipeline description}
+       An OpenMOLE workflow consists of tasks connected by transitions. Each
+task contains details such as input, output and optional parameters, in addition
+to embedding the application that will be applied to the data. Input values are
+generally supplied by the dataflow through an entry point known as
+\textit{Sources} and output values are returned to the
+dataflow through \textit{Hooks}.   
+
+      Variables in OpenMOLE can be native types (e.g. int, string), files,
+directories, any Java or Scala types, and user-defined types (i.e. Java or Scala
+classes). The output type of an input supplied to another task should be the
+same as the input type, or be in a child class of the input type.
+
+      There exist five types of transitions in OpenMOLE: flat, divergent,
+convergent, explorative and aggregative. A flat transition is one in which the output of one
+task is the input to a single other task. On the other hand, a divergent
+transition is one in which the output of one task serves as the input to several
+other tasks. The inverse of a divergent task is a convergent task, in which
+several tasks supply input to a single task. Explorative transitions allow for
+multiple excutions of the same task on the sampling outputs produced by an
+exploration task. Conversly, an aggregative transition gathers all the streams
+produced by an explorative transition. It is also possible to add a stopping
+condition to terminate all streams once a condition is satisfied.
+
+      Tasks are not directly connected to each other by transitions. They are
+encapsulated within \textit{capsules} who are connected to each other by
+transitions. This permits the same task to be used multiple times in the
+workflow by encapsulating them in different capsules.
+
+    There also exists the notion of \textit{Input Slots} in OpenMOLE, which enables
+cycles in the workflow. A task may have several input slots and will execute
+each time that all the transitions belonging to the same input slots has passed
+through.
+ 
+                
+
         \subsection{Pipeline execution}
+
+      In order for an OpenMOLE workflow to be executed, there must exist a
+single encapsulated task. A task will execute once all its dependencies have
+been met. 
+
+    During execution of a task, the CARETask will decompress the CARE archive
+containing the application and its dependencies and the application is deployed
+within the confines of the decompressed archive. 
+
+OpenMOLE relies on the exit code returned by the application in order to
+determine whether to reschedule the task. It is possible to prevent task
+rescheduling by setting the boolean flag \textit{errorOnReturnValue} to false.
+    
+      OpenMOLE workflows can be executed on a variety of platforms such as
+remote servers, clusters and compute grids. As these execution hosts may not have all
+the required dependencies to execute a task, tasks are archived using CARE. This
+ensures that all the required applications and their dependencies can be shipped
+and executed at runtime on any Linux host.
+
+
         \subsection{Debugging and Provenance}
+    A CARETasks standard output and standard error are normally printed out to
+OpenMOLES's console. For distributed executions, this might not be a practical
+solution, in which case such information may be passed through
+the dataflow using OpenMOLE variables.
+
     \section{LONI}
     \section{Automatic Analysis}
     \section{Dipy, Make, Pydiper} 
