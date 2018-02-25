@@ -460,7 +460,8 @@ status and the complete environment description.
         OpenMOLE (Open MOdeL Experiment) is a domain agnostic pipelining
 framework that focuses on simplifying workflow creation through its Domain
 Specific Language (DSL) built on top of Scala. Through the use of its DSL, much
-of the backend is abstracted from users. Similarly to other existing pipelining
+of the backend is abstracted from users. It also offers a GUI for users to build
+workflows. Similarly to other existing pipelining
 frameworks, OpenMOLE enables parallelization through plugins, meaning that the
 workflow need not be changed between different distribution environments.
 Moreover, OpenMOLE supports the deployment of tasks or groups of tasks on different
@@ -535,8 +536,50 @@ solution, in which case such information may be passed through
 the dataflow using OpenMOLE variables.
 
     \section{LONI}
+        \subsection{Summary}
+        The LONI pipeline processing environment facilitates the development,
+sharing and execution of pipelines. Workflow Activities, known as \textit{Modules} in
+LONI, are described using Extensible Markup Language (XML), which can easily
+shared between user groups. LONI runs on the Java platform, allowing it to be
+platform independent and has support DRMAA clusters and symmetric
+multiprocessing (SMP) systems. In order to
+capture provenance information, LONI is also equipped with a provenance manager.
+  
+        \subsection{Pipeline description}
+        LONI uses the dataflow programming model to represent the pipeline. Data
+flows between \textit{Modules} through \textit{data pipes}. Sub-pipelines are
+known and \textit{Pipelets}. Modules are defined by the input arguments/streams
+and output arguments/stream. Arguments in LONI may be specific
+filetypes, flags or values listed in the order in which the application
+requires. The provided arguments may be required or optional and can also be
+duplicated, if necessary. List of inputs may also be provided to process
+multiple inputs with copies of the same module in parallel (batch processing). Conversely, it is
+also possible to group list of inputs so as to process them all by the single
+module \note{Need to express this better}. Input/Output arguments may be added
+to the table of global variables for easy access throughout the pipeline. It is
+possible to apply variable modifiers to the variables stored within the table.   
+        \subsection{Pipeline execution}
+        \subsection{Debugging and provenance}
     \section{Automatic Analysis}
-    \section{Dipy, Make, Pydiper} 
+        \subsection{Summary}
+        \subsection{Pipeline description}
+        \subsection{Pipeline execution}
+        \subsection{Debugging and provenance}
+    \section{Dipy}
+        \subsection{Summary}
+        \subsection{Pipeline description}
+        \subsection{Pipeline execution}
+        \subsection{Debugging and provenance}
+    \section{Make}
+        \subsection{Summary}
+        \subsection{Pipeline description}
+        \subsection{Pipeline execution}
+        \subsection{Debugging and provenance}
+    \section{Pydiper}
+        \subsection{Summary}
+        \subsection{Pipeline description}
+        \subsection{Pipeline execution}
+        \subsection{Debugging and provenance} 
     \section{Use of containers in Workflow engines} 
         \subsection{use of containers in nipype, psom, spm}
         
