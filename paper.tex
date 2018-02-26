@@ -552,14 +552,48 @@ known and \textit{Pipelets}. Modules are defined by the input arguments/streams
 and output arguments/stream. Arguments in LONI may be specific
 filetypes, flags or values listed in the order in which the application
 requires. The provided arguments may be required or optional and can also be
-duplicated, if necessary. List of inputs may also be provided to process
+duplicated, if necessary. File inputs in the form of URLs are accepted by LONI
+and will be downloaded at runtime. List of inputs may also be provided to process
 multiple inputs with copies of the same module in parallel (batch processing). Conversely, it is
 also possible to group list of inputs so as to process them all by the single
 module \note{Need to express this better}. Input/Output arguments may be added
 to the table of global variables for easy access throughout the pipeline. It is
-possible to apply variable modifiers to the variables stored within the table.   
+possible to apply variable modifiers to the variables stored within the table.
+
+Intermediary outputs as well as the file output are treated as temporary by
+LONI. They are scheduled for deletion before a new pipeline is executed. It is,
+however, possible to preserve these files. 
+  
         \subsection{Pipeline execution}
+        As a
+module completes it execution, its output gets transmitted through the dataflow
+and the dependent modules are signaled that their input data has arrived.
+Modules who have met all their dependency requirements are ready for execution.
+Should a module have no dependecies, it can be executed immediately. Modules
+ready to be executed are placed in a FIFO launch queue to avoid straining the
+platform. 
+
+       LONI offers a built in client/server strategy that uses Java's remote
+method invocation (RMI) libraries to communicate between servers. This enables
+modules, pipelets or pipelines to be executed on servers different from the
+client. It also enables full pipelines to consist of connected modules and
+pipelets located on different servers. It is favorable to have such a
+configuration in LONI, as the tools required for processing may not be available
+on client server, but located in another. The client is responsible for
+dictating all file transfers and module launches that are to occur. The client
+authenticates with the servers through a one-way hash. Only files produced by
+the pipeline are accessible to the client and only temporary files created by
+the server may be written to the server.
+
         \subsection{Debugging and provenance}
+        For each dataset processed in a LONI pipeline, there exists a corresponding
+provenance (.prov) XML file. The \textit{Provenance Editor}, a standalone
+platform-independent application, reads the metadata from the image headers,
+extracts relevant provenance information from them and creates the provenance files. 
+This data can be modified by the user in the to correct inaccuracies or append
+additional details before being saved. During pipeline execution, the provenance
+file will be edited by the LONI pipeline to include details on each processing
+step, the environment in which the data was processed and tool binaries used. 
     \section{Automatic Analysis}
         \subsection{Summary}
         \subsection{Pipeline description}
