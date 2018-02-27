@@ -594,9 +594,40 @@ This data can be modified by the user in the to correct inaccuracies or append
 additional details before being saved. During pipeline execution, the provenance
 file will be edited by the LONI pipeline to include details on each processing
 step, the environment in which the data was processed and tool binaries used. 
+
     \section{Automatic Analysis}
         \subsection{Summary}
+        Automatic analysis (aa) is another Matlab-based modular workflow engine,
+having started of as a pipelining system for SPM. User may define their pipeline
+through a Matlab user script and specify the tasks in addition to their input
+and output types through an XML module interface. Modules used in pipelines must
+be integrated into aa which can be easily accomplished through XML interfaces. It is also possible to easily
+parallelize the code in qsub, if required. 
         \subsection{Pipeline description}
+        aa pipelines have two main components: 1) the Matlab user script and 2)
+the XML tasklist. The user script is a script that defines which data will be
+processed, any necessary parameter, and how it will be processed. aa provides an example user script,
+which can be modified to meet user's needs. The entire pipeline in aa is defined
+in a single structure, known as aap, which makes the task of record-keeping
+simple.
+
+        The XML tasklist is an ordered list of all the modules that will be applied to
+the data, that is read by the user script. This list does not specify any
+dependencies as those dependendecies can be inferred by the pipeline through
+analysis of the module interfaces. Modules can be separated into two
+sections: initialization and main. Modules listed in the initialization section
+are to be executed for every task. Conversely, those modules liste in the main
+section are only executed once for every task, unless otherwise specified.
+
+
+        In order to ensure that the correct output data is being operated on,
+each task is provided with its own unique folder. The aa engine will ensure that
+the necessary input data is located in the folder before task execution and also
+acquiring the outputs after task completion.
+
+ 
+ 
+
         \subsection{Pipeline execution}
         \subsection{Debugging and provenance}
     \section{Dipy}
