@@ -598,11 +598,12 @@ step, the environment in which the data was processed and tool binaries used.
     \section{Automatic Analysis}
         \subsection{Summary}
         Automatic analysis (aa) is another Matlab-based modular workflow engine,
-having started of as a pipelining system for SPM. User may define their pipeline
+having started of as a workflow engine for SPM. User may define their pipeline
 through a Matlab user script and specify the tasks in addition to their input
 and output types through an XML module interface. Modules used in pipelines must
-be integrated into aa which can be easily accomplished through XML interfaces. It is also possible to easily
-parallelize the code in qsub, if required. 
+be integrated into aa which can be easily accomplished through XML interfaces.
+aa workflows can be executed locally, or in parallel through qsub or condor.
+
         \subsection{Pipeline description}
         aa pipelines have two main components: 1) the Matlab user script and 2)
 the XML tasklist. The user script is a script that defines which data will be
@@ -621,20 +622,78 @@ section are only executed once for every task, unless otherwise specified.
 
 
         In order to ensure that the correct output data is being operated on,
-each task is provided with its own unique folder. The aa engine will ensure that
-the necessary input data is located in the folder before task execution and also
-acquiring the outputs after task completion.
+each task is provided with its own unique folder. The aa engine will transmit
+the necessary input data to the folder before task execution and also
+acquiring the outputs after task completion. Output folders are numbered such
+that if a given module is invoked multiple times, each of those folders are
+assigned an incremental ordering corresponding to the order in which they have been
+executed \note{sentence might not make sense}. Should all data be required for
+each task in the tasklist, all the data will be copied to each task folder.
 
+
+    Similarly to a pipeline, each module is comprised of an XML interface and a
+Matlab source file. A module's XML file consist of specifications on required input
+and output modalities, as well as the desired domain. One of the most important
+properties include the domain at which the module operates. While there exist mainy domains for
+modules and new ones can easily be created and integrated by the user, the most
+prominently used ones include: "study", "subject", "session". As their name suggests, a
+module with the domain "study" will only be executed once for each time it
+appears in the tasklist, whereas "subject" executes the module for each subject
+within the task and "session" executes once for each session within a subject. 
  
- 
+    In addition to module domains, another important module property is the
+input and output data stream types. Data stream types denote what input and
+output data type each module produces. Commonly used data stream
+types include "epi", "structural" and "dicom\_header".
+
+    Optional fields specified in a module include qsub, for estimates of
+requirements for parallel processing,
+and \textit{performanceoutput}, for garbage collection.  
+
+   Analysis parameters can easily be configured in aa. Any variable defined by
+the \textit{aaprecipe} command may be modified. Parameters can also be defined
+for an instance of a module within the XML tasklist. Alternatively, it is also
+possible to create an XML file that inherits parameters from another XML file
+and overrides some or all of the parameters.
+
+   To set defaults and site-specific configurations, it is possible to either
+create a local config file or by creating another parameter default file which
+inherits the original one.   
+
+    aa also supports the creation of branched tasklist. This allows a section of
+the pipeline steps to undergo different tasks or the same tasks in a different
+order in one pipeline rather than having to create separate pipelines.
 
         \subsection{Pipeline execution}
+        Once the definition of the user-script, XML tasklist and modules is
+complete, the pipeline is ready for execution. Dependencies in aa are
+established based on input and output data stream types. The aa engine attempts
+to match the last task executed with a corresponding data stream type to the
+current type. It is, however, possible to specify which module provides the
+input to the current module by using fully qualified stream references.
+
+        During execution, a map of all the modules that need to be executed and
+their respective dependencies is generated. Modules that have completed contain
+a flag file indicating their completion within their instance's root directory. Such
+modules will not be re-executed by the engine.
+Additionally, if it is required that a previous module is re-executed, the done flag is
+removed from all dependent modules.  
+
+        Should part of the processing be performed on a different server it is
+possible to connect the pipelines together through an analysis script. The aa engine will be reponsible for
+matching the data streams between the servers in order to avoid the copying of
+data and modules.
+
         \subsection{Debugging and provenance}
-    \section{Dipy}
-        \subsection{Summary}
-        \subsection{Pipeline description}
-        \subsection{Pipeline execution}
-        \subsection{Debugging and provenance}
+        In order to retrace the steps of previous executions, aa keeps a
+detailed record of the events that occurred. These detailes are stored in a
+Matlab object \note{similarly to PSOM}, which permits reexcution of a previous
+run or extraction of specific parameter values.
+
+        Additionally, to verify the correctness of the results produced, aa
+implements tools for quality control and comes with a dedicated module for
+low-level quality control.
+        
     \section{Make}
         \subsection{Summary}
         \subsection{Pipeline description}
