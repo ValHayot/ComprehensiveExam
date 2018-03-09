@@ -696,11 +696,108 @@ low-level quality control.
         
     \section{Make}
         \subsection{Summary}
+        As the creation of workflow activities requires a certain level of
+programming expertise, Make was proposed as a simpler alternative. Make is a
+tool used for the development of directed acyclic dependency graphs. It is
+available in all Linux and UNIX distributions, which relieves the users from
+worflow engine installation. Additionally, Make is capable of offering other
+features necessary to workflow engines, such as, reproducibility,
+parallelization, fault-tolerance and quality control. The motivation behind Make
+is essentially that the tools available for simple and efficient pipeline
+creation already exist and there is no need to 'reinvent the wheel'. In
+addition, the use of Make is not limited to the neuroimaging community, and thus
+support for it is widely available. Make has also been adapted for use in other
+programming languages such as SnakeMake for python
+
+ 
         \subsection{Pipeline description}
+        Make pipelines are described in makefiles, which consist of a set of
+rules which describe the flow of data. Rules defined in make can be define by three
+components: targets, dependecies and recipes. The target is the output
+(typically file) produced by execution of the recipe, whereas the dependecy
+would be the input file from which the target would be created from. The target
+is only modified if its last modified date is early than that of a depencies's.
+A recipe, in make, is the set of shell commands used to create the target from
+its dependencies. 
+
+In order connect the rules together, it is possible to define "phony" targets.
+Phony targets do not correspond to any actual file and will be generated once
+all of their dependencies (targets of other rules) have been
+created. Chaining multiple rules together will automatically generate the directed acyclic
+graph that is the pipeline. This is contrary to other pipelines such as Nipype
+and LONI, in which the user must explicitly state all connections \note{as
+stated in paper}. Through the use of rules, it is easily possible to reexecute
+only the desired parts of the pipeline.
+
+Cleanup after rule execution can be defined using the phony target
+clean.
+
+To create different targets for the same dependency files organized in different
+ways (e.g. subject/timpepoint timepoint/session), it is possible to use symbolic
+links for the dependencies, however this may complexify the code. Otherwise, it
+may be simpler to copy subject and session makefiles.
+
         \subsection{Pipeline execution}
+
+        Compared to the previous workflow engines, Make pipeline variables are
+only evaluated at time of use (lazy evaluation). In addition, targets are not
+executed in the order they are specified (similarly to other pipeline engines).
+
+Make files are also well-equipped to handle workflows with conditionals. Should
+a conditional exist in a workflow, it will be evaluated during the creation of
+the DAG (i.e. not at runtime) and only the required components will be executed. 
+
+        As parallelism can be inferred from the dependency graph, parallel execution of a make pipeline can occur simply through the
+addition of the -j flag for multicore machines, or by using qmake command to run
+the pipeline on a cluster.        
+
+        By default, make only rebuilds targets whose last modified preceedes
+that of its dependencies. As such, when a task fails and is re-executed, only the targets that need
+to be rebuilt will be rebuilt. It is possible to specify reexcution in Make such
+that the task will be reexecuted in case of failure.
+ 
         \subsection{Debugging and provenance}
+        As users of a preexisting Make pipeline may not be aware of the proper
+usage of each target, it is necessary to provide a `help` module that is
+adaptable to targets being added removed or modified. It is possible to define
+in Make a macro for such a purpose that will provide users with usage
+information when requested (e.g. calling make help).
+
+    Debugging in Make can be rather difficult, particularly when executing code
+in parallel. However, pipelines in Make are broken down into many targets which
+can each be tested individually. In addition, Make provides built-in flags to
+aid in debugging. These flags include -n, for printing out the commands without
+any execution and -p to print out all the rules. In the instance where pattern
+substistution is used, -p will also include the results obtained from the
+pattern substitution. More recent versions of GNU Make also include the --trace
+and --output-sync flags which display why each recipe was executed and print the
+parallelized output in sequential order, respectively.
+
+
+    Neuroimaging tools are typically equipped with quality assurance modules. As
+a result, it is possible to utilize the quality assurance modules from these
+tools to provide a complete report for the entire pipeline. The proposed
+solution suggests to write all the quality assurance outputs from each tool to a single HTML
+report with R Markdown or a script. The R Markdown or script, with the metrics
+and images are listed as dependencies to the QA report target in Make.
+
+
+    Only a basic form of data provenance has been implemented by the authors.
+The implemented data provenance consisted of a makefile that calls a bash to
+extract acquisition parameters from the raw input images. The makefile also
+obtains tool versions from the installation directories and pipeline options
+from their respective makefiles. All of these details are stored in a CSV file.
+The makefile will then call an R Markdown script which will then generate an
+HTML provenance report from the corresponding CSV file.
+
+    
+
+          
     \section{Pydiper}
         \subsection{Summary}
+        atoms -  wrappers for distinct operations
+        modules - link atoms together
+        applications - command line interface to the pipeline
         \subsection{Pipeline description}
         \subsection{Pipeline execution}
         \subsection{Debugging and provenance} 
@@ -815,6 +912,33 @@ low-level quality control.
             \item lazy evaluation 
             \item general framework 
         \end{itemize} 
+
+    \subsection{Scientific workflows in Spark}
+        \subsubsection{Introduction}
+        emphasis on data rather than on interface. transformation describe how
+    interfaces interact with the data. 
+        \subsubsection{ariel's paper and thunders astronomy - }
+        \subsubsection{Spark on hpc's or } 
+            \note{large dataset for valduriez} Prior to
+    examining how Big Data frameworks could be improved on HPC clusters, it is
+    important to have a baseline of how it performs natively on an HPC cluster.
+    Particularly, how it behave when processing scientific workflows. In a recent
+    study done by \cite{valduriez}, they examined the scalability of Spark on an HPC
+    cluster using a black-box scientific workflow. Five tests were performed in
+    their study: 1) Measuring execution time when task and resources available
+    increase proportionally, 2) Measuring the execution time of very short and short
+    tasks, 3) Measuring the execution time of short (5s) to long tasks (120s), 4)
+    Varying the number of tasks with fixed task durations, 5) Mixed task durations
+    and varied number of tasks. Their results show Spark behaves as expected when
+    tasks and resources are increased exponentially, and that Spark scales better
+    than expected with tasks of longer durations. This is due to the fact that the
+    scheduler is overloaded in the case of many short tasks in addition to their
+    being a significant amount of I/O occurring between each task. Although I/O is
+    problematic in both data center and HPC infrastructures, HPC is optimized for
+    data transfer over the network rather than disk I/O, and therefore, such
+    frequent I/O negatively impacts the system. However, many scientific workflows
+    are composed of longer tasks, and therefore, Spark scales very well with
+    scientific workflows in an HPC environment.
      \section{Use of containers with Big Data frameworks}
      \section{Hadoop Distributed file system} 
         \note{maybe should go in between mapreduce and spark} 
@@ -889,32 +1013,6 @@ low-level quality control.
         identification of the DataNode in the event of an IP address 
         or port change. 
         
-\chapter{Scientific workflows in Spark}
-    \section{Introduction}
-    emphasis on data rather than on interface. transformation describe how
-interfaces interact with the data. 
-    \section{ariel's paper and thunders astronomy - }
-    \section{Spark on hpc's or } 
-        \note{large dataset for valduriez} Prior to
-examining how Big Data frameworks could be improved on HPC clusters, it is
-important to have a baseline of how it performs natively on an HPC cluster.
-Particularly, how it behave when processing scientific workflows. In a recent
-study done by \cite{valduriez}, they examined the scalability of Spark on an HPC
-cluster using a black-box scientific workflow. Five tests were performed in
-their study: 1) Measuring execution time when task and resources available
-increase proportionally, 2) Measuring the execution time of very short and short
-tasks, 3) Measuring the execution time of short (5s) to long tasks (120s), 4)
-Varying the number of tasks with fixed task durations, 5) Mixed task durations
-and varied number of tasks. Their results show Spark behaves as expected when
-tasks and resources are increased exponentially, and that Spark scales better
-than expected with tasks of longer durations. This is due to the fact that the
-scheduler is overloaded in the case of many short tasks in addition to their
-being a significant amount of I/O occurring between each task. Although I/O is
-problematic in both data center and HPC infrastructures, HPC is optimized for
-data transfer over the network rather than disk I/O, and therefore, such
-frequent I/O negatively impacts the system. However, many scientific workflows
-are composed of longer tasks, and therefore, Spark scales very well with
-scientific workflows in an HPC environment.
 
 \chapter{Optimizing Big Data frameworks for High-Performance Computing}
 	
@@ -1104,8 +1202,7 @@ as it may be too large to fit in memory or has no lineage information stored.
 created.  \section{Why is use of such systems important} \section{Scheduling}
 \subsection{HPC schedulers: SLURM/QSUB} \subsection{Big Data schedulers:
 YARN/MESOS} \subsection{Multi-level scheduling w/ BigData schedulers}
-\chapter{Current status of Big Data frameworks in neuroscience} \section{Ariel's
-paper} \section{Thunder} \chapter{Conclusion}
+\chapter{Conclusion}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
