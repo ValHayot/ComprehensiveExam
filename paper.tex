@@ -795,19 +795,172 @@ HTML provenance report from the corresponding CSV file.
           
     \section{Pydiper}
         \subsection{Summary}
-        atoms -  wrappers for distinct operations
-        modules - link atoms together
-        applications - command line interface to the pipeline
+
+        Pydiper is a neuroimaging registration workflow engine implemented in
+Python. This differs from other workflow engines in that it is specific to the
+process of image registration, but can, however, be extended for use with any
+analysis process. Its main features include being easy to use, particularly for
+non-developpers, undertaking a modular approach, giving the ability to access
+output files at any stage, and eliminating duplicate stages. Pydiper also
+provides the added advantage of being equipped with four commonly used
+registration pipelines, such that unexperienced researchers can use such
+pipelines out-of-the-box. 
+
+        \subsection{Pipeline description}
+        Pydiper workflows can be broken down into three components: atoms,
+modules and applications. An application is the command line application that
+encapsulates the pipeline which consists of modules and atoms. Atoms are wrappers for individual operations,
+typically frquently used MINC tools. Modules are reponsible for linking
+atoms together.
+
+        Pydpiper provides three main classes to use to develop pipelines. These
+include the \textit{PipelineStage}, \textit{CmdStage} and \textit{Pipeline} classes. The
+\textit{PipelineStage} is the base class wrapper for all pipeline tools.
+Pipeline tools can be written in Python or can be a command-line application.
+For the tools that are command-line applications, the \textit{CmdStage} class, a
+child class of \textit{PipelineStage}, must be used. Input to \textit{CmdStage}
+is in a adequately parsed array format containing the specific command-line
+tool and its arguments. Reusable subclasses of the \textit{CmdStage} class can be
+created, or \textit{CmdStage} can be called directly.
+
+        To combine pipelines, the \textit{AddPipeline} function of the \textit{Pipeline}
+        class may be used.
+
+        The base class common to all Pydpiper applications is \textit{AbstractApplication}. 
+Classes that inherit from \textit{AbstractApplication} are command-line tools, with their 
+options set by the \textit{AbstractApplication} class. The class 
+is also responsible for initializing or resuming the pipeline, setting up a logger, and 
+launching the pipeline daemon.
+
+        Pydpiper atoms inherit from the \textit{CmdStage} class in order to wrap the MINC Tools. 
+They require as input a MINC file, and may additionally also require a target MINC file as second argument. These arguments
+can be in the form of a string filename or a file handler, however, the same format must be used for the two. An atom may also accepts various optional arguments. Using the inputs provided, the atom will put together the command to be executed. 
+        
+        \subsection{Pipeline execution}
+        
+        In Pydpiper, there are two main classes,\textit{Pipeline} and \textit{PipelineExecutor}, 
+that monitor and manage pipeline execution. The \textit{Pipeline} class's main responsibility
+is to infer dependencies between pipeline stages from their inputs and outputs. It also manages
+a queue of runnable stages (stages in which all their dependencies have been met), ensuring
+that any runnable stage is placed in the queue. It also keeps track of the status of the runnable
+stages (running, finished, or failed). Should an already existing stage be added to the pipeline, it
+is automatically skipped by the \textit{Pipeline} class. 
+
+        As stages may be added to incomplete pipelines, Pydpiper provides the functionality of resuming
+pipelines. This is achieved through a pickling mechanism implemented by the \textit{Pipeline} class. The
+pickled components include the directed acyclic graph, the array of pipeline stages, the stage counter,
+the hashes of all stages and each of their output files, and the status of each stage.
+
+        The \textit{PipelineExecutor} class, on the other hand, is responsible for the efficient processing
+of the pipeline through parallelization. Pydpiper's architecture mimics that of client/server, in which the 
+server is the pipeline daemon started by the command-line executable and the executors undertaking the role of 
+the clients. The pipeline's executors each consist of a thread pool in which each
+thread is responsible for running a single pipeline stage from the queue of runnable stages. To
+obtain a stage for execution, the executor polls the server to obtain the next available stage. Should
+the executor have enough memory and processors to execute the stage, it will be executed by the thread
+and release memory and processors and repoll the server once stage has completed.
+Otherwise, the executors will sleep for certain duration and repoll the server again. 
+Should there be any failed stages, the pipeline will be shut down after all possible stages have finished 
+executing. If additional executors are required by the pipeline, they may be added at any time through
+the command-line. Details related to
+the number of threads, number of threads per executor and the amount of memory can be specified through the
+command-line options. 
+
+    
+        \subsection{Debugging and provenance}
+
+        As mentioned previously, Pydpiper uses a pickling mechanism to gather important pipeline details
+        during execution in order to allow for the pipeline to be resumed should any stages have failed.
+        In addition, to keep track pipeline stage interdependencies in addition to file versioning, Pydpiper
+        utilizes the helper class \textit{RegistrationPipeFH} and its parent \textit{RegistrationFHBase} to create
+        file handlers of the files.
+
+        \note{from github wiki}
+        For debugging, a Pydpiper pipeline creats its own log file and executors typically also each create 
+        their own log file that are stored in a \textit{logs/}
+        subdirectory. Verbosity of logging information can be managed through the setting of the PYRO\_LOGLEVEL
+        environment variable. In addition, individual stage stdout/stderr is also redirected to a log file.
+
+        To verify the status of an executing pipeline, the check\_pipeline\_status.py may be executed.
+ 
+
+\chapter{Other domains and general scientific worflow engines}
+    \section{Taverna}
+    Taverne is a scientific workflow engine designed to allow users to combine distributed web services, other service
+    types (e.g. BioMart queries or R-scripts) and local scripts into complex analysis pipelines. The main goal of
+    Taverna is to give a unified access to the plethora of services already existing on the web without requiring
+    the user to download the services locally or to have knowledge on all of the platforms and programming languages
+    the services are hosted under.
+
+    
+
         \subsection{Pipeline description}
         \subsection{Pipeline execution}
-        \subsection{Debugging and provenance} 
-    \section{Use of containers in Workflow engines} 
-        \subsection{use of containers in nipype, psom, spm}
-        
-       \section{other domains}
-       	\subsection{pegasus}
-		
-\chapter{Domain nonspecific BigData frameworks} 
+        \subsection{Debugging and provenance}
+    \section{Pegasus}
+        \subsection{Pipeline description}
+        \subsection{Pipeline execution}
+        \subsection{Debugging and provenance}
+    \section{Geneflow}
+        \subsection{Pipeline description}
+        \subsection{Pipeline execution}
+        \subsection{Debugging and provenance}
+    \section{Toil}
+        \subsection{Pipeline description}
+        \subsection{Pipeline execution}
+        \subsection{Debugging and provenance}
+    \section{Thunder}
+
+        Thunder is a Python-based modular set of tools for the analysis of imaging and timeseries data belonging
+        to various domains including neuroscience. Although it is not specifically a pipelining framework, 
+        it can run on top of the Apache
+        Spark framework enabling the Thunder pipeline to be extended and customized. By running on top of Spark,
+        Thunder leverages its features to improve performance on large scale studies. Thunder does not need to
+        be executed on top of a Spark cluster and can easily be executed, with the same script, an a local system
+        with no Spark installation. 
+
+        \note{The following was extracted from the documenation}
+        \subsection{Pipeline description}
+        The API for Thunder, regardless of if backed by an Apache Spark cluster or not, remains the same. If not 
+        using an Spark Resilient Distributed Dataset (RDD), the data can be backed by a \textit{numpy} array or a
+        distributed \textit{bolt} array. Thunder is broken down into several packages, in which the core package
+        consists of tools for reading and writing data, in addition to defining common data structures. Users may
+        choose to install other Thunder packages for added functionality, or define their own using any Python
+        library.        
+ 
+
+        Thunder contains two data structures: \textit{images} and \textit{series}. As implied by its name, the 
+        \textit{images} data type may represent a collection of images or volumes. 
+        The \textit{series} data type,
+        however, represents a one-dimensional collection that shares a common index. Both \textit{images} and 
+        \textit{series} can be loaded from a list, ndarray or binary file type, however \textit{series} can also 
+        be loaded from a text file and \textit{images} can be loaded from png and tiff files.
+
+        Methods that are common to both data types are, such as \textit{map} and \textit{reduce}, are found in the 
+        \textit{data} class which is a subclass of the
+        \textit{base} class. In order to convert between the \textit{images} and \textit{series} data types, the
+        intermediary data type \textit{blocks}, child of \textit{base} class,  is used. 
+        Using the \textit{blocks} class, it is also possible to convert the data type to an ndarray for use with other
+        Python modules. 
+
+        \note{not really anything on execution, debugging and provenance in the paper nor in the documentation}
+        \subsection{Pipeline execution}
+        In order to use Spark within Thunder, a SparkContext must be started and passed to the Thunder API. Should
+        the user need to switch between local and Spark frequently, it is possible to use the \textit{station} package
+        as a context manager for the various contexts.
+
+        As Thunder is an extension to Spark, numpy and \textit{bolt}, much of the execution details are likely differed 
+        to the 
+        framework that it is being executed on.
+
+        \subsection{Debugging and provenance}
+        Thunder does not explicitly provide any details on debugging and provenance tracking. Similarly to execution,
+        it is expected that much of the debugging and provenance details are not obtained from Thunder itself, but
+        rather, from the frameworks it is being executed on. For instance, should Thunder be exected on a Spark cluster,
+        it is likely that much of the debugging and provenance information can be obtained from the Spark logs and RDD
+        lineage.
+    
+\chapter{MapReduce-based BigData frameworks and related components} 
     \section{mapreduce}
         Summary of ~\cite{mapred}
 
