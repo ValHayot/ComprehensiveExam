@@ -30,6 +30,7 @@ intro here -mention hpc, data centre, cloud.
     	\note{off the top of my head, but need to double check}
         \begin{itemize}
             \item HCP
+            \item UK Biobank
             \item ADNI
             \item OpenFMRI
             \item BIDS/BIDS apps
@@ -886,7 +887,7 @@ command-line options.
 
 \chapter{Other domains and general scientific worflow engines}
     \section{Taverna}
-    Taverne is a scientific workflow engine designed to allow users to combine distributed web services, other service
+    Taverna is an open-source bioinformatics workflow engine, designed to allow users to combine distributed web services, other service
     types (e.g. BioMart queries or R-scripts) and local scripts into complex analysis pipelines. The main goal of
     Taverna is to give a unified access to the plethora of services already existing on the web without requiring
     the user to download the services locally or to have knowledge on all of the platforms and programming languages
@@ -895,8 +896,27 @@ command-line options.
     
 
         \subsection{Pipeline description}
+        Workflows in Taverna are built by combining web services, local scripts and other services together. Web services compatible with
+        Taverna must comply to the Web Service Description Language (WSDL) using the Simple Object Access Protocol (SOAP protocol). 
+        These services can be added to the BioCatalogue or the Biodiveristy catalogue for sharing and reuse of the web services. 
+
+        Workflows can be built in the Taverna workbench. Taverna, through the help of the BioCatalogue and the Biodiversity Catalogue is
+        able to provide the user with a variety of webservices to combine into workflows in a drag-and-drop fashion. Workflows may also be composed
+        of sub-workflows. As service inputs and outputs may not match between services, shims are provided.
+        Similarly to the services, the user-generated workflows can be uploaded the myExperiment repository to be shared with other user.
+        
         \subsection{Pipeline execution}
+        The workflows can be executed remotely utilizing the Taverna Server. The Taverna Server is a an application that provides the full library of possible workflows
+        through webservices. It has an interface, known as the Taverna Player, that enables workflow execution to occur through a web-interface or through
+        third-party clients. The Taverna Server, however, is limited in that it can only execute workflows available on the Server. Taverna Lite is an alternative to
+        the Taverna Server which allows users to upload and execute workflows from myExperiment or elsewhere.   
+        
         \subsection{Debugging and provenance}
+         Provenance capture is achieved through the Taverna Provenance Suite. Taverna does not capture provenance of the workflow definition, but generates a new
+        UUID after each definition change. Workflow run provenance captures information on "individual processor iterations" and their respective inputs and outputs and
+        stores this information in a database. The results can then be exported as a workflow trace or as a PROV-O RDF graph using the Taverna-PROV Plugin. The model format used
+        for exported provenance uses both the W3C PROV model and Open Provenance Model format.
+        
     \section{Pegasus}
         \subsection{Pipeline description}
         \subsection{Pipeline execution}
