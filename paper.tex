@@ -47,6 +47,7 @@ intro here -mention hpc, data centre, cloud.
 		\subsection{CBRAIN}
 		\subsection{OpenNEURO}
 		\subsection{NeuroData}
+        \subsection{Apache Airvata}
 \chapter{Workflow engines for neuroimaging data}
 	\section{Definition of workflows/pipelines}
 
@@ -918,9 +919,64 @@ command-line options.
         for exported provenance uses both the W3C PROV model and Open Provenance Model format.
         
     \section{Pegasus}
+        Pegasus is a general-purpose scientific workflow engine that specializes in mapping abstract descriptions of workflows to resources for efficient processing. 
+        Similarly to other workflows, a Pegasus workflow can be represented by a DAG. This DAG is described by the user in DAX format (Directed Acyclic graph in XML).
+        As the DAX abstract workflow is resource-independent, Pegasus can convert the abstract workflow into an execution workflow that is catered to the resources available.        
+
         \subsection{Pipeline description}
+        Within the DAX, the nodes are the tasks and the execution order is represented by the edges.
+        In the instance of nested graphs, the nodes in the DAX may also represent a DAX. Pipeline inputs and outputs, as well as pipeline executables,
+         are represented by logical identifiers.
+
+         Various APIs are provided by Pegasus in order for the user to generate the
+        DAX using their preferred language of choice. Available APIs include Perl, Python and Java. 
         \subsection{Pipeline execution}
+        With the effecient execution of pipelines being Pegasus' main focus, there exist various components that ensure optimal processing. The Mapper's responsability is to map
+        abstract workflow tasks to available resources. In order for the Mapper to successfully convert an abstract workflow into an execution workflow, it requires details on the execution
+        environment. The Mapper will also query various catalogs to determine the location of executables and input and output files. These catalogs can be either file-based or in
+        database format. With all the necessary information provided, the Mapper is equipped to convert abstract tasks into executable tasks. Data nodes are also added for input and output
+        staging. Should the data required for a task already exist in the catalog, the task and all its parents will be removed by the Mapper from the workflow. This functionality is optional,
+        and in some instances, it may be found that recomputation is preferable. If the executables required by the task are not pre-installed on the node, the Mapper will query the 
+        \textit{Transformation Catalog} for the stageable binaries.
+
+        The default, Pegasus relies on the HTCondor framework as both the workflow engine and scheduler. The executable workflow, using HTCondor DAGMan, consists of nodes representing jobs.
+        These jobs each have a corresponding job submit file that details how they are meant to be executed. A job that is ready for execution is released by the DAG and placed into a Condor
+        queue that is managed by the HTCondor Schedd daemon. The default scheduling is done using a local HTCondor pool, but can also be achieved through built-in interfaces with remote 
+        job-management protocols, or through SSH to directly submit jobs to remote resource managers.
+
+        Using HTCondor, Pegasus is able to achieve portability. Pegasus is compatible with local, HPC, distributed and cloud execution environments. As distributed environments may
+        not employ a shared filesystem, it is recommended to use HTCondor glideins to ensure that tasks are mapped to nodes where the resources are located. Should a user running their
+        pipeline locally without HTCondor installed, it is possible through \textit{submit host}. Using this method, however, executes the pipeline in serial order. Should the user wish to exploit
+        the pipeline's parallelism, HTCondor is required. Pegasus pipelines are not limited to a single execution environment, and can combine multiple environments to select the best resource
+        configuration to execute each job.
+
+        In order to manage tasks and their dependencies on remote resources, three different execution engines have been developed. The first and simplest execution engine is the 
+        \textit{Pegasus Cluster}, which is 
+        compatible with all the execution environments. It runs on a single-thread, meaning that it can only executed a single task at a time using an ordered-list of tasks.
+        The \textit{Pegasus Cluster} is particularly useful for the efficient execution of short tasks and the reduction of data transfers. 
+        
+        For execution environments lacking a shared filesystem, the \textit{PegasusLite} execution engine can be used. In order for the Pegasus to execute in such environments, the Mapper first
+        adds data transfer nodes to the pipeline to move the data to a data staging server associated with the execution node. Once a job is assigned to a node by the remote cluster scheduler,
+        \textit{PegasusLite} is deployed.
+
+        The final execution engine provided by Pegasus is the \textit{Pegasus MPI Cluster} (PMC). This execution engine is designed for petascale systems for which Pegasus' other strategies 
+        leveraging Condor Glideins are unsuitable. It employs the Master-Worker architecture, launching a single Master and many Workers, and using MPI for communication between the 
+        Master and Workers. The main limitation of this strategy is that a task must use less resources than that available on a single node. Jobs are not limited to a single execution engine,
+        and thus, multiple can be used in a job to optimize performance. 
+ 
+        As executing a workflow on remote resources can be slow due to job queuing times and data transfers, the Mapper will group short-running task together to reduce to improve runtime. 
+        When tasks located at the same distance from the DAG root have similar runtimes, level-based clustering can be used. When runtimes of same-level tasks may
+        vary, it may be preferable to use job runtime-based horizontal clustering, to achieve load-balancing of clusters. Alternatively, the user may opt for label-based clustering, in which
+        the user can define the task clusters themselves.
+
+        To avoid running out of disk space during data-intensive workflows, the Mapper can add cleanup nodes that remove all unecessary data after a job has completed.
+ 
+        \note{Dynamic workflows permitted}
+
         \subsection{Debugging and provenance}
+         Job monitoring, in Pegasus, is achieved through \textit{pegasus-kickstart} (kickstart). Every job within a pegasus workflow has a kickstart wrapper that collects runtime provenance
+        and performance. Kickstart relays this information to the submit host after job completion. 
+
     \section{Geneflow}
         \subsection{Pipeline description}
         \subsection{Pipeline execution}
