@@ -298,58 +298,7 @@ Matlab console. If the user is using the GUI, the error output may also be saved
 to a Matlab file.
     
         \subsection{limitations of SPM}
-    \section{Nextflow}
-        \subsection{summary}
-        Nextflow is a POSIX-compatible pipeline engine for scientific workflows.
-It extends the Groovy programming language to provide an  intuitive domain-specific language (DSL) 
-that enables users to easily describe their workflows. Unlike pipeline engines such as Nipype and
-PSOM, Netflow does not employ DAG. It instead adheres to the
-\textit{Dataflow} programming model which decides how data will flow through the pipeline at
-runtime \note{fix this sentence}. Nextflow prides itself on allowing the
-integration of containerized tools to address the issue of numerical instability
-that may arise from different environment setups.
-  
-        \subsection{Pipeline description}
-        A Nextflow pipeline is represented by the flow of data between processes. These
-processes can be written in any Linux-compatible scripting language. As in Nipype, 
-these processes are executed in an isolated environment. The only means
-of communication between processes is through asynchronous FIFO queues known as
-\textit{channels}. Each process can contain any number of input and output
-channels. Through the use of channels, input and output can be stored not only
-on disk but also in-memory \note{Nipype can also return outputs that are not on
-disk, so this is nothing special}.  
-
-        As with other pipeline engines (nipype, psom, etc.,), the order in which
-the processes appear is irrelevant. Execution order is determined by the dependencies.        
-
-        \subsection{Pipeline execution}
-        The \textit{executor} is responsible for the execution of a Nextflow
-pipeline. By default, it assumes that the pipeline is to be run locally. The
-local executor will use multithreading in order to exploit available cores
-within the local environment. To configure the executor to run in a remote distributed environment, it is
-necessary to modify the configuration file to specify the environment. By
-following this approach, Nextflow users can seamlessly run their code on various
-processing platforms with a simple modification to a configuration file. In
-addition to local, Nextflow currently has executors for SGE, LSF, SLURM,
-PBS/Torque, NQSII, HTCondor, DRMAA, Ignite, Kubernetes and AWS Batch.
-
-        \subsection{Debugging and Provenance}
-        When executing a pipeline, it is always possible to specify the
-generation of a execution report. The report is written in HTML and consists of three sections:
-Summary, Resources and Tasks. Summary provides details on the execution command,
-execution status, overall execution time, in addtion to other metadata. The
-Resources tab, on the other hand, contains several HighChart plots representing
-CPU, memory, time and disk read/write rate of each pipeline process. The final
-section, Tasks, contains many metrics including the status and command script of
-each task. 
-
-    Other reports that can be generated at runtime include the Trace report and
-the Timeline report. The Trace report include details such as CPU usage, start
-time, submission time, etc, of each process that was executed, whereas, the
-Timeline report generates an HTML timeline of all processes that have been
-executed.        
-
-    \note{doesn't seem to be anything on provenance...}
+    
 
     \section{FastR}
         \subsection{summary}
@@ -457,85 +406,6 @@ status and the complete environment description.
     Similarly to Nipype, the FastR network can be visualized using graphviz.
 
          
-    \section{OpenMOLE}
-        \subsection{summary}
-        OpenMOLE (Open MOdeL Experiment) is a domain agnostic pipelining
-framework that focuses on simplifying workflow creation through its Domain
-Specific Language (DSL) built on top of Scala. Through the use of its DSL, much
-of the backend is abstracted from users. It also offers a GUI for users to build
-workflows. Similarly to other existing pipelining
-frameworks, OpenMOLE enables parallelization through plugins, meaning that the
-workflow need not be changed between different distribution environments.
-Moreover, OpenMOLE supports the deployment of tasks or groups of tasks on different
-computing environments.
-Another key feature of OpenMOLE is that it attempts to address the
-reproducibility issue through the integration of the CARE archiver. CARE allows
-for the execution of command-line applications, written in any language, and
-attempts to simulate the environment in which the application was designed on.
-OpenMOLE also provides embedded methods for parameter exploration.
-
-        \subsection{Pipeline description}
-       An OpenMOLE workflow consists of tasks connected by transitions. Each
-task contains details such as input, output and optional parameters, in addition
-to embedding the application that will be applied to the data. Input values are
-generally supplied by the dataflow through an entry point known as
-\textit{Sources} and output values are returned to the
-dataflow through \textit{Hooks}.   
-
-      Variables in OpenMOLE can be native types (e.g. int, string), files,
-directories, any Java or Scala types, and user-defined types (i.e. Java or Scala
-classes). The output type of an input supplied to another task should be the
-same as the input type, or be in a child class of the input type.
-
-      There exist five types of transitions in OpenMOLE: flat, divergent,
-convergent, explorative and aggregative. A flat transition is one in which the output of one
-task is the input to a single other task. On the other hand, a divergent
-transition is one in which the output of one task serves as the input to several
-other tasks. The inverse of a divergent task is a convergent task, in which
-several tasks supply input to a single task. Explorative transitions allow for
-multiple excutions of the same task on the sampling outputs produced by an
-exploration task. Conversly, an aggregative transition gathers all the streams
-produced by an explorative transition. It is also possible to add a stopping
-condition to terminate all streams once a condition is satisfied.
-
-      Tasks are not directly connected to each other by transitions. They are
-encapsulated within \textit{capsules} who are connected to each other by
-transitions. This permits the same task to be used multiple times in the
-workflow by encapsulating them in different capsules.
-
-    There also exists the notion of \textit{Input Slots} in OpenMOLE, which enables
-cycles in the workflow. A task may have several input slots and will execute
-each time that all the transitions belonging to the same input slots has passed
-through.
- 
-                
-
-        \subsection{Pipeline execution}
-
-      In order for an OpenMOLE workflow to be executed, there must exist a
-single encapsulated task. A task will execute once all its dependencies have
-been met. 
-
-    During execution of a task, the CARETask will decompress the CARE archive
-containing the application and its dependencies and the application is deployed
-within the confines of the decompressed archive. 
-
-OpenMOLE relies on the exit code returned by the application in order to
-determine whether to reschedule the task. It is possible to prevent task
-rescheduling by setting the boolean flag \textit{errorOnReturnValue} to false.
-    
-      OpenMOLE workflows can be executed on a variety of platforms such as
-remote servers, clusters and compute grids. As these execution hosts may not have all
-the required dependencies to execute a task, tasks are archived using CARE. This
-ensures that all the required applications and their dependencies can be shipped
-and executed at runtime on any Linux host.
-
-
-        \subsection{Debugging and Provenance}
-    A CARETasks standard output and standard error are normally printed out to
-OpenMOLES's console. For distributed executions, this might not be a practical
-solution, in which case such information may be passed through
-the dataflow using OpenMOLE variables.
 
     \section{LONI}
         \subsection{Summary}
@@ -695,103 +565,6 @@ run or extraction of specific parameter values.
         Additionally, to verify the correctness of the results produced, aa
 implements tools for quality control and comes with a dedicated module for
 low-level quality control.
-        
-    \section{Make}
-        \subsection{Summary}
-        As the creation of workflow activities requires a certain level of
-programming expertise, Make was proposed as a simpler alternative. Make is a
-tool used for the development of directed acyclic dependency graphs. It is
-available in all Linux and UNIX distributions, which relieves the users from
-worflow engine installation. Additionally, Make is capable of offering other
-features necessary to workflow engines, such as, reproducibility,
-parallelization, fault-tolerance and quality control. The motivation behind Make
-is essentially that the tools available for simple and efficient pipeline
-creation already exist and there is no need to 'reinvent the wheel'. In
-addition, the use of Make is not limited to the neuroimaging community, and thus
-support for it is widely available. Make has also been adapted for use in other
-programming languages such as SnakeMake for python
-
- 
-        \subsection{Pipeline description}
-        Make pipelines are described in makefiles, which consist of a set of
-rules which describe the flow of data. Rules defined in make can be define by three
-components: targets, dependecies and recipes. The target is the output
-(typically file) produced by execution of the recipe, whereas the dependecy
-would be the input file from which the target would be created from. The target
-is only modified if its last modified date is early than that of a depencies's.
-A recipe, in make, is the set of shell commands used to create the target from
-its dependencies. 
-
-In order connect the rules together, it is possible to define "phony" targets.
-Phony targets do not correspond to any actual file and will be generated once
-all of their dependencies (targets of other rules) have been
-created. Chaining multiple rules together will automatically generate the directed acyclic
-graph that is the pipeline. This is contrary to other pipelines such as Nipype
-and LONI, in which the user must explicitly state all connections \note{as
-stated in paper}. Through the use of rules, it is easily possible to reexecute
-only the desired parts of the pipeline.
-
-Cleanup after rule execution can be defined using the phony target
-clean.
-
-To create different targets for the same dependency files organized in different
-ways (e.g. subject/timpepoint timepoint/session), it is possible to use symbolic
-links for the dependencies, however this may complexify the code. Otherwise, it
-may be simpler to copy subject and session makefiles.
-
-        \subsection{Pipeline execution}
-
-        Compared to the previous workflow engines, Make pipeline variables are
-only evaluated at time of use (lazy evaluation). In addition, targets are not
-executed in the order they are specified (similarly to other pipeline engines).
-
-Make files are also well-equipped to handle workflows with conditionals. Should
-a conditional exist in a workflow, it will be evaluated during the creation of
-the DAG (i.e. not at runtime) and only the required components will be executed. 
-
-        As parallelism can be inferred from the dependency graph, parallel execution of a make pipeline can occur simply through the
-addition of the -j flag for multicore machines, or by using qmake command to run
-the pipeline on a cluster.        
-
-        By default, make only rebuilds targets whose last modified preceedes
-that of its dependencies. As such, when a task fails and is re-executed, only the targets that need
-to be rebuilt will be rebuilt. It is possible to specify reexcution in Make such
-that the task will be reexecuted in case of failure.
- 
-        \subsection{Debugging and provenance}
-        As users of a preexisting Make pipeline may not be aware of the proper
-usage of each target, it is necessary to provide a `help` module that is
-adaptable to targets being added removed or modified. It is possible to define
-in Make a macro for such a purpose that will provide users with usage
-information when requested (e.g. calling make help).
-
-    Debugging in Make can be rather difficult, particularly when executing code
-in parallel. However, pipelines in Make are broken down into many targets which
-can each be tested individually. In addition, Make provides built-in flags to
-aid in debugging. These flags include -n, for printing out the commands without
-any execution and -p to print out all the rules. In the instance where pattern
-substistution is used, -p will also include the results obtained from the
-pattern substitution. More recent versions of GNU Make also include the --trace
-and --output-sync flags which display why each recipe was executed and print the
-parallelized output in sequential order, respectively.
-
-
-    Neuroimaging tools are typically equipped with quality assurance modules. As
-a result, it is possible to utilize the quality assurance modules from these
-tools to provide a complete report for the entire pipeline. The proposed
-solution suggests to write all the quality assurance outputs from each tool to a single HTML
-report with R Markdown or a script. The R Markdown or script, with the metrics
-and images are listed as dependencies to the QA report target in Make.
-
-
-    Only a basic form of data provenance has been implemented by the authors.
-The implemented data provenance consisted of a makefile that calls a bash to
-extract acquisition parameters from the raw input images. The makefile also
-obtains tool versions from the installation directories and pipeline options
-from their respective makefiles. All of these details are stored in a CSV file.
-The makefile will then call an R Markdown script which will then generate an
-HTML provenance report from the corresponding CSV file.
-
     
 
           
@@ -986,7 +759,234 @@ command-line options.
 
         All provenance and debugging data is accessibly through either the \textit{pegasus-analyzer} tool or through the provided lightweight web interface.  
          
-        
+           \section{Make}
+        \subsection{Summary}
+        As the creation of workflow activities requires a certain level of
+programming expertise, Make was proposed as a simpler alternative. Make is a
+tool used for the development of directed acyclic dependency graphs. It is
+available in all Linux and UNIX distributions, which relieves the users from
+worflow engine installation. Additionally, Make is capable of offering other
+features necessary to workflow engines, such as, reproducibility,
+parallelization, fault-tolerance and quality control. The motivation behind Make
+is essentially that the tools available for simple and efficient pipeline
+creation already exist and there is no need to 'reinvent the wheel'. In
+addition, the use of Make is not limited to the neuroimaging community, and thus
+support for it is widely available. Make has also been adapted for use in other
+programming languages such as SnakeMake for python
+
+ 
+        \subsection{Pipeline description}
+        Make pipelines are described in makefiles, which consist of a set of
+rules which describe the flow of data. Rules defined in make can be define by three
+components: targets, dependecies and recipes. The target is the output
+(typically file) produced by execution of the recipe, whereas the dependecy
+would be the input file from which the target would be created from. The target
+is only modified if its last modified date is early than that of a depencies's.
+A recipe, in make, is the set of shell commands used to create the target from
+its dependencies. 
+
+In order connect the rules together, it is possible to define "phony" targets.
+Phony targets do not correspond to any actual file and will be generated once
+all of their dependencies (targets of other rules) have been
+created. Chaining multiple rules together will automatically generate the directed acyclic
+graph that is the pipeline. This is contrary to other pipelines such as Nipype
+and LONI, in which the user must explicitly state all connections \note{as
+stated in paper}. Through the use of rules, it is easily possible to reexecute
+only the desired parts of the pipeline.
+
+Cleanup after rule execution can be defined using the phony target
+clean.
+
+To create different targets for the same dependency files organized in different
+ways (e.g. subject/timpepoint timepoint/session), it is possible to use symbolic
+links for the dependencies, however this may complexify the code. Otherwise, it
+may be simpler to copy subject and session makefiles.
+
+        \subsection{Pipeline execution}
+
+        Compared to the previous workflow engines, Make pipeline variables are
+only evaluated at time of use (lazy evaluation). In addition, targets are not
+executed in the order they are specified (similarly to other pipeline engines).
+
+Make files are also well-equipped to handle workflows with conditionals. Should
+a conditional exist in a workflow, it will be evaluated during the creation of
+the DAG (i.e. not at runtime) and only the required components will be executed. 
+
+        As parallelism can be inferred from the dependency graph, parallel execution of a make pipeline can occur simply through the
+addition of the -j flag for multicore machines, or by using qmake command to run
+the pipeline on a cluster.        
+
+        By default, make only rebuilds targets whose last modified preceedes
+that of its dependencies. As such, when a task fails and is re-executed, only the targets that need
+to be rebuilt will be rebuilt. It is possible to specify reexcution in Make such
+that the task will be reexecuted in case of failure.
+ 
+        \subsection{Debugging and provenance}
+        As users of a preexisting Make pipeline may not be aware of the proper
+usage of each target, it is necessary to provide a `help` module that is
+adaptable to targets being added removed or modified. It is possible to define
+in Make a macro for such a purpose that will provide users with usage
+information when requested (e.g. calling make help).
+
+    Debugging in Make can be rather difficult, particularly when executing code
+in parallel. However, pipelines in Make are broken down into many targets which
+can each be tested individually. In addition, Make provides built-in flags to
+aid in debugging. These flags include -n, for printing out the commands without
+any execution and -p to print out all the rules. In the instance where pattern
+substistution is used, -p will also include the results obtained from the
+pattern substitution. More recent versions of GNU Make also include the --trace
+and --output-sync flags which display why each recipe was executed and print the
+parallelized output in sequential order, respectively.
+
+
+    Neuroimaging tools are typically equipped with quality assurance modules. As
+a result, it is possible to utilize the quality assurance modules from these
+tools to provide a complete report for the entire pipeline. The proposed
+solution suggests to write all the quality assurance outputs from each tool to a single HTML
+report with R Markdown or a script. The R Markdown or script, with the metrics
+and images are listed as dependencies to the QA report target in Make.
+
+
+    Only a basic form of data provenance has been implemented by the authors.
+The implemented data provenance consisted of a makefile that calls a bash to
+extract acquisition parameters from the raw input images. The makefile also
+obtains tool versions from the installation directories and pipeline options
+from their respective makefiles. All of these details are stored in a CSV file.
+The makefile will then call an R Markdown script which will then generate an
+HTML provenance report from the corresponding CSV file.
+         
+         \section{OpenMOLE}
+        \subsection{summary}
+        OpenMOLE (Open MOdeL Experiment) is a domain agnostic pipelining
+framework that focuses on simplifying workflow creation through its Domain
+Specific Language (DSL) built on top of Scala. Through the use of its DSL, much
+of the backend is abstracted from users. It also offers a GUI for users to build
+workflows. Similarly to other existing pipelining
+frameworks, OpenMOLE enables parallelization through plugins, meaning that the
+workflow need not be changed between different distribution environments.
+Moreover, OpenMOLE supports the deployment of tasks or groups of tasks on different
+computing environments.
+Another key feature of OpenMOLE is that it attempts to address the
+reproducibility issue through the integration of the CARE archiver. CARE allows
+for the execution of command-line applications, written in any language, and
+attempts to simulate the environment in which the application was designed on.
+OpenMOLE also provides embedded methods for parameter exploration.
+
+        \subsection{Pipeline description}
+       An OpenMOLE workflow consists of tasks connected by transitions. Each
+task contains details such as input, output and optional parameters, in addition
+to embedding the application that will be applied to the data. Input values are
+generally supplied by the dataflow through an entry point known as
+\textit{Sources} and output values are returned to the
+dataflow through \textit{Hooks}.   
+
+      Variables in OpenMOLE can be native types (e.g. int, string), files,
+directories, any Java or Scala types, and user-defined types (i.e. Java or Scala
+classes). The output type of an input supplied to another task should be the
+same as the input type, or be in a child class of the input type.
+
+      There exist five types of transitions in OpenMOLE: flat, divergent,
+convergent, explorative and aggregative. A flat transition is one in which the output of one
+task is the input to a single other task. On the other hand, a divergent
+transition is one in which the output of one task serves as the input to several
+other tasks. The inverse of a divergent task is a convergent task, in which
+several tasks supply input to a single task. Explorative transitions allow for
+multiple excutions of the same task on the sampling outputs produced by an
+exploration task. Conversly, an aggregative transition gathers all the streams
+produced by an explorative transition. It is also possible to add a stopping
+condition to terminate all streams once a condition is satisfied.
+
+      Tasks are not directly connected to each other by transitions. They are
+encapsulated within \textit{capsules} who are connected to each other by
+transitions. This permits the same task to be used multiple times in the
+workflow by encapsulating them in different capsules.
+
+    There also exists the notion of \textit{Input Slots} in OpenMOLE, which enables
+cycles in the workflow. A task may have several input slots and will execute
+each time that all the transitions belonging to the same input slots has passed
+through.
+ 
+                
+
+        \subsection{Pipeline execution}
+
+      In order for an OpenMOLE workflow to be executed, there must exist a
+single encapsulated task. A task will execute once all its dependencies have
+been met. 
+
+    During execution of a task, the CARETask will decompress the CARE archive
+containing the application and its dependencies and the application is deployed
+within the confines of the decompressed archive. 
+
+OpenMOLE relies on the exit code returned by the application in order to
+determine whether to reschedule the task. It is possible to prevent task
+rescheduling by setting the boolean flag \textit{errorOnReturnValue} to false.
+    
+      OpenMOLE workflows can be executed on a variety of platforms such as
+remote servers, clusters and compute grids. As these execution hosts may not have all
+the required dependencies to execute a task, tasks are archived using CARE. This
+ensures that all the required applications and their dependencies can be shipped
+and executed at runtime on any Linux host.
+
+
+        \subsection{Debugging and Provenance}
+    A CARETasks standard output and standard error are normally printed out to
+OpenMOLES's console. For distributed executions, this might not be a practical
+solution, in which case such information may be passed through
+the dataflow using OpenMOLE variables.
+         
+        \section{Nextflow}
+        \subsection{summary}
+        Nextflow is a POSIX-compatible pipeline engine for scientific workflows.
+It extends the Groovy programming language to provide an  intuitive domain-specific language (DSL) 
+that enables users to easily describe their workflows. Unlike pipeline engines such as Nipype and
+PSOM, Netflow does not employ DAG. It instead adheres to the
+\textit{Dataflow} programming model which decides how data will flow through the pipeline at
+runtime \note{fix this sentence}. Nextflow prides itself on allowing the
+integration of containerized tools to address the issue of numerical instability
+that may arise from different environment setups.
+  
+        \subsection{Pipeline description}
+        A Nextflow pipeline is represented by the flow of data between processes. These
+processes can be written in any Linux-compatible scripting language. As in Nipype, 
+these processes are executed in an isolated environment. The only means
+of communication between processes is through asynchronous FIFO queues known as
+\textit{channels}. Each process can contain any number of input and output
+channels. Through the use of channels, input and output can be stored not only
+on disk but also in-memory \note{Nipype can also return outputs that are not on
+disk, so this is nothing special}.  
+
+        As with other pipeline engines (nipype, psom, etc.,), the order in which
+the processes appear is irrelevant. Execution order is determined by the dependencies.        
+
+        \subsection{Pipeline execution}
+        The \textit{executor} is responsible for the execution of a Nextflow
+pipeline. By default, it assumes that the pipeline is to be run locally. The
+local executor will use multithreading in order to exploit available cores
+within the local environment. To configure the executor to run in a remote distributed environment, it is
+necessary to modify the configuration file to specify the environment. By
+following this approach, Nextflow users can seamlessly run their code on various
+processing platforms with a simple modification to a configuration file. In
+addition to local, Nextflow currently has executors for SGE, LSF, SLURM,
+PBS/Torque, NQSII, HTCondor, DRMAA, Ignite, Kubernetes and AWS Batch.
+
+        \subsection{Debugging and Provenance}
+        When executing a pipeline, it is always possible to specify the
+generation of a execution report. The report is written in HTML and consists of three sections:
+Summary, Resources and Tasks. Summary provides details on the execution command,
+execution status, overall execution time, in addtion to other metadata. The
+Resources tab, on the other hand, contains several HighChart plots representing
+CPU, memory, time and disk read/write rate of each pipeline process. The final
+section, Tasks, contains many metrics including the status and command script of
+each task. 
+
+    Other reports that can be generated at runtime include the Trace report and
+the Timeline report. The Trace report include details such as CPU usage, start
+time, submission time, etc, of each process that was executed, whereas, the
+Timeline report generates an HTML timeline of all processes that have been
+executed.        
+
+    \note{doesn't seem to be anything on provenance...}
 
     \section{Geneflow}
         \subsection{Pipeline description}
