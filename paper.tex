@@ -1379,36 +1379,46 @@ rescheduling by setting the boolean flag \textit{errorOnReturnValue} to false.
         ability to run all code on a single local machine, and a
         \textit{Counter} class.  
 
-    \section{spark} \begin{itemize} \item based on
-        map-reduce \item in-memory processing \item lazy evaluation \item
-        general framework \end{itemize} 
+    \section{spark} 
+        \begin{itemize} 
+            \item based on map-reduce 
+            \item in-memory processing 
+            \item lazy evaluation 
+            \item general framework 
+        \end{itemize} 
 
-    \subsection{Scientific workflows in Spark} \subsubsection{Introduction}
-    emphasis on data rather than on interface. transformation describe how
-    interfaces interact with the data.  \subsubsection{ariel's paper and
-    thunders astronomy - } \subsubsection{Spark on hpc's or } \note{large
-    dataset for valduriez} Prior to examining how Big Data frameworks could be
-    improved on HPC clusters, it is important to have a baseline of how it
-    performs natively on an HPC cluster.  Particularly, how it behave when
-    processing scientific workflows. In a recent study done by \cite{valduriez},
-    they examined the scalability of Spark on an HPC cluster using a black-box
-    scientific workflow. Five tests were performed in their study: 1) Measuring
-    execution time when task and resources available increase proportionally, 2)
-    Measuring the execution time of very short and short tasks, 3) Measuring the
-    execution time of short (5s) to long tasks (120s), 4) Varying the number of
-    tasks with fixed task durations, 5) Mixed task durations and varied number
-    of tasks. Their results show Spark behaves as expected when tasks and
-    resources are increased exponentially, and that Spark scales better than
-    expected with tasks of longer durations. This is due to the fact that the
-    scheduler is overloaded in the case of many short tasks in addition to their
-    being a significant amount of I/O occurring between each task. Although I/O
-    is problematic in both data center and HPC infrastructures, HPC is optimized
-    for data transfer over the network rather than disk I/O, and therefore, such
-    frequent I/O negatively impacts the system. However, many scientific
-    workflows are composed of longer tasks, and therefore, Spark scales very
-    well with scientific workflows in an HPC environment.  \section{Use of
-    containers with Big Data frameworks} \section{Hadoop Distributed file
-    system} \note{maybe should go in between mapreduce and spark} 
+    \subsection{Scientific workflows in Spark} 
+        \subsubsection{Introduction}
+            emphasis on data rather than on interface. transformation describe 
+            how interfaces interact with the data.  
+        \subsubsection{ariel's paper and thunders astronomy - } 
+        \subsubsection{Spark on hpc's or } \note{large dataset for valduriez} 
+            Prior to examining how Big Data frameworks could be improved on HPC 
+            clusters, it is important to have a baseline of how it performs 
+            natively on an HPC cluster.  Particularly, how it behave when
+            processing scientific workflows. In a recent study done by 
+            \cite{valduriez}, they examined the scalability of Spark on an HPC 
+            cluster using a black-box scientific workflow. Five tests were 
+            performed in their study: 1) Measuring execution time when task and 
+            resources available increase proportionally, 2) Measuring the 
+            execution time of very short and short tasks, 3) Measuring the
+            execution time of short (5s) to long tasks (120s), 4) Varying the 
+            number of tasks with fixed task durations, 5) Mixed task durations 
+            and varied number of tasks. Their results show Spark behaves as 
+            expected when tasks and resources are increased exponentially, and 
+            that Spark scales better than expected with tasks of longer 
+            durations. This is due to the fact that the scheduler is overloaded 
+            in the case of many short tasks in addition to their being a 
+            significant amount of I/O occurring between each task. Although I/O
+            is problematic in both data center and HPC infrastructures, HPC is 
+            optimized for data transfer over the network rather than disk I/O, 
+            and therefore, such frequent I/O negatively impacts the system. 
+            However, many scientific workflows are composed of longer tasks, 
+            and therefore, Spark scales very well with scientific workflows in 
+            an HPC environment.  
+    \section{Use of containers with Big Data frameworks} 
+    \section{Hadoop Distributed file system} 
+        \note{maybe should go in between mapreduce and spark} 
 
         The Hadoop Distributed File System (HDFS)\cite{hadoop} is the filesystem
         component of Hadoop. The metadata in HDFS is stored in on a dedicated
