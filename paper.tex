@@ -1055,10 +1055,61 @@ rescheduling by setting the boolean flag \textit{errorOnReturnValue} to false.
 
     \note{doesn't seem to be anything on provenance...}
 
-    \section{Geneflow} 
-        \subsection{Pipeline description} 
-        \subsection{Pipeline execution} 
+    \section{Galaxy}
+        Galaxy is another open-source genomics web-platformed designed to 
+        address the
+        reproducibility crisis in genomics in addition to facilitating workflow
+        creation process for non-programmers and ensuring the transparency of 
+        the workflows. It differs from workflow engines in that it is a full
+        platform designed for researchers to create and share their workflows
+        and data with the community. Building workflows in Galaxy is
+        entirely GUI-based enabling users with little to no programming
+        knowledge to build workflows. Metadata is extracted from the workflows
+        during executions and pipelines can be annoted and shared with other 
+        users.
+
+        \subsection{Pipeline description}
+        In order to make workflow creation accessible to researchers with little
+        -to-no programming skills, Galaxy provides a GUI. 
+        The GUI allows users to drag-and-drop CLI tools to the screen to create
+        workflows. In order for new tools to be added to Galaxy, the user must 
+        write a configuration file which contains details on input and output
+        specifications and how to execute the tool. During workflow creation, 
+        the workflow editor will determine if the inputs and outputs of 
+        connected tools are compatible. 
+
+        Alternatively, users may also create workflows by editing workflows that
+        have been published to Galaxy or using their own analysis history to 
+        generate a workflow. Any workflow created by a user can be published to
+        the Galaxy server and made available to all other users.
+
+        \subsection{Pipeline execution}
+
+        \note{no details on workflow failure}
+        As Galaxy is meant to be easy-to-use for researchers, all that is 
+        required to execute pipelines is access to their webpage. Users have 
+        access to detailed records of the executed workflow's metadata and 
+        provenance indicating the outcome of the executed workflow.
+
+        Should users desired to host their own Galaxy server, it is possible to
+        install Galaxy locally, on HPC with SLURM or PBS installed or the cloud.
+
         \subsection{Debugging and provenance} 
+        Provenance is a big part of Galaxy as it aims to improve accessibility, 
+        reproducibility and transparency of workflows. During workflow execution
+        , Galaxy automatically produces metadata for each of the workflow tasks.
+        This metadata includes details on the input and output datasets, tools 
+        user and parameter values.
+
+        In addition to Galaxy's metadata capture, it is also possible for the 
+        user to annotate and tag their workflow. This enables the user to 
+        communicate with others the intent of the analysis steps in addition to 
+        incorporating search capabilities to their workflows.
+
+        Galaxy also provides the Pages capability. Pages is a web-based document
+        that enables users to automatically generate detailed documentation of 
+        their analyses.
+
     \section{Toil}
         \note{obtained from paper's supplementary documentation}
         Toil is another general workflow framework aimed at the processing of 
@@ -1326,7 +1377,9 @@ rescheduling by setting the boolean flag \textit{errorOnReturnValue} to false.
         failure, the ability to produce auxiliary output files in \textit{map}
         or \textit{reduce} task, live status updates stream to HTTP server, the
         ability to run all code on a single local machine, and a
-        \textit{Counter} class.  \section{spark} \begin{itemize} \item based on
+        \textit{Counter} class.  
+
+    \section{spark} \begin{itemize} \item based on
         map-reduce \item in-memory processing \item lazy evaluation \item
         general framework \end{itemize} 
 
@@ -1418,6 +1471,49 @@ rescheduling by setting the boolean flag \textit{errorOnReturnValue} to false.
         DataNode. It permits identification of the DataNode in the event of an
         IP address or port change. 
         
+        \section{Dask}
+        Dask contains three primary abstractions: the \textit{dask.array}, 
+        \textit{dask.bag} and \textit{dask.dataframe}. The \textit{dask.array} 
+        is an abstraction that enables parallel NumPy-like operations using task
+        scheduling. It can additionally be used on data that does not fit in 
+        memory. The \textit{dask.array} used blocked array algorithms to break 
+        down large commonly-used linear algebra functions into smaller ones that
+        can be partially parallelized.
+
+        Dask array functions all create an \textit{Array} object which contains 
+        the dask graph \textit{.dask}, details on the overall shape and the 
+        shape of each subdivided portion (chunk) of the array (\textit{.chunks})
+        , the \textit{.name} representing which keys map to the results, and the
+        data type.
+
+        A limitation of the Dask array is that it must know the shape of the 
+        array at graph creation time.
+
+        The Dask bag is similar to that of a Python list, however, order cannot 
+        be guaranteed. As Dask bags typically operate on Python objects, 
+        performance is bound by the Global Interpreter Lock (GIL), therefore 
+        multiprocessing schedulers must be used instead of multithreading ones.
+
+        The Dask bag contains functions like \textit{map} and \textit{filter}, 
+        in addition to many other functions that can be found in the PyToolz API
+        . It is particularly well suited for the handling of data dumps.
+
+        The Dask dataframe consists of a collection of Pandas DataFrames, and 
+        thus implements many of the functionalities found in an Pandas DataFrame
+        . The dataframe is well suited for running on partioned datasets, where 
+        partitions are clearly defined by an index.
+
+        In order to execute the Dask graphs in an efficient manner, proper 
+        scheduling is required. Dask uses dynamic scheduling for all their 
+        schedulers. When a worker reports completion of a task, the runtime 
+        state is updated to reflect that the task has been completed, tasks that
+        can now be executed are marked and the data which can be released is 
+        determined. To ensure that workers complete execution of related tasks 
+        before commencing unrelated ones, a \textit{last in first out} policy is
+        used. As Dask graphs are entirely decoupled from the scheduler that they
+        use, Dask users are free to design their own scheduler that best suits 
+        their needs.
+
 
 \chapter{Optimizing Big Data frameworks for High-Performance Computing}
 	
