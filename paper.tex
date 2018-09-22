@@ -1482,47 +1482,50 @@ rescheduling by setting the boolean flag \textit{errorOnReturnValue} to false.
         IP address or port change. 
         
         \section{Dask}
-        Dask contains three primary abstractions: the \textit{dask.array}, 
-        \textit{dask.bag} and \textit{dask.dataframe}. The \textit{dask.array} 
-        is an abstraction that enables parallel NumPy-like operations using task
-        scheduling. It can additionally be used on data that does not fit in 
-        memory. The \textit{dask.array} used blocked array algorithms to break 
-        down large commonly-used linear algebra functions into smaller ones that
-        can be partially parallelized.
+            Dask contains three primary abstractions: the \textit{dask.array}, 
+            \textit{dask.bag} and \textit{dask.dataframe}. The 
+            \textit{dask.array} is an abstraction that enables parallel 
+            NumPy-like operations using task scheduling. It can additionally be 
+            used on data that does not fit in memory. The \textit{dask.array} 
+            used blocked array algorithms to break down large commonly-used 
+            linear algebra functions into smaller ones that can be partially 
+            parallelized.
 
-        Dask array functions all create an \textit{Array} object which contains 
-        the dask graph \textit{.dask}, details on the overall shape and the 
-        shape of each subdivided portion (chunk) of the array (\textit{.chunks})
-        , the \textit{.name} representing which keys map to the results, and the
-        data type.
+            Dask array functions all create an \textit{Array} object which 
+            contains the dask graph \textit{.dask}, details on the overall shape
+            and the shape of each subdivided portion (chunk) of the array 
+            (\textit{.chunks}), the \textit{.name} representing which keys map 
+            to the results, and the data type.
 
-        A limitation of the Dask array is that it must know the shape of the 
-        array at graph creation time.
+            A limitation of the Dask array is that it must know the shape of the 
+            array at graph creation time.
 
-        The Dask bag is similar to that of a Python list, however, order cannot 
-        be guaranteed. As Dask bags typically operate on Python objects, 
-        performance is bound by the Global Interpreter Lock (GIL), therefore 
-        multiprocessing schedulers must be used instead of multithreading ones.
+            The Dask bag is similar to that of a Python list, however, order 
+            cannot be guaranteed. As Dask bags typically operate on Python 
+            objects, performance is bound by the Global Interpreter Lock (GIL), 
+            therefore multiprocessing schedulers must be used instead of 
+            multithreading ones.
 
-        The Dask bag contains functions like \textit{map} and \textit{filter}, 
-        in addition to many other functions that can be found in the PyToolz API
-        . It is particularly well suited for the handling of data dumps.
+            The Dask bag contains functions like \textit{map} and 
+            \textit{filter}, in addition to many other functions that can be 
+            found in the PyToolz API. It is particularly well suited for the 
+            handling of data dumps.
 
-        The Dask dataframe consists of a collection of Pandas DataFrames, and 
-        thus implements many of the functionalities found in an Pandas DataFrame
-        . The dataframe is well suited for running on partioned datasets, where 
-        partitions are clearly defined by an index.
+            The Dask dataframe consists of a collection of Pandas DataFrames, 
+            and thus implements many of the functionalities found in an Pandas 
+            DataFrame. The dataframe is well suited for running on partioned 
+            datasets, where partitions are clearly defined by an index.
 
-        In order to execute the Dask graphs in an efficient manner, proper 
-        scheduling is required. Dask uses dynamic scheduling for all their 
-        schedulers. When a worker reports completion of a task, the runtime 
-        state is updated to reflect that the task has been completed, tasks that
-        can now be executed are marked and the data which can be released is 
-        determined. To ensure that workers complete execution of related tasks 
-        before commencing unrelated ones, a \textit{last in first out} policy is
-        used. As Dask graphs are entirely decoupled from the scheduler that they
-        use, Dask users are free to design their own scheduler that best suits 
-        their needs.
+            In order to execute the Dask graphs in an efficient manner, proper 
+            scheduling is required. Dask uses dynamic scheduling for all their 
+            schedulers. When a worker reports completion of a task, the runtime 
+            state is updated to reflect that the task has been completed, tasks 
+            that can now be executed are marked and the data which can be 
+            released is determined. To ensure that workers complete execution of
+            related tasks before commencing unrelated ones, a 
+            \textit{last in first out} policy is used. As Dask graphs are 
+            entirely decoupled from the scheduler that they use, Dask users are 
+            free to design their own scheduler that best suits their needs.
 
 
 \chapter{Optimizing Big Data frameworks for High-Performance Computing}
