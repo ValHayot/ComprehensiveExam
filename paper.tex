@@ -24,55 +24,83 @@
     \end{abstract} 
     \tableofcontents
     \chapter{Introduction}
-    In recent years, the volume of neuroimaging data acquired has exceeded
-    both the storage and computation capacity of a standard research 
-    lab workstation. With the advancement of data sharing technologies, this 
-    data has been made widely available, with the only limiting factor impeding
-    research on this data being access to infrastructure and software that 
-    enables efficient processing on such infrastructure. Many research labs do
-    have access to high performance computing (HPC) clusters, however, without
-    efficient software to process this data, processing can take an excessive 
-    amount of time. Ensuring efficient processing of data is complex and 
-    likely beyond the knowledge of an average neuroimaging researcher. As a 
-    result, frameworks for the efficient processing of neuroimaging data need
-    to be developed.
+        In recent years, the volume of neuroimaging data acquired has exceeded
+        both the storage and computation capacity of a standard research 
+        lab workstation. With the advancement of data sharing technologies, this 
+        data has been made widely available, with the only factor impeding
+        research on this data being access to infrastructure and software that 
+        enables efficient processing on such infrastructure. Many research labs 
+        do have access to high performance computing (HPC) clusters, however, 
+        without efficient software to process this data, processing can take an 
+        excessive amount of time. Ensuring efficient processing of data is 
+        complex and likely beyond the knowledge of an average neuroimaging 
+        researcher. As a result, frameworks for the efficient processing of 
+        neuroimaging data need to be developed.
 
-    Neuroimaging big data comes in two formats: 1) large images and 2) large 
-    datasets. Large images consist of a singular images ranging from 100s of
-    gigabytes to terabytes in size. A well-known example of such an image is the
-    BigBrain \note{cite here}, a histological image of the brain of a 
-    healthy 69 year-old man. 
-    At its highest resolution, it is 1x1x20micrometers \note{fix this} or 1TB in
-    size. Other examples of large images can be found in electron microscopy 
-    (EM), polarized light images (PLI) and micro coherence tomography (microCT)
-    \note{need to do more research here}. Images at such high resolution are
-    important to researchers as they give insights into aspects not otherwise
-    detectible in images at lower resolutions. However, due to their size and 
-    lack of resources available to process such images, research on this data 
-    remains limited.
+        Many neuroimaging workflows currently exist. Examples include
+        Nipype, Pipeline System for Octave and Matlab (PSOM), LONI, SPM, FastR,
+        Automated Analysis (AA) and Pydpiper\note{add citations here}. These 
+        workflow engines aim to satify four criteria: 1) straightforward 
+        workflow composition, 2) performance, 3) portability of the workflows 
+        and 4) reproducibility of the analysis. While these workflow engines
+        do tackle performance, it is mainly limited to minimizing computation
+        time and does not consider data transfer times -- which are typically
+        costly in Big Data settings. Therefore, these engines need to be adapted
+        for the processing of neuroimaging data.
 
-    In contrast, large datasets are consists of many images, typically arising
-    from multiple different subjects, that are too big to fit in storage. 
-    The images alone being small enough for an average researcher to process. 
-    Example of these datasets include the UK Biobank, HCP Project, ADNI dataset,
-    OpenfMRI, amongst many others. These datasets are very large. For instance, 
-    the UK Biobank is expected to exceed \note{X} Petabytes in size. As subsets
-    of these datasets are manageable for the average researcher to process, 
-    much analysis has gone into them. Moreover, unlike for large images, 
-    toolkits have been developed for researchers to process this data. However,
-    the toolkits do not enable researchers to process these entire datasets as
-    a whole. Therefore, it is crucial to develop efficient frameworks for the 
-    processing of these datasets in order for researchers to harness the data
-    in its entirety.
+        In sec
 
-        \section{Platforms for  neuroscience}
-        \section{Infrastructure}
+        \section{Big neuroimaging Datasets}\label{datasets}
+            Neuroimaging big data comes in two formats: 1) large images and 2) 
+            large datasets. Large images consist of a singular images ranging 
+            from 100s of gigabytes to terabytes in size. A well-known example of 
+            such an image is the BigBrain \note{cite here}, a histological image 
+            of the brain of a healthy 69 year-old man. At its highest resolution
+            , it is 1x1x20$\mu$m or 1TB in
+            size. Other examples of large images can be found in electron 
+            microscopy (EM), polarized light images (PLI) and micro coherence 
+            tomography (microCT) \note{need to do more research here}. Images at 
+            such high resolution are important to researchers as they provide 
+            insights into aspects not otherwise detectible in images at lower 
+            resolutions. However, due to their size and lack of resources 
+            available to process such images, research on this data remains 
+            limited.
+
+            In contrast, large datasets are consists of many images, typically 
+            arising from multiple different subjects, that are too big to fit in 
+            storage. The images alone being small enough for an average 
+            researcher to process. Example of these datasets include the 
+            UK Biobank, HCP Project, ADNI dataset,OpenfMRI, amongst many others. 
+            These datasets are very large. For instance, the UK Biobank is 
+            expected to exceed \note{X} Petabytes in size. As subsets
+            of these datasets are manageable for the average researcher to 
+            process, much analysis has gone into them. Moreover, unlike for 
+            large images, toolkits have been developed for researchers to 
+            process this data. However,the toolkits do not enable researchers to 
+            process these entire datasets as a whole. Therefore, it is crucial 
+            to develop efficient frameworks for the processing of these datasets 
+            in order for researchers to harness the data in its entirety.
+
+        \section{Platforms for  neuroscience}\label{platforms}
+        \section{Infrastructure}\label{infrastructure}
 
 
-    \chapter{Workflow composition}
-    \chapter{Performance}
-    \chapter{Reproducibility}
-    \chapter{Portability}
+    \chapter{Workflow composition}\label{workcomp}
+        \section{Programming language}
+        \section{Modularity}
+        \section{Workflow sharing}
+    \chapter{Performance}\label{performance}
+        \section{Filesystems}
+        \section{Scheduling}
+        \section{Performance enhancement strategies}
+    \chapter{Portability}\label{portability}
+        \section{Containers}
+    \chapter{Reproducibility}\label{reproducibility}
+        \section{Provenance Tracking}
+        \section{containerization}
+    \chapter{Discussion/Conclusion}
+
+
     \addcontentsline{toc}
         {chapter}{Bibliography} 
         \bibliography{bibliography}
