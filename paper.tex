@@ -48,7 +48,64 @@
         costly in Big Data settings. Therefore, these engines need to be adapted
         for the processing of neuroimaging data.
 
-        In sec
+        Big Data frameworks differ from those available in neuroimaging as their
+        focus is mainly on workflow composition and performance. Big Data 
+        frameworks such as Apache Spark and Dask both aim to be easy-to-use,
+        applicable to a wide variety of analyses and improve performance in the 
+        processing of Big Data. These types of systems were primarily designed 
+        to be efficient on commodity infrastructure in which transferring data
+        over a network would be extremely costly.
+
+        Currently, there exists no Big Data framework which is adapted for the
+        processing of neuroimaging data. However, tools such as the Thunder 
+        Project \note{add citation} allow for the processing of time-series
+        neuroimaging data using Spark as the backend framework. Tools such as 
+        these provide built-in functions to process the data. For users to 
+        extend functionality, it is necessary for them to understand the backend
+        framework. Other scientific workflow engines, such as Toil and Pegasus
+        \note{add citations}, have incorporated features that enable more 
+        performant workflow executions for scientific Big Data. They also enable
+        the integration of Big Data frameworks as subpipelines within their 
+        workflows. Despite integration with Big Data frameworks, it is not
+        possible to create Big Data workflows using their API exclusively.
+
+        A big limitation to adapting Big Data frameworks for neuroimaging 
+        workflows is that these frameworks are tightly-coupled with the 
+        infrastructure they were designed for -- commodity clusters. While
+        it is possible for some research labs to be using either a local cluster
+        or the cloud for their processing, many may only have access to HPC
+        clusters. As a result of this, most available scientific workflow 
+        frameworks have been designed for processing on HPC clusters. The 
+        set-up of an HPC cluster is quite different from that of a commodity 
+        cluster, and therefore, in order to effectively use Big Data frameworks
+        for scientific computing, it is necessary to adapt the infrastructure 
+        for processing on HPC.
+
+        In section \ref{datasets}, we will briefly discuss the two types of 
+        datasets that are giving rise to the neuroimaging big data. Section 
+        \ref{platforms} will provide a brief introduction to the data-sharing
+        and processing platforms available to researchers. We will conclude our 
+        introduction on the differences between commodity and HPC infrastructure
+        in section \ref{infrastructure}.
+
+        As we wish to evaluate and compare scientific workflow frameworks with
+        Big Data frameworks for the processing of neuroimaging big data, we will
+        break down our analyses by the four principal features necessary for
+        effective neuroimaging workflow engines. The workflow engines discussed
+        will include SPM, LONI, Nipype, PSOM, FastR, AA, Pydpiper 
+        for neuroimaging; Taverna, Pegasus, Make, OpenMOLE, Nextflow, Galaxy, 
+        Toil for other scientific workflows; and MapReduce, Spark and Dask for
+        Big Data Frameworks. Chapter \ref{workcomp} will evaluate these 
+        workflows on the basis of workflow composition. In other words, we will
+        look at the programming languages necessary to construct these workflows
+        , how easy is it to add new tools and will these workflows be understood
+        by the community. In Chapter \ref{performance}, we will proceed to 
+        investigate the strategies employed by these frameworks to improve the 
+        performance of their workflows. Chapter \ref{portability} will discuss
+        the portability of the workflows written using these frameworks. 
+        Workflow reproducibility will be then discussed in Chapter 
+        \ref{reproducibility}.
+        
 
         \section{Big neuroimaging Datasets}\label{datasets}
             Neuroimaging big data comes in two formats: 1) large images and 2) 
