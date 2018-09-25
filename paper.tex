@@ -138,7 +138,45 @@
             to develop efficient frameworks for the processing of these datasets 
             in order for researchers to harness the data in its entirety.
 
-        \section{Platforms for  neuroscience}\label{platforms}
+        \section{Open-science Platforms}\label{platforms}
+            Efficient processing of workflows are only but a small portion of 
+            the Big Data issue in neuroscience. Sharing and storing of datasets
+            and tools, secure access to and configuration of multiple computing 
+            sites and provenance capture of all activities must be managed by 
+            the researcher. This puts a heavy burden on researchers as they 
+            require some knowledge of all these components in order to manage it
+            correctly. These platforms also play a vital role in promoting 
+            research through the sharing of knowledge. Users can choose to share
+            their data and pipelines with others, reducing the need for others 
+            to collect their own data or to develop their own workflows. It 
+            also promotes robustness of results as the data and workflows will 
+            be shared and tested by multiple users.
+
+            Access to HPC resources may not always be straight-forward as 
+            configuration must be adapted to the execution site. This can 
+            range from scheduling policies, to available file systems, to 
+            environment and available libraries. Platforms relieve the user
+            from having to know site-specific details by providing seamless
+            execution on any cluster the Platform has knowledge of.
+
+            Examples of popular neuroinformatic open-science platforms include 
+            CBRAIN\note{cite paper}, OpenNeuro \note{cite poster} and Neurodata
+            \note{cite prepring}. OpenNeuro and NeuroData primarily focus on
+            cloud deployement whereas CBRAIN is configured for the deployment
+            of workflows on HPC resources. All three of these systems allow 
+            users to configure, manage, share and execute their workflows with 
+            the help of a web-based GUI. Integration with compute resources is
+            entirely abstracted by the platforms. These platforms additionally
+            provide tools to visualize their data.
+
+            As neuroimaging workflow engines are typically best suited for 
+            compute-intensive workflows, the workflows accessible in these 
+            platforms are not expected to be as suitable to process the 
+            volume of data made accessible by these platforms. Since these 
+            platforms make various infrastructures available to researchers, 
+            workflow engines must be adapted to efficiently execute on the 
+            infrastructure made available.
+            
         \section{Infrastructure}\label{infrastructure}
 
 
