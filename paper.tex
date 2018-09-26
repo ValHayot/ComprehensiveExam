@@ -107,7 +107,14 @@
         \ref{reproducibility}.
         
 
-        \section{Big neuroimaging Datasets}\label{datasets}
+        \section{Big Neuroimaging Datasets}\label{datasets}
+
+            As a result of the rise in datasharing in neuroscience, neuroimaging
+            big data has come to fruition. The field of neuroscience has now
+            reached a bottleneck where there exists sufficient data to make
+            impactful studies, but the software to process these datasets have 
+            not evolved with the size of the data.
+
             Neuroimaging big data comes in two formats: 1) large images and 2) 
             large datasets. Large images consist of a singular images ranging 
             from 100s of gigabytes to terabytes in size. A well-known example of 
@@ -124,20 +131,97 @@
             available to process such images, research on this data remains 
             limited.
 
-            In contrast, large datasets are consists of many images, typically 
-            arising from multiple different subjects, that are too big to fit in 
-            storage. The images alone being small enough for an average 
-            researcher to process. Example of these datasets include the 
-            UK Biobank, HCP Project, ADNI dataset,OpenfMRI, amongst many others. 
-            These datasets are very large. For instance, the UK Biobank is 
-            expected to exceed \note{X} Petabytes in size. As subsets
-            of these datasets are manageable for the average researcher to 
-            process, much analysis has gone into them. Moreover, unlike for 
-            large images, toolkits have been developed for researchers to 
-            process this data. However,the toolkits do not enable researchers to 
-            process these entire datasets as a whole. Therefore, it is crucial 
-            to develop efficient frameworks for the processing of these datasets 
-            in order for researchers to harness the data in its entirety.
+            In contrast, large datasets are consist of many images acquired from
+            multiple subjects, which are too large to be processed in their
+            entirety. Notable examples of these datasets include the 
+            Alzheimer's Disease Neuroimaging Initiative (ADNI), OpenfMRI, 
+            the Autism Brain Imaging Data Exchange (ABIDE), the Consortium for
+            Reliability and Reproducibility (CoRR), the Human Connectome Project
+            (HCP) and the UK Biobank, with the later
+            two being flagship examples of large datasets in neuroimaging.
+
+            The ADNI intiative is a collection of images (structural and 
+            functional MRI, PET), urine,
+            serum, cerebrospinal fluid biomarkers, as assessments (clinical and
+            neuropsychometric) of 800 elderly subjects, which of whom 200 where
+            healthy, 400 exhibited mild cognitive impairment and the remaining
+            200 showed signs of Alzheimers. Imaging data is available both 
+            pre- and post-processed form.
+
+            OpenfMRI is a public repository originally conceived for the sharing
+            of task-based fMRI data. Over time, it has grown to include EEG, MEG
+            , resting-state fMRI (R-fMRI) and diffusion fMRI. Data made 
+            available through
+            OpenfMRI are obtained from both healthy and clinical individuals.
+            Raw data must be made available for all datasets published to 
+            OpenfMRI, however, preprocessed data may also accompany the raw data
+            . At present, OpenfMRI houses data of a total 3372 subjects
+            originating from 95 studies \note{obtained from website}.
+
+            To promote the advancement of knowledge of Autism Spectrum Disorders
+            (ASD), ABIDE was conceived. ABIDE is an open repository of 
+            preprocessed data obtained from 1112 R-fMRI datasets.
+            In addition to R-fMRI, datasets also contain the corresponding 
+            structural MRI and phenotypic data. As data made available in ABIDE
+            is preprocessed, standardized pipelines were developed for the 
+            preprocessing of the images. Popular neuroimaging processing tools
+            such as CIVET, ANTs, and FreeSurfer \note{cite} were used for the 
+            preprocessing of structural data, and several other pipelines were
+            used for the processing of functional data.
+
+            The CoRR was development as initiative to study and improve the 
+            reliability and reproducibility of functional connectomics. The 
+            data made available by the Consortium consists of test-retest data 
+            obtained from 33 datasets. The repository contains data from 1629 
+            subjects, in which anatomical, R-fMRI, dMRI, CBF and ASL scans are 
+            available \note{obtained from website}.
+
+
+            The HCP initiative aimed to characterize the human connectome of 
+            1200 healthy adults, ranging from 22 to 35 years of age, by studying
+            twins and their non-twin siblings. Data collected for this initiave
+            includes structural MRI, R-fMRI, task fMRI and dMRI. MRI data was
+            collected using a 3T scanner for all participants, with a 200 
+            participants additionally undergoing scans in a higher-resolution 7T
+            scanner. MEG and EEG data is available for a subset of the subjects. 
+            In addition to imaging data, behavioural and genetic data were also 
+            acquired. To faciliate analysis for research groups, HCP made 
+            available the raw data, minimally pre-processed data and processed 
+            data. Pipelines were developed by the HCP for pre- and post-
+            processing. As in ABIDE, these pipelines reused many commonly-used
+            neuroimaging tools such as FreeSurfer and FSL for structural data
+            and FSL and other tools for functional data. The total amount of
+            data made available by the HCP reaches up to nearly 1 Petabyte.
+
+
+            The UK Biobank is an initiative aimed at the detection of pre-
+            symptomatic markers of diseases occuring in middle-aged to elderly 
+            populations. The study will gather data from questionnaires, 
+            physical and cognative measures and biological samples of 500,000
+            individuals. 100,000 of these individuals will additionally be 
+            subjected to imaging studies. Imaging modalities used include
+            structural MRI, fMRI and dMRI of the brain heart and body; low-dose
+            X-ray bone and joint scans; and ultrasound of the carotid arteries.
+            As with other initiatives, the UK Biobank makes available both 
+            raw and processed data. This data is expected to exceed 0.2 
+            Petabytes. Since processed data is provided, the UK Biobank makes 
+            available it own pipelines based on tools in FSL, but also plans to
+            adapt HCP pipelines from cortical surface extraction in their images
+            .
+
+            All these initiave stress the importance of data-sharing and
+            large-scale studies for the advancement of science. Many researchers
+            are limited to the processing of subsets of the data available as 
+            they lack compute and storage resources to process the data in its
+            entirety. It is also important to note that many of the pipelines 
+            developed by these initiatives made use of popular neuroimaging 
+            toolboxes, such as FSL, FreeSurfer, ANTS, CIVET, rather that
+            creating their own. Therefore, there is a great need for bigdata
+            frameworks that can leverage existing tools for the efficient 
+            processing of large-scale datasets. With the availability of such 
+            tools, many more research labs will be able to perform
+            higher-impact studies \note{reword}.
+
 
         \section{Open-science Platforms}\label{platforms}
             Efficient processing of workflows are only but a small portion of 
