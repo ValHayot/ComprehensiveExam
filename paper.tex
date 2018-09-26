@@ -4,7 +4,7 @@
 \titleformat{\chapter}
   {\normalfont\LARGE\bfseries}{\thechapter}{1em}{}
 \titlespacing*{\chapter}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
-\usepackage[left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
 \usepackage{hyperref} 
 \usepackage{xcolor} 
 \usepackage{ulem}                      
@@ -116,7 +116,8 @@
             , it is 1x1x20$\mu$m or 1TB in
             size. Other examples of large images can be found in electron 
             microscopy (EM), polarized light images (PLI) and micro coherence 
-            tomography (microCT) \note{need to do more research here}. Images at 
+            tomography (microCT) \note{need to do more research here.cite}. 
+            Images at 
             such high resolution are important to researchers as they provide 
             insights into aspects not otherwise detectible in images at lower 
             resolutions. However, due to their size and lack of resources 
@@ -178,7 +179,66 @@
             infrastructure made available.
             
         \section{Infrastructure}\label{infrastructure}
+            HPC infrastructure was designed durign a time when compute resources
+            were scarce. As a result, resource managers for these systems employ
+            strategies to efficiently use the compute resources available for 
+            processing. However, with the advent of big data, there has been a 
+            shift from compute-intensive to data-intensive workloads. That is, 
+            with the accumulation of large datasets, data transfers have begun 
+            to monopolize processing time, and with it software has been 
+            designed to minimize data transfers.
 
+            We define HPC systems as those that employ shared parallel 
+            filesystem such as Lustre. This shared filesystem is the slowest of
+            all storage devices as it is shared amongst all users of the system.
+            Compute nodes in an HPC system may or may not contain any local 
+            storage and network interconnects between nodes are typically fast.
+            Resources managers used in HPC infrastructures typically employ 
+            batch scheduling and execute heterogenous workflows. 
+            Examples of schedulers used in HPC clusters 
+            include SLURM, PBS, SGE and HTCondor \note{cite here}.
+
+            Commodity infrastructure differs from HPC infrastructures in that
+            it uses less-costly hardware. It follows a shared-nothing paradigm
+            where the storage is not shared between nodes. That is all compute
+            nodes are responsible for storing the data as well. File systems
+            used in these clusters are distributed filesystems, such as the
+            Hadoop Distributed File System (HDFS) and Alluxio \note{cite}.
+            Fault-tolerance of the data is achieved through replication across
+            nodes. As transferring data across the network is typically costly 
+            in such infrastructures, frameworks designed to run on commodity 
+            infrastructure attempt to limit the transfer of data across nodes. 
+            Resource managers created specifically for these systems
+            typically expect dedicated infrastructure, as is the case with 
+            Yet Another Resource Negotiator (YARN), but can also execute 
+            heterogeneous workflows, as can be seen with Mesos \note{cite}.
+
+            Commodity clusters may also come in the form of cloud infrastructure
+            . While the hardware employed is typically the same as other
+            commodity clusters, the software used varies. Cloud infrastructures
+            have the added benefit of virtualization, allowing users to 
+            configure the infrastructure and software requirements to meet their
+            needs. Cloud infrastructure also enables researchers to request
+            dedicated resources without having to maintain these resources. One
+            of the biggest limiting factors of cloud resources is the cost 
+            associated with usage.
+
+            Researchers typically have access to HPC infrastructure, but may
+            also have access to commodity infrastructure in the format of a 
+            local cluster or cloud. Although both neuroimaging frameworks and
+            big data frameworks can be made to execute in either environments,
+            the performance improvements that they bring are very much 
+            dependent on infrastructure that they are executed on. For instance,
+            neuroimaging workflows typically read and write to a shared file
+            system at each workflow step. This is less of an issue in HPC 
+            infrastructure as network bandwidth is typically better than on 
+            commodity infrastructure. In contrasts, Big Data framework typically
+            rely on there being some form of local storage. Employing a Big Data
+            framework on HPC infrastructure may in turn result in less to no 
+            data locality -- a strategy employed by Big Data frameworks to 
+            minimize data movement across the network. Due to the variability in
+            infrastructure available to researchers, a workflow framework good
+            for neuroscience must be well adapted to handle these differences.
 
     \chapter{Workflow composition}\label{workcomp}
         \section{Programming language}
