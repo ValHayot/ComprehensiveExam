@@ -372,14 +372,15 @@
             workflow engine with a GUI interface for workflow composition is
             that users are greatly limited by the tasks they can perform. 
             Workflow engines that employ a worfklow composition GUI include
-            SPM, Taverna, LONI and Galaxy. \note{double-check that none have a 
-            programming API.Loni does..i think SPM does too}
+            SPM, Taverna, OpenMOLE, LONI and Galaxy. \note{double-check that 
+            none have a programming API.Loni does..i think SPM does too}
 
             As more experienced programmers may feel limited by a GUI, workflow
             engines have decided to provide users with the ability to describe
             their workflows in more flexible formats. Even those with GUIs for 
-            workflow composition, such as LONI, enable more experienced users to
-            script their workflow. Six different programming
+            workflow composition, such as LONI and OpenMOLE, allow more 
+            experienced users to script their workflow. Six different 
+            programming
             languages are used for describing scientific workflows: 1) Python, 
             2) MATLAB and Octave, 3) Shell, 4) XML, 6) Common Workflow Language 
             (CWL) and 6) Domain Specific Language (DSL). Workflows engines that 
@@ -432,14 +433,34 @@
             Java, Python and Perl.
 
             Another alternative is to compose workflows using Common Workflow
-            Language (CWL). This can be seen in 
+            Language (CWL). This can be seen in workflow engines like Toil. 
+            CWL is not a programming language, but a specification for workflows
+            . Files can either be written in JSON or YAML formats. CWL is 
+            based on workflow engines like Make, but differs in that tasks
+            are isolated and inputs and outputs must be explicit. Similarly to 
+            make, CWL is only available on UNIX platforms. \note{cite cwl 
+            website}
 
+            Domain Specific Languages (DSL) are also used to compose workflows.
+            DSLs are programming languages that have been adapted to specific
+            domains. Workflow engine examples include OpenMOLE, which was 
+            derived from Scala, and Netflow, which is derived from the Apache 
+            Groovy programming language. While both are written on top of the 
+            Java platform, Nextflow is only compatible with UNIX-based 
+            environments. These programming languages are not otherwise commonly
+            used in neuroimaging, meaning that users must learn specific 
+            languages that would not otherwise be used in their field.
 
-
-
-
-
-
+            With the exeption of LONI, neuroimaging workflows tend to stick to
+            commonly used programming languages such as Python and MATLAB/Octave
+            . This is likely due to the fact that the learning curve to adapt to
+            these languages is relatively low and users can harness the 
+            flexibility of these languages. 
+            
+            MapReduce, Spark and Dask all provide interfaces to Python, making 
+            them good candidates for neuroimaging workflow engines. In addition
+            Spark also interfaces with R, another programming language commonly
+            used in neuroimaging.
 
 
 
