@@ -462,6 +462,21 @@
             Spark also interfaces with R, another programming language commonly
             used in neuroimaging.
 
+            Additionally, BigData frameworks are better suited for the 
+            processing of large images. Scientific workflows are generally 
+            file-based with neuroimaging frameworks only providing parallelism
+            on the file front. Sparks main abstraction, the Resilient 
+            Distributed Dataset (RDD), permits users to process large datasets.
+            A library based on the RDD, \textit{linealg}, allows users to create
+            vectors and matrices and use common Python libraries, such as 
+            Numpy and Scikit-learn to manipulate the data. Dask similarly 
+            provides the Dask bag for file manipulation, and the Dask array for
+            the manipulation of large matrices. Dask provides its own API for
+            the processing of large matrices that is based on Numpy. 
+            Both frameworks also provide data structures to manipulate tabular
+            data: the Spark Dataframe and the Dask Dataframe. Unlike Spark, the
+            Dask Dataframe is based off of the Pandas Dataframe API.
+
 
         \section{Modularity}\label{mod}
             Often times, users will want to integrate existing tools, in 
@@ -494,7 +509,6 @@
             execution, each task is given its own unique folder to operate on. 
             The engine will copy data to and extract data from this folder.
 
-
             LONI and FastR are other examples of workflow engines that use an
             XML interface to describe CLIs. LONI enables generation of the 
             XML-based module interface through its GUI. The module interface
@@ -519,8 +533,10 @@
             schemas not meet the requirements of the user, the user may choose 
             to define their own schema.
 
+            Some workflows do not require module interfaces, as is the case with
+            Make. 
 
-
+            
 
 
         \section{Workflow sharing}\label{sharing}
@@ -533,7 +549,7 @@
             big data: mapreduce - local or YARN, Spark - standalone, YARN or 
             Mesos, dask: any (easy to extend to any scheduler)
         \section{Performance enhancement strategies}
-            scientific: not much
+            scientific: workflow checkpointing (looking at file hashes)
             big data: data locality, in memory computing, lazy evaluation
     \chapter{Portability}\label{portability}
         java or python backend (most) typically platform independent (some 
