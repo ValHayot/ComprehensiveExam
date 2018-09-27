@@ -325,9 +325,127 @@
             for neuroscience must be well adapted to handle these differences.
 
     \chapter{Workflow composition}\label{workcomp}
-        \section{Programming language}
-        \section{Modularity}
-        \section{Workflow sharing}
+
+        Workflows, also known as pipelines, describe the flow of data from 
+        activity to another. They are typically represented by a 
+        Directed Acyclic Graph (DAG). Workflow activites, also referred to as 
+        workflows stages, encapsulate a tool. Tools may either take the form of 
+        a command-line tool or a custom script. The engines determine which
+        workflow activity can be staged by determining if the stage dependencies
+        have been satisfied.
+
+        In order for a workflow engine to be successful, it must be simple to 
+        compose workflows using that framework. New researchers should be able 
+        to acquire the skills to compose worfklows in that framework without
+        investing a significant amount of time in understanding it. Reuse of
+        existing tools is also common occurrence in neuroinformatics and 
+        workflow engines need to accomodate this by undertaking a modular 
+        approach and being easily extensible. With the sharing of data also 
+        comes the sharing of workflows. For labs to share their workflows with
+        the community at large, these workflows must be easily understood by the
+        community.
+
+        In this Chapter, we will compare and contrast the workflow composition 
+        of seven neuroimaging frameworks (SPM, LONI, Nipype, PSOM, FastR, AA and
+        Pydpiper), seven scientific workflow engines stemming from other fields
+        (Taverna, Pegasus, Make, OpenMOLE, Nextflow, Galaxy, Toil), and three
+        BigData frameworks (MapReduce, Spark, Dask). We will use three axes to
+        evaluate workflow composition. Section~\ref{lang} will compare the 
+        framework on the basis of programming language used, whereas 
+        Section~\ref{mod} will look at how easy it is to integrate existing 
+        tools into the workflows. Section~\ref{sharing} will evaluate the ease
+        at which their corresponding workflows can be shared.
+
+        \section{Workflow language}\label{lang}
+            The choice of workflow language (e.g. GUI, scripting language,
+            programming language) greatly
+            affects how easily it will get picked up by the community. Complex
+            languages may mean greater efficiency of the the engines
+            , but also result in extensive time spent on learning and developing
+            the pipelines. Moreover, some researchers may not be well-versed in
+            programming and may require very easy-to-use engines.
+
+            To address this issue, some workflow engines have taken the route
+            of employing a graphical user interface (GUI). This makes workflow 
+            composition accessible to all researchers, including those with
+            little to no programming background. The caveat to employing a 
+            workflow engine with a GUI interface for workflow composition is
+            that users are greatly limited by the tasks they can perform. 
+            Workflow engines that employ a worfklow composition GUI include
+            SPM, Taverna, LONI and Galaxy. \note{double-check that none have a 
+            programming API.Loni does..i think SPM does too}
+
+            As more experienced programmers may feel limited by a GUI, workflow
+            engines have decided to provide users with the ability to describe
+            their workflows in more flexible formats. Even those with GUIs for 
+            workflow composition, such as LONI, enable more experienced users to
+            script their workflow. Six different programming
+            languages are used for describing scientific workflows: 1) Python, 
+            2) MATLAB and Octave, 3) Shell, 4) XML, 6) Common Workflow Language 
+            (CWL) and 6) Domain Specific Language (DSL). Workflows engines that 
+            employ usage of Python include: Nipype, FastR, Pydpiper, Pegasus
+            and Toil.
+            Python is an excellent choice as a programming language for 
+            scientific workflows, particularly neuroinformatics, due to its 
+            widespread use within the community. Other advantages of 
+            programming in Python including a wide array of available libraries,
+            including neuroimaging-specific ones such as Nilearn and Nibabel
+            \note{cite}, and an lower learning curve compared to other 
+            programming languages. Additionally, Python is platform independent
+            meaning it can be installed on any system. In terms of BigData 
+            frameworks that employ Python, Dask is exclusively written in Python
+            , whereas Hadoop MapReduce and Spark both have interfaces to Python
+            while being written in Java and Scala, respectively.
+
+            Another widely-used high-level programming language in the 
+            neuroinformatics community is MATLAB/Octave. Workflow engines which
+            use this language include: PSOM, SPM, and Automatic analysis. A 
+            downfall to imposing MATLAB as programming language is that the 
+            it is proprietary, thus imposing a fee on 
+            anyone wishes to program in that language. To offset this, PSOM 
+            ensure compatibility with the GNU Octave programming language, thus 
+            removing the requirement to purchase software for workflow 
+            composition. Similarly to Python, MATLAB and Octave are 
+            high-level platform-independent languages. MATLAB, in particular,
+            also provides a wide array of libraries, however, the software must
+            be purchased in order to access them.
+
+            Scientific workflows are typically composed in UNIX-based 
+            environments. These environments typically have Make installed by
+            default eliminating the need for users to install it manually.
+            Furthermore, all users who use Linux environments will typically 
+            need to write some form of Shell script. This is the basis to use 
+            workflow engines, such as Make, as scientific workflow engines. 
+            As Make is exclusive to UNIX environments, it is not 
+            platform-independent. However, Make has the flexibility of being
+            easily extensible and can interface directly with any command-line
+            tool. Shell scripting, nevertheless, is generally not as intuitive
+            as programming languages like Python and MATLAB.
+
+            Composing workflows in XML is another option provided by some 
+            workflow engines such as Pegasus and LONI. However, the use of a 
+            markup language removes some of the flexibility. Users wanting to 
+            include 
+            custom scripts as workflow activities must do so by creating a 
+            command-line interface for their custom script. Pegasus, however,
+            does provide many interfaces to describe the pipeline in including
+            Java, Python and Perl.
+
+            Another alternative is to compose workflows using Common Workflow
+            Language (CWL). This can be seen in 
+
+
+
+
+
+
+
+
+
+
+
+        \section{Modularity}\label{mod}
+        \section{Workflow sharing}\label{sharing}
     \chapter{Performance}\label{performance}
         \section{Filesystems}
         \section{Scheduling}
