@@ -463,18 +463,50 @@
             used in neuroimaging.
 
 
-
-
         \section{Modularity}\label{mod}
+            Often times, users will want to integrate existing tools, in 
+            addition to custom scripts, into their workflows. As workflow 
+            engines, with the exception of Make, are typically not written in 
+            Shell, it is necessary to create interfaces to these tools. These
+            interfaces may range from simple calls to the command-line, to more 
+            complex ones that track inputs, outputs and other parameters; ensure
+            that all parameters are specified in the correct order and that the
+            parameter and file types are all correct; capture all of the 
+            standard input/output; and create folders to encapsulate task inputs
+            and outputs. Workflow engines typically rely on more complex types 
+            of interfaces in order to ensure correct functioning of the pipeline
+            . As these interfaces can be rather complex, it is necessary for the 
+            workflow engine to provide an intuitive way for users to create 
+            interfaces for their custom tools.
+
+            Early neuroimaging workflow engines, such as SPM, are monolithic, 
+            thus preventing users from incorporating their custom workflows
+
         \section{Workflow sharing}\label{sharing}
     \chapter{Performance}\label{performance}
         \section{Filesystems}
+            scientific: shared FS such as Lustre, NFS, S3
+            big data: mapreduce - HDFS, spark and dask shared or distributed
         \section{Scheduling}
+            scientific: SLURM, PBS, SGE, HTCondor, Mesos (sometimes)
+            big data: mapreduce - local or YARN, Spark - standalone, YARN or 
+            Mesos, dask: any (easy to extend to any scheduler)
         \section{Performance enhancement strategies}
+            scientific: not much
+            big data: data locality, in memory computing, lazy evaluation
     \chapter{Portability}\label{portability}
+        java or python backend (most) typically platform independent (some 
+        exceptions)
+        all tools used in the pipeline must be installed on system
+        Taverna - exception as relies on web services
         \section{Containers}
+            use of containers increase portability. none of the scientific 
+            pipelines can be containerized and communicate with the scheduler 
+            outside of the container
+            big data frameworks can
     \chapter{Reproducibility}\label{reproducibility}
         \section{Provenance Tracking}
+        big data frameworks: limited to lineage
         \section{containerization}
     \chapter{Discussion/Conclusion}
 
