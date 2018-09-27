@@ -472,6 +472,21 @@
             Spark also interfaces with R, another programming language commonly
             used in neuroimaging.
 
+            Additionally, BigData frameworks are better suited for the 
+            processing of large images. Scientific workflows are generally 
+            file-based with neuroimaging frameworks only providing parallelism
+            on the file front. Sparks main abstraction, the Resilient 
+            Distributed Dataset (RDD), permits users to process large datasets.
+            A library based on the RDD, \textit{linealg}, allows users to create
+            vectors and matrices and use common Python libraries, such as 
+            Numpy and Scikit-learn to manipulate the data. Dask similarly 
+            provides the Dask bag for file manipulation, and the Dask array for
+            the manipulation of large matrices. Dask provides its own API for
+            the processing of large matrices that is based on Numpy. 
+            Both frameworks also provide data structures to manipulate tabular
+            data: the Spark Dataframe and the Dask Dataframe. Unlike Spark, the
+            Dask Dataframe is based off of the Pandas Dataframe API.
+
 
         \section{Modularity}\label{mod}
             Often times, users will want to integrate existing tools, in 
@@ -490,7 +505,49 @@
             interfaces for their custom tools.
 
             Early neuroimaging workflow engines, such as SPM, are monolithic, 
-            thus preventing users from incorporating their custom workflows
+            and therefore, do not provide a mechanism for users to incorporate
+            their custom tools. Workflow engines, such as AA, were thus 
+            conceived to enable engines such as SPM to be more modular. AA 
+            allows users to define their tasks through XML specification. AA's 
+            XML tasklist is simply an ordered list of tasks which also includes
+            details on analysis-specific parameters. Dependencies are
+            inferred by the program through analysis of the module interfaces.
+            Module interfaces consist of MATLAB user script and an XML 
+            descriptor. The descriptor contains details on the input and output
+            data stream types (e.g. epi, structural, dicom\_header) 
+            and the desired domain (e.g. study, subject, session). During 
+            execution, each task is given its own unique folder to operate on. 
+            The engine will copy data to and extract data from this folder.
+
+            LONI and FastR are other examples of workflow engines that use an
+            XML interface to describe CLIs. LONI enables generation of the 
+            XML-based module interface through its GUI. The module interface
+            consists of details on \note{from website} module metadata (e.g.
+            authors, package, version, name) and citation information, 
+            command-line syntax, parameter and file types, dependencies and 
+            output and error handling.
+
+            FastR allows for the definition of workflow modules in both XML and 
+            JSON. Module definitions are broken down into two components, 
+            \textit{Tool} and \textit{Interface} class. The \textit{Tool} is the
+            component that is written in either XML or JSON. It defines three
+            components: general metadata, target and interface. General metadata
+            consists of details such as name, version and authors. The target, 
+            on the other hand, consists of details on the execution environment
+            (e.g. operating system, interpreter and binary file). The last 
+            component of the \textit{Tool}, the interpreter, provides details on
+            the inputs and outputs of the tool (e.g. name, datatype, cardinality
+            , location). FastR provides to schemas to validate and convert the 
+            \textit{Tool} to a Python object
+            : the \textit{Tool} schema and \textit{FastRInterface}. Should these
+            schemas not meet the requirements of the user, the user may choose 
+            to define their own schema.
+
+            Some workflows do not require module interfaces, as is the case with
+            Make. 
+
+            
+
 
         \section{Workflow sharing}\label{sharing}
     \chapter{Performance}\label{performance}
@@ -502,7 +559,7 @@
             big data: mapreduce - local or YARN, Spark - standalone, YARN or 
             Mesos, dask: any (easy to extend to any scheduler)
         \section{Performance enhancement strategies}
-            scientific: not much
+            scientific: workflow checkpointing (looking at file hashes)
             big data: data locality, in memory computing, lazy evaluation
     \chapter{Portability}\label{portability}
         java or python backend (most) typically platform independent (some 
