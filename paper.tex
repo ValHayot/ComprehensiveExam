@@ -509,9 +509,10 @@
             execution, each task is given its own unique folder to operate on. 
             The engine will copy data to and extract data from this folder.
 
-            LONI and FastR are other examples of workflow engines that use an
-            XML interface to describe CLIs. LONI enables generation of the 
-            XML-based module interface through its GUI. The module interface
+            LONI, FastR, Taverna and Pegasus are other examples of workflow 
+            engines that 
+            use an XML interface to describe CLIs. LONI enables generation of 
+            the XML-based module interface through its GUI. The module interface
             consists of details on \note{from website} module metadata (e.g.
             authors, package, version, name) and citation information, 
             command-line syntax, parameter and file types, dependencies and 
@@ -533,8 +534,40 @@
             schemas not meet the requirements of the user, the user may choose 
             to define their own schema.
 
+            Tool addition in Taverna is primarily performed through the user 
+            interface, but can also achieved through the creation of an XML
+            descriptor. Taverna differs from other workflow engines in that it
+            execute generic-style services (i.e. WSDL and REST) in addition to
+            other types of Web Services, as well a external CLIs, R scripts and
+            Java services. To interface with a CLI, the XML file must contain 
+            the command to execute, file inputs and outputs (if required), if 
+            standard input, output and error streams must be conserved and the 
+            location where the command should execute\note{from website}.
+
+            Pegasus is another workflow engine that uses an XML format to 
+            define the CLI tools interface. The XML interfaces are typically 
+            incorporated directly into the workflow DAX definition. However, a 
+            separate multiline text-based 'Transformation Catalogue' file can
+            be provided. Information encoded within the interfaces include
+            tool identifier (typically namespace::version), the URL or filepath
+            to the executable, site identifier of the executable's host, 
+            executable type (e.g. installed or staged) and the profile. Pegasus
+            can also execute containerized tools. For this, a container 
+            identifier, image URL, site identifier of the image, and container
+            profiles must also be defined.
+
             Some workflows do not require module interfaces, as is the case with
-            Make. 
+            Make. The pipeline is expressed in a makefile containing a set of 
+            rules. Rules consist of three components: targets, dependencies and
+            recipes. The target is the output (typically a file) of the 
+            execution of a recipe and the dependencies are the input required to 
+            produce the given target. Recipes are the shell commands that will
+            generate the target from its dependencies. As makefiles are written
+            entirely using shell commands, it is not necessarily to create 
+            interfaces to the shell commands of the tools. 
+
+
+
 
             
 
