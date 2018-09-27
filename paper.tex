@@ -480,7 +480,48 @@
             interfaces for their custom tools.
 
             Early neuroimaging workflow engines, such as SPM, are monolithic, 
-            thus preventing users from incorporating their custom workflows
+            and therefore, do not provide a mechanism for users to incorporate
+            their custom tools. Workflow engines, such as AA, were thus 
+            conceived to enable engines such as SPM to be more modular. AA 
+            allows users to define their tasks through XML specification. AA's 
+            XML tasklist is simply an ordered list of tasks which also includes
+            details on analysis-specific parameters. Dependencies are
+            inferred by the program through analysis of the module interfaces.
+            Module interfaces consist of MATLAB user script and an XML 
+            descriptor. The descriptor contains details on the input and output
+            data stream types (e.g. epi, structural, dicom\_header) 
+            and the desired domain (e.g. study, subject, session). During 
+            execution, each task is given its own unique folder to operate on. 
+            The engine will copy data to and extract data from this folder.
+
+
+            LONI and FastR are other examples of workflow engines that use an
+            XML interface to describe CLIs. LONI enables generation of the 
+            XML-based module interface through its GUI. The module interface
+            consists of details on \note{from website} module metadata (e.g.
+            authors, package, version, name) and citation information, 
+            command-line syntax, parameter and file types, dependencies and 
+            output and error handling.
+
+            FastR allows for the definition of workflow modules in both XML and 
+            JSON. Module definitions are broken down into two components, 
+            \textit{Tool} and \textit{Interface} class. The \textit{Tool} is the
+            component that is written in either XML or JSON. It defines three
+            components: general metadata, target and interface. General metadata
+            consists of details such as name, version and authors. The target, 
+            on the other hand, consists of details on the execution environment
+            (e.g. operating system, interpreter and binary file). The last 
+            component of the \textit{Tool}, the interpreter, provides details on
+            the inputs and outputs of the tool (e.g. name, datatype, cardinality
+            , location). FastR provides to schemas to validate and convert the 
+            \textit{Tool} to a Python object
+            : the \textit{Tool} schema and \textit{FastRInterface}. Should these
+            schemas not meet the requirements of the user, the user may choose 
+            to define their own schema.
+
+
+
+
 
         \section{Workflow sharing}\label{sharing}
     \chapter{Performance}\label{performance}
