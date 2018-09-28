@@ -27,22 +27,22 @@
         In recent years, the volume of neuroimaging data acquired has exceeded
         both the storage and computation capacity of a standard research 
         lab workstation. With the advancement of data sharing technologies, this 
-        data has been made widely available, with the only factor impeding
+        data has been made widely available, \weird{with the only factor impeding
         research on this data being access to infrastructure and software that 
-        enables efficient processing on such infrastructure. Many research labs 
+        enables efficient processing on such infrastructure}. Many research labs 
         do have access to high performance computing (HPC) clusters, however, 
         without efficient software to process this data, processing can take an 
         excessive amount of time. Ensuring efficient processing of data is 
         complex and likely beyond the knowledge of an average neuroimaging 
-        researcher. As a result, frameworks for the efficient processing of 
-        neuroimaging data need to be developed.
-
-        Many neuroimaging workflows currently exist. Examples include
+        researcher \tristan{Be careful with 'knowledge', some neuroimaging researchers are very compute-savvy}. As a result, frameworks for the efficient processing of 
+        neuroimaging data need to be developed. \tristan{Add a sentence to transition from 'frameworks for efficient processing' to 'workflow engines'}
+        
+        Many neuroimaging workflow engines currently exist. Examples include
         Nipype, Pipeline System for Octave and Matlab (PSOM), LONI, SPM, FastR,
         Automated Analysis (AA) and Pydpiper\note{add citations here}. These 
-        workflow engines aim to satify four criteria: 1) straightforward 
+        workflow engines aim to satisfy four criteria: 1) straightforward \tristan{easy? facilitated?} 
         workflow composition, 2) performance, 3) portability of the workflows 
-        and 4) reproducibility of the analysis. While these workflow engines
+        and 4) reproducibility of the analyses. While these workflow engines
         do tackle performance, it is mainly limited to minimizing computation
         time and does not consider data transfer times -- which are typically
         costly in Big Data settings. Therefore, these engines need to be adapted
@@ -50,7 +50,7 @@
 
         Big Data frameworks differ from those available in neuroimaging as their
         focus is mainly on workflow composition and performance. Big Data 
-        frameworks such as Apache Spark and Dask both aim to be easy-to-use,
+        frameworks such as Apache Spark and Dask \tristan{Add references} both aim to be easy-to-use,
         applicable to a wide variety of analyses and improve performance in the 
         processing of Big Data. These types of systems were primarily designed 
         to be efficient on commodity infrastructure in which transferring data
@@ -59,13 +59,13 @@
         Currently, there exists no Big Data framework which is adapted for the
         processing of neuroimaging data. However, tools such as the Thunder 
         Project \note{add citation} allow for the processing of time-series
-        neuroimaging data using Spark as the backend framework. Tools such as 
-        these provide built-in functions to process the data. For users to 
+        neuroimaging data using Spark as the backend framework. \weird{Tools such as 
+        these} provide built-in functions to process the data. For users to 
         extend functionality, it is necessary for them to understand the backend
         framework. Other scientific workflow engines, such as Toil and Pegasus
         \note{add citations}, have incorporated features that enable more 
         performant workflow executions for scientific Big Data. They also enable
-        the integration of Big Data frameworks as subpipelines within their 
+        the integration of Big Data frameworks as sub-pipelines within their 
         workflows. Despite integration with Big Data frameworks, it is not
         possible to create Big Data workflows using their API exclusively.
 
@@ -81,12 +81,14 @@
         for scientific computing, it is necessary to adapt the infrastructure 
         for processing on HPC.
 
-        In section \ref{datasets}, we will briefly discuss the two types of 
-        datasets that are giving rise to the neuroimaging big data. Section 
-        \ref{platforms} will provide a brief introduction to the data-sharing
-        and processing platforms available to researchers. We will conclude our 
+        \tristan{Add a sentence to present the goal of the report.}
+        In section~\ref{datasets}, we will briefly introduce the two 
+        types of datasets that are giving rise to the neuroimaging big 
+        data. Section~\ref{platforms} will provide a brief introduction 
+        to the data-sharing and processing platforms available to 
+        researchers. We will conclude our 
         introduction on the differences between commodity and HPC infrastructure
-        in section \ref{infrastructure}.
+        in section~\ref{infrastructure}.
 
         As we wish to evaluate and compare scientific workflow frameworks with
         Big Data frameworks for the processing of neuroimaging big data, we will
@@ -96,7 +98,7 @@
         for neuroimaging; Taverna, Pegasus, Make, OpenMOLE, Nextflow, Galaxy, 
         Toil for other scientific workflows; and MapReduce, Spark and Dask for
         Big Data Frameworks. Chapter \ref{workcomp} will evaluate these 
-        workflows on the basis of workflow composition. In other words, we will
+        workflows on the basis of workflow composition: we will % 'in other words' is on my list of expressions to avoid
         look at the programming languages necessary to construct these workflows
         , how easy is it to add new tools and will these workflows be understood
         by the community. In Chapter \ref{performance}, we will proceed to 
@@ -109,20 +111,20 @@
 
         \section{Big Neuroimaging Datasets}\label{datasets}
 
-            As a result of the rise in datasharing in neuroscience, neuroimaging
-            big data has come to fruition. The field of neuroscience has now
+            As a result of the rise in data sharing in neuroscience, neuroimaging
+            Big Data has come to fruition. The field of neuroscience has now
             reached a bottleneck where there exists sufficient data to make
             impactful studies, but the software to process these datasets have 
             not evolved with the size of the data.
 
             Neuroimaging big data comes in two formats: 1) large images and 2) 
-            large datasets. Large images consist of a singular images ranging 
+            large datasets. Large images consist of singular images ranging 
             from 100s of gigabytes to terabytes in size. A well-known example of 
             such an image is the BigBrain \note{cite here}, a histological image 
             of the brain of a healthy 69 year-old man. At its highest resolution
             , it is 1x1x20$\mu$m or 1TB in
             size. Other examples of large images can be found in electron 
-            microscopy (EM), polarized light images (PLI) and micro coherence 
+            microscopy (EM), polarized light imaging (PLI) and micro computational
             tomography (microCT) \note{need to do more research here.cite}. 
             Images at 
             such high resolution are important to researchers as they provide 
@@ -131,14 +133,14 @@
             available to process such images, research on this data remains 
             limited.
 
-            In contrast, large datasets are consist of many images acquired from
+            In contrast, large datasets consist of many images acquired from
             multiple subjects, which are too large to be processed in their
             entirety. Notable examples of these datasets include the 
             Alzheimer's Disease Neuroimaging Initiative (ADNI), OpenfMRI, 
             the Autism Brain Imaging Data Exchange (ABIDE), the Consortium for
             Reliability and Reproducibility (CoRR), the Human Connectome Project
             (HCP) and the UK Biobank, with the later
-            two being flagship examples of large datasets in neuroimaging.
+            two being flagship recent examples of large datasets in neuroimaging.
 
             The ADNI intiative is a collection of images (structural and 
             functional MRI, PET), urine,
@@ -158,8 +160,9 @@
             . At present, OpenfMRI houses data of a total 3372 subjects
             originating from 95 studies \note{obtained from website}.
 
-            To promote the advancement of knowledge of Autism Spectrum Disorders
-            (ASD), ABIDE was conceived. ABIDE is an open repository of 
+            ABIDE was conceived to promote the advancement of knowledge 
+            of Autism Spectrum Disorders (ASD). % inverted the sentence to keep symmetry with the other paragraphs
+            ABIDE is an open repository of 
             preprocessed data obtained from 1112 R-fMRI datasets.
             In addition to R-fMRI, datasets also contain the corresponding 
             structural MRI and phenotypic data. As data made available in ABIDE
@@ -169,7 +172,7 @@
             preprocessing of structural data, and several other pipelines were
             used for the processing of functional data.
 
-            The CoRR was development as initiative to study and improve the 
+            The CoRR \tristan{expand acronym} was developed as an initiative to study and improve the 
             reliability and reproducibility of functional connectomics. The 
             data made available by the Consortium consists of test-retest data 
             obtained from 33 datasets. The repository contains data from 1629 
@@ -185,7 +188,7 @@
             participants additionally undergoing scans in a higher-resolution 7T
             scanner. MEG and EEG data is available for a subset of the subjects. 
             In addition to imaging data, behavioural and genetic data were also 
-            acquired. To faciliate analysis for research groups, HCP made 
+            acquired. To facilitate analysis for research groups, HCP made 
             available the raw data, minimally pre-processed data and processed 
             data. Pipelines were developed by the HCP for pre- and post-
             processing. As in ABIDE, these pipelines reused many commonly-used
@@ -195,9 +198,9 @@
 
 
             The UK Biobank is an initiative aimed at the detection of pre-
-            symptomatic markers of diseases occuring in middle-aged to elderly 
+            symptomatic markers of diseases occurring in middle-aged to elderly 
             populations. The study will gather data from questionnaires, 
-            physical and cognative measures and biological samples of 500,000
+            physical and cognitive measures and biological samples of 500,000
             individuals. 100,000 of these individuals will additionally be 
             subjected to imaging studies. Imaging modalities used include
             structural MRI, fMRI and dMRI of the brain heart and body; low-dose
@@ -209,14 +212,14 @@
             adapt HCP pipelines from cortical surface extraction in their images
             .
 
-            All these initiave stress the importance of data-sharing and
+            All these initiative stress the importance of data-sharing and
             large-scale studies for the advancement of science. Many researchers
             are limited to the processing of subsets of the data available as 
             they lack compute and storage resources to process the data in its
             entirety. It is also important to note that many of the pipelines 
             developed by these initiatives made use of popular neuroimaging 
             toolboxes, such as FSL, FreeSurfer, ANTS, CIVET, rather that
-            creating their own. Therefore, there is a great need for bigdata
+            creating their own. Therefore, there is a great need for Big Data
             frameworks that can leverage existing tools for the efficient 
             processing of large-scale datasets. With the availability of such 
             tools, many more research labs will be able to perform
@@ -225,7 +228,8 @@
 
         \section{Open-science Platforms}\label{platforms}
             Efficient processing of workflows are only but a small portion of 
-            the Big Data issue in neuroscience. Sharing and storing of datasets
+            the Big Data issue in neuroscience. % nice transition, this section gives more context for your study
+            Sharing and storing of datasets
             and tools, secure access to and configuration of multiple computing 
             sites and provenance capture of all activities must be managed by 
             the researcher. This puts a heavy burden on researchers as they 
@@ -244,7 +248,7 @@
             from having to know site-specific details by providing seamless
             execution on any cluster the Platform has knowledge of.
 
-            Examples of popular neuroinformatic open-science platforms include 
+            Examples of popular neuroinformatics open-science platforms include 
             CBRAIN\note{cite paper}, OpenNeuro \note{cite poster} and Neurodata
             \note{cite prepring}. OpenNeuro and NeuroData primarily focus on
             cloud deployement whereas CBRAIN is configured for the deployment
@@ -263,8 +267,12 @@
             infrastructure made available.
             
         \section{Infrastructure}\label{infrastructure}
-            HPC infrastructure was designed durign a time when compute resources
-            were scarce. As a result, resource managers for these systems employ
+            HPC infrastructure was designed during a time when compute resources
+            were scarce. As a result, \tristan{I disagree with 'As a result' and I don't particularly agree with the previous sentence: even if
+            resources aren't scarce, they are good reasons to optimize resource managers: energy consumption, application makespan, fairness, etc. Also,
+            I'm not sure if resources are less scarce now than they used to be: with the rise of computational sciences, almost every researcher now
+            needs a cluster, and Compute Canada (but also other infrastructures) has been very busy.}
+            resource managers for these systems employ
             strategies to efficiently use the compute resources available for 
             processing. However, with the advent of big data, there has been a 
             shift from compute-intensive to data-intensive workloads. That is, 
@@ -273,7 +281,9 @@
             designed to minimize data transfers.
 
             We define HPC systems as those that employ shared parallel 
-            filesystem such as Lustre. This shared filesystem is the slowest of
+            filesystem such as Lustre \tristan{and data-unaware schedulers?}.
+            \tristan{You should say that this definition is 'by contrast to big data platforms' to explain where it's coming from.}
+            This shared filesystem is the slowest of
             all storage devices as it is shared amongst all users of the system.
             Compute nodes in an HPC system may or may not contain any local 
             storage and network interconnects between nodes are typically fast.
@@ -282,9 +292,9 @@
             Examples of schedulers used in HPC clusters 
             include SLURM, PBS, SGE and HTCondor \note{cite here}.
 
-            Commodity infrastructure differs from HPC infrastructures in that
+            Commodity infrastructure \tristan{Call it 'Big Data infrastructure?'} differs from HPC infrastructures in that
             it uses less-costly hardware. It follows a shared-nothing paradigm
-            where the storage is not shared between nodes. That is all compute
+            where the storage is not shared between nodes. That is, all compute
             nodes are responsible for storing the data as well. File systems
             used in these clusters are distributed filesystems, such as the
             Hadoop Distributed File System (HDFS) and Alluxio \note{cite}.
@@ -297,8 +307,8 @@
             Yet Another Resource Negotiator (YARN), but can also execute 
             heterogeneous workflows, as can be seen with Mesos \note{cite}.
 
-            Commodity clusters may also come in the form of cloud infrastructure
-            . While the hardware employed is typically the same as other
+            Commodity clusters may also come in the form of cloud infrastructure.
+            While the hardware employed is typically the same as other
             commodity clusters, the software used varies. Cloud infrastructures
             have the added benefit of virtualization, allowing users to 
             configure the infrastructure and software requirements to meet their
@@ -328,9 +338,11 @@
 
         Workflows, also known as pipelines, describe the flow of data from 
         activity to another. They are typically represented by a 
-        Directed Acyclic Graph (DAG). Workflow activites, also referred to as 
-        workflows stages, encapsulate a tool. Tools may either take the form of 
-        a command-line tool or a custom script. The engines determine which
+        Directed Acyclic Graph (DAG) \tristan{Not necessarily a DAG, see Nipype for instance, it has loops.
+        I don't think you want to enter in a taxonomy of languages though, just say 'graph'}. Workflow activites, also referred to as 
+        workflows stages, encapsulate a tool \tristan{Mention 'interface' here as an intro to sub-sec 2}. Tools may either take the form of 
+        a command-line tool or a custom script \tristan{A script is a command-line tool. I think tools may also be web services (Taverna) or just 
+        software libraries (Dask)}. The engines determine which
         workflow activity can be staged by determining if the stage dependencies
         have been satisfied.
 
@@ -343,7 +355,8 @@
         approach and being easily extensible. With the sharing of data also 
         comes the sharing of workflows. For labs to share their workflows with
         the community at large, these workflows must be easily understood by the
-        community.
+        community. \tristan{Perhaps mention that this also relates to the sharing
+        of reproducible results}.
 
         In this Chapter, we will compare and contrast the workflow composition 
         of seven neuroimaging frameworks (SPM, LONI, Nipype, PSOM, FastR, AA and
@@ -360,7 +373,7 @@
             The choice of workflow language (e.g. GUI, scripting language,
             programming language) greatly
             affects how easily it will get picked up by the community. Complex
-            languages may mean greater efficiency of the the engines
+            languages may mean greater efficiency of the engines
             , but also result in extensive time spent on learning and developing
             the pipelines. Moreover, some researchers may not be well-versed in
             programming and may require very easy-to-use engines.
@@ -374,6 +387,10 @@
             Workflow engines that employ a worfklow composition GUI include
             SPM, Taverna, OpenMOLE, LONI and Galaxy. \note{double-check that 
             none have a programming API.Loni does..i think SPM does too}
+            \tristan{My conclusion on GUIs is that they are suitable only
+            for very simple pipelines. Perhaps the intro could give an idea
+            of the types of pipelines encountered, showing a simple one and
+            a more complex one. No way fmriprep is described in a GUI.}
 
             As more experienced programmers may feel limited by a GUI, workflow
             engines have decided to provide users with the ability to describe
@@ -382,15 +399,15 @@
             experienced users to script their workflow. Six different 
             programming
             languages are used for describing scientific workflows: 1) Python, 
-            2) MATLAB and Octave, 3) Shell, 4) XML, 6) Common Workflow Language 
-            (CWL) and 6) Domain Specific Language (DSL). Workflows engines that 
+            2) MATLAB and Octave \tristan{I think the official name is GNU/Octave}, 3) Shell \tristan{scripting languages}, 4) XML, 6) Common Workflow Language 
+            (CWL) and 6) Domain Specific Language (DSL). \tristan{I don't see why CWL and XML don't qualify as DSL} Workflows engines that 
             employ usage of Python include: Nipype, FastR, Pydpiper, Pegasus
-            and Toil.
+            and Toil \tristan{Dask? Spark?}.
             Python is an excellent choice as a programming language for 
             scientific workflows, particularly neuroinformatics, due to its 
             widespread use within the community. Other advantages of 
             programming in Python including a wide array of available libraries,
-            including neuroimaging-specific ones such as Nilearn and Nibabel
+            including neuroimaging-specific ones such as Nilearn and Nibabel \tristan{mention scipy, sci-kit learn, etc}
             \note{cite}, and an lower learning curve compared to other 
             programming languages. Additionally, Python is platform independent
             meaning it can be installed on any system. In terms of BigData 
@@ -403,15 +420,20 @@
             use this language include: PSOM, SPM, and Automatic analysis. A 
             downfall to imposing MATLAB as programming language is that the 
             it is proprietary, thus imposing a fee on 
-            anyone wishes to program in that language. To offset this, PSOM 
-            ensure compatibility with the GNU Octave programming language, thus 
+            anyone wishes to program in that language \tristan{You should also mention the
+            advantage of Matlab: easy to learn, integrated ecosystem, 
+            performance, see 
+            \url{https://www.mathworks.com/products/matlab/matlab-vs-python.html}}. 
+            To offset this, PSOM ensure compatibility with the GNU 
+            Octave programming language, thus 
             removing the requirement to purchase software for workflow 
             composition. Similarly to Python, MATLAB and Octave are 
             high-level platform-independent languages. MATLAB, in particular,
             also provides a wide array of libraries, however, the software must
             be purchased in order to access them.
 
-            Scientific workflows are typically composed in UNIX-based 
+            \tristan{This paragraph should start with ``Shell scripting ...". The structuration of this section by language
+            is great, but the writing of this paragram doesn't put it forward.}Scientific workflows are typically composed in UNIX-based 
             environments. These environments typically have Make installed by
             default eliminating the need for users to install it manually.
             Furthermore, all users who use Linux environments will typically 
@@ -425,7 +447,8 @@
 
             Composing workflows in XML is another option provided by some 
             workflow engines such as Pegasus and LONI. However, the use of a 
-            markup language removes some of the flexibility. Users wanting to 
+            markup language removes some of the flexibility. \tristan{Before you explain the downside, 
+            you should say what are the advantages: mainly language-independent parsers and validation.} Users wanting to 
             include 
             custom scripts as workflow activities must do so by creating a 
             command-line interface for their custom script. Pegasus, however,
@@ -435,18 +458,18 @@
             Another alternative is to compose workflows using Common Workflow
             Language (CWL). This can be seen in workflow engines like Toil. 
             CWL is not a programming language, but a specification for workflows
-            . Files can either be written in JSON or YAML formats. CWL is 
-            based on workflow engines like Make, but differs in that tasks
-            are isolated and inputs and outputs must be explicit. Similarly to 
-            make, CWL is only available on UNIX platforms. \note{cite cwl 
+            \tristan{It is a YAML-based DSL for workflows. Just like Pegasus' DAX is an XML-based DSL}. Files can either be written in JSON or YAML formats. CWL is 
+            based on workflow engines like Make \tristan{? I don't think CWL relies on make, does it?}, but differs in that tasks
+            are isolated and inputs and outputs must be explicit \tristan{inputs and outputs are somewhat explicit in a Makefile}. Similarly to 
+            make, CWL is only available on UNIX platforms \tristan{strange, the CWL interpreter is in Python so I'd expect it to run anywhere}. \note{cite cwl 
             website}
 
             Domain Specific Languages (DSL) are also used to compose workflows.
             DSLs are programming languages that have been adapted to specific
             domains. Workflow engine examples include OpenMOLE, which was 
-            derived from Scala, and Netflow, which is derived from the Apache 
+            derived from Scala, and Netflow \tristan{Nextflow?}, which is derived from the Apache 
             Groovy programming language. While both are written on top of the 
-            Java platform, Nextflow is only compatible with UNIX-based 
+            Java platform, Nextflow is only compatible with UNIX-based \tristan{How about using Linux everywhere instead of UNIX-based?} 
             environments. These programming languages are not otherwise commonly
             used in neuroimaging, meaning that users must learn specific 
             languages that would not otherwise be used in their field.
@@ -462,7 +485,26 @@
             Spark also interfaces with R, another programming language commonly
             used in neuroimaging.
 
-            Additionally, BigData frameworks are better suited for the 
+            \tristan{So this is now about data structures, not just language.
+            This is really excellent, but this should perhaps go into a 
+            specific sub-section. I think you could mention that 
+            scientific workflow engines traditionally rely on files 
+            only, and simple types, but that big data engines have 
+            invested a lot in data structures, starting from key-value 
+            pair representations in MR to RDD and Dask arrays. Spark is 
+            actually built around RDDs, this is salient-enough to be 
+            discussed a bit more. It actually makes a lot of sense that 
+            data-focused engines are built around data structures 
+            instead of control constructs. The ACM Com Spark paper makes it clear
+            that unifying data structures is key to performance and interoperability, 
+            because it allows data to remain in-memory instead of having to go back
+            and forth to different environments. I would only mention linealg 
+            in the description of Dask arrays. So, how about a 
+            sub-section 'data structures' with 4 paragraphs: (1) 
+            scientific and neuroimaging engines, (2) Big-Data, MR, (3) 
+            Spark's RDDs and DataFrames, (4) Dask arrays, mentioning 
+            linealg. } Additionally, BigData frameworks are better 
+            suited for the 
             processing of large images. Scientific workflows are generally 
             file-based with neuroimaging frameworks only providing parallelism
             on the file front. Sparks main abstraction, the Resilient 
@@ -479,6 +521,8 @@
 
 
         \section{Modularity}\label{mod}
+            \tristan{Since this section is about interfaces, I would
+            rather call it ``Interfaces" or ``Tool interfaces".}
             Often times, users will want to integrate existing tools, in 
             addition to custom scripts, into their workflows. As workflow 
             engines, with the exception of Make, are typically not written in 
@@ -496,7 +540,8 @@
 
             Early neuroimaging workflow engines, such as SPM, are monolithic, 
             and therefore, do not provide a mechanism for users to incorporate
-            their custom tools. Workflow engines, such as AA, were thus 
+            their custom tools \tristan{Users can still integrate tools as Matlab functions
+            doing system calls}. Workflow engines, such as AA, were thus 
             conceived to enable engines such as SPM to be more modular. AA 
             allows users to define their tasks through XML specification. AA's 
             XML tasklist is simply an ordered list of tasks which also includes
@@ -552,7 +597,7 @@
             tool identifier (typically namespace::version), the URL or filepath
             to the executable, site identifier of the executable's host, 
             executable type (e.g. installed or staged) and the profile. Pegasus
-            can also execute containerized tools. For this, a container 
+            can also execute containerized tools \tristan{how about the other ones?}. For this, a container 
             identifier, image URL, site identifier of the image, and container
             profiles must also be defined \note{from website}.
 
@@ -581,7 +626,7 @@
             a command and the second defines the outputs that are possibly 
             generated by the command. For CLIs, it is necessary to define the
             command. Additionally, Nipype will start X virtual framebuffer 
-            before executing a CLI, if specified. For SPM interfaces, the job 
+            before executing a CLI, if specified \tristan{you need to explain why}. For SPM interfaces, the job 
             type and name must be specified. Interfaces to MATLAB require 
             definition of the run function, while Python interfaces require
             the definition of the \textit{\_run\_interface} function. \note{from
@@ -616,7 +661,7 @@
             can interface with any MATLAB function or CLI. Bricks require the
             definition of input and output files, in addition to a structure of
             program options. A useful feature found in PSOM is the ability 
-            to perform a "dry-run" of the Brick without executing the command.
+            to perform a ``dry-run" of the Brick without executing the command.
 
 
             OpenMOLE has the ability to encapsulate UDF Scala tasks and CLI. 
@@ -632,10 +677,14 @@
             produce the given target. Recipes are the shell commands that will
             generate the target from its dependencies. 
 
-
-
-
-            
+            \tristan{Good material in here, but it lacks a bit structure.
+            I like your structure of the previous sub-section, by language. I think
+            here you could have two groups: (1) DSL descriptions (XML, JSON, etc) and (2)
+            Python or Matlab descriptions. One advantage of DSLs is that they can 
+            be more easily reused in different engines, while programming languages
+            are more flexible, for instance Nipype allows outputs to be specified
+            at runtime (dynamic number of inputs with names only known after
+            the interface ran.)}
 
 
         \section{Workflow sharing}\label{sharing}
