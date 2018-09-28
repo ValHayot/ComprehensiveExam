@@ -338,9 +338,11 @@
 
         Workflows, also known as pipelines, describe the flow of data from 
         activity to another. They are typically represented by a 
-        Directed Acyclic Graph (DAG). Workflow activites, also referred to as 
-        workflows stages, encapsulate a tool. Tools may either take the form of 
-        a command-line tool or a custom script. The engines determine which
+        Directed Acyclic Graph (DAG) \tristan{Not necessarily a DAG, see Nipype for instance, it has loops.
+        I don't think you want to enter in a taxonomy of languages though, just say 'graph'}. Workflow activites, also referred to as 
+        workflows stages, encapsulate a tool \tristan{Mention 'interface' here as an intro to sub-sec 2}. Tools may either take the form of 
+        a command-line tool or a custom script \tristan{A script is a command-line tool. I think tools may also be web services (Taverna) or just 
+        software libraries (Dask)}. The engines determine which
         workflow activity can be staged by determining if the stage dependencies
         have been satisfied.
 
@@ -353,7 +355,8 @@
         approach and being easily extensible. With the sharing of data also 
         comes the sharing of workflows. For labs to share their workflows with
         the community at large, these workflows must be easily understood by the
-        community.
+        community. \tristan{Perhaps mention that this also relates to the sharing
+        of reproducible results}.
 
         In this Chapter, we will compare and contrast the workflow composition 
         of seven neuroimaging frameworks (SPM, LONI, Nipype, PSOM, FastR, AA and
@@ -370,7 +373,7 @@
             The choice of workflow language (e.g. GUI, scripting language,
             programming language) greatly
             affects how easily it will get picked up by the community. Complex
-            languages may mean greater efficiency of the the engines
+            languages may mean greater efficiency of the engines
             , but also result in extensive time spent on learning and developing
             the pipelines. Moreover, some researchers may not be well-versed in
             programming and may require very easy-to-use engines.
@@ -384,6 +387,10 @@
             Workflow engines that employ a worfklow composition GUI include
             SPM, Taverna, OpenMOLE, LONI and Galaxy. \note{double-check that 
             none have a programming API.Loni does..i think SPM does too}
+            \tristan{My conclusion on GUIs is that they are suitable only
+            for very simple pipelines. Perhaps the intro could give an idea
+            of the types of pipelines encountered, showing a simple one and
+            a more complex one. No way fmriprep is described in a GUI.}
 
             As more experienced programmers may feel limited by a GUI, workflow
             engines have decided to provide users with the ability to describe
@@ -392,15 +399,15 @@
             experienced users to script their workflow. Six different 
             programming
             languages are used for describing scientific workflows: 1) Python, 
-            2) MATLAB and Octave, 3) Shell, 4) XML, 6) Common Workflow Language 
-            (CWL) and 6) Domain Specific Language (DSL). Workflows engines that 
+            2) MATLAB and Octave \tristan{I think the official name is GNU/Octave}, 3) Shell \tristan{scripting languages}, 4) XML, 6) Common Workflow Language 
+            (CWL) and 6) Domain Specific Language (DSL). \tristan{I don't see why CWL and XML don't qualify as DSL} Workflows engines that 
             employ usage of Python include: Nipype, FastR, Pydpiper, Pegasus
-            and Toil.
+            and Toil \tristan{Dask? Spark?}.
             Python is an excellent choice as a programming language for 
             scientific workflows, particularly neuroinformatics, due to its 
             widespread use within the community. Other advantages of 
             programming in Python including a wide array of available libraries,
-            including neuroimaging-specific ones such as Nilearn and Nibabel
+            including neuroimaging-specific ones such as Nilearn and Nibabel \tristan{mention scipy, sci-kit learn, etc}
             \note{cite}, and an lower learning curve compared to other 
             programming languages. Additionally, Python is platform independent
             meaning it can be installed on any system. In terms of BigData 
@@ -413,15 +420,20 @@
             use this language include: PSOM, SPM, and Automatic analysis. A 
             downfall to imposing MATLAB as programming language is that the 
             it is proprietary, thus imposing a fee on 
-            anyone wishes to program in that language. To offset this, PSOM 
-            ensure compatibility with the GNU Octave programming language, thus 
+            anyone wishes to program in that language \tristan{You should also mention the
+            advantage of Matlab: easy to learn, integrated ecosystem, 
+            performance, see 
+            \url{https://www.mathworks.com/products/matlab/matlab-vs-python.html}}. 
+            To offset this, PSOM ensure compatibility with the GNU 
+            Octave programming language, thus 
             removing the requirement to purchase software for workflow 
             composition. Similarly to Python, MATLAB and Octave are 
             high-level platform-independent languages. MATLAB, in particular,
             also provides a wide array of libraries, however, the software must
             be purchased in order to access them.
 
-            Scientific workflows are typically composed in UNIX-based 
+            \tristan{This paragraph should start with ``Shell scripting ...". The structuration of this section by language
+            is great, but the writing of this paragram doesn't put it forward.}Scientific workflows are typically composed in UNIX-based 
             environments. These environments typically have Make installed by
             default eliminating the need for users to install it manually.
             Furthermore, all users who use Linux environments will typically 
@@ -435,7 +447,8 @@
 
             Composing workflows in XML is another option provided by some 
             workflow engines such as Pegasus and LONI. However, the use of a 
-            markup language removes some of the flexibility. Users wanting to 
+            markup language removes some of the flexibility. \tristan{Before you explain the downside, 
+            you should say what are the advantages: mainly language-independent parsers and validation.} Users wanting to 
             include 
             custom scripts as workflow activities must do so by creating a 
             command-line interface for their custom script. Pegasus, however,
@@ -445,18 +458,18 @@
             Another alternative is to compose workflows using Common Workflow
             Language (CWL). This can be seen in workflow engines like Toil. 
             CWL is not a programming language, but a specification for workflows
-            . Files can either be written in JSON or YAML formats. CWL is 
-            based on workflow engines like Make, but differs in that tasks
-            are isolated and inputs and outputs must be explicit. Similarly to 
-            make, CWL is only available on UNIX platforms. \note{cite cwl 
+            \tristan{It is a YAML-based DSL for workflows. Just like Pegasus' DAX is an XML-based DSL}. Files can either be written in JSON or YAML formats. CWL is 
+            based on workflow engines like Make \tristan{? I don't think CWL relies on make, does it?}, but differs in that tasks
+            are isolated and inputs and outputs must be explicit \tristan{inputs and outputs are somewhat explicit in a Makefile}. Similarly to 
+            make, CWL is only available on UNIX platforms \tristan{strange, the CWL interpreter is in Python so I'd expect it to run anywhere}. \note{cite cwl 
             website}
 
             Domain Specific Languages (DSL) are also used to compose workflows.
             DSLs are programming languages that have been adapted to specific
             domains. Workflow engine examples include OpenMOLE, which was 
-            derived from Scala, and Netflow, which is derived from the Apache 
+            derived from Scala, and Netflow \tristan{Nextflow?}, which is derived from the Apache 
             Groovy programming language. While both are written on top of the 
-            Java platform, Nextflow is only compatible with UNIX-based 
+            Java platform, Nextflow is only compatible with UNIX-based \tristan{How about using Linux everywhere instead of UNIX-based?} 
             environments. These programming languages are not otherwise commonly
             used in neuroimaging, meaning that users must learn specific 
             languages that would not otherwise be used in their field.
@@ -472,7 +485,26 @@
             Spark also interfaces with R, another programming language commonly
             used in neuroimaging.
 
-            Additionally, BigData frameworks are better suited for the 
+            \tristan{So this is now about data structures, not just language.
+            This is really excellent, but this should perhaps go into a 
+            specific sub-section. I think you could mention that 
+            scientific workflow engines traditionally rely on files 
+            only, and simple types, but that big data engines have 
+            invested a lot in data structures, starting from key-value 
+            pair representations in MR to RDD and Dask arrays. Spark is 
+            actually built around RDDs, this is salient-enough to be 
+            discussed a bit more. It actually makes a lot of sense that 
+            data-focused engines are built around data structures 
+            instead of control constructs. The ACM Com Spark paper makes it clear
+            that unifying data structures is key to performance and interoperability, 
+            because it allows data to remain in-memory instead of having to go back
+            and forth to different environments. I would only mention linealg 
+            in the description of Dask arrays. So, how about a 
+            sub-section 'data structures' with 4 paragraphs: (1) 
+            scientific and neuroimaging engines, (2) Big-Data, MR, (3) 
+            Spark's RDDs and DataFrames, (4) Dask arrays, mentioning 
+            linealg. } Additionally, BigData frameworks are better 
+            suited for the 
             processing of large images. Scientific workflows are generally 
             file-based with neuroimaging frameworks only providing parallelism
             on the file front. Sparks main abstraction, the Resilient 
@@ -489,6 +521,8 @@
 
 
         \section{Modularity}\label{mod}
+            \tristan{Since this section is about interfaces, I would
+            rather call it ``Interfaces" or ``Tool interfaces".}
             Often times, users will want to integrate existing tools, in 
             addition to custom scripts, into their workflows. As workflow 
             engines, with the exception of Make, are typically not written in 
@@ -506,7 +540,8 @@
 
             Early neuroimaging workflow engines, such as SPM, are monolithic, 
             and therefore, do not provide a mechanism for users to incorporate
-            their custom tools. Workflow engines, such as AA, were thus 
+            their custom tools \tristan{Users can still integrate tools as Matlab functions
+            doing system calls}. Workflow engines, such as AA, were thus 
             conceived to enable engines such as SPM to be more modular. AA 
             allows users to define their tasks through XML specification. AA's 
             XML tasklist is simply an ordered list of tasks which also includes
@@ -562,7 +597,7 @@
             tool identifier (typically namespace::version), the URL or filepath
             to the executable, site identifier of the executable's host, 
             executable type (e.g. installed or staged) and the profile. Pegasus
-            can also execute containerized tools. For this, a container 
+            can also execute containerized tools \tristan{how about the other ones?}. For this, a container 
             identifier, image URL, site identifier of the image, and container
             profiles must also be defined \note{from website}.
 
@@ -591,7 +626,7 @@
             a command and the second defines the outputs that are possibly 
             generated by the command. For CLIs, it is necessary to define the
             command. Additionally, Nipype will start X virtual framebuffer 
-            before executing a CLI, if specified. For SPM interfaces, the job 
+            before executing a CLI, if specified \tristan{you need to explain why}. For SPM interfaces, the job 
             type and name must be specified. Interfaces to MATLAB require 
             definition of the run function, while Python interfaces require
             the definition of the \textit{\_run\_interface} function. \note{from
@@ -626,7 +661,7 @@
             can interface with any MATLAB function or CLI. Bricks require the
             definition of input and output files, in addition to a structure of
             program options. A useful feature found in PSOM is the ability 
-            to perform a "dry-run" of the Brick without executing the command.
+            to perform a ``dry-run" of the Brick without executing the command.
 
 
             OpenMOLE has the ability to encapsulate UDF Scala tasks and CLI. 
@@ -642,10 +677,14 @@
             produce the given target. Recipes are the shell commands that will
             generate the target from its dependencies. 
 
-
-
-
-            
+            \tristan{Good material in here, but it lacks a bit structure.
+            I like your structure of the previous sub-section, by language. I think
+            here you could have two groups: (1) DSL descriptions (XML, JSON, etc) and (2)
+            Python or Matlab descriptions. One advantage of DSLs is that they can 
+            be more easily reused in different engines, while programming languages
+            are more flexible, for instance Nipype allows outputs to be specified
+            at runtime (dynamic number of inputs with names only known after
+            the interface ran.)}
 
 
         \section{Workflow sharing}\label{sharing}
