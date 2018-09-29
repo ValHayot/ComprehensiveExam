@@ -485,6 +485,11 @@
             Spark also interfaces with R, another programming language commonly
             used in neuroimaging.
 
+            \subsection{Data structures}
+                \subsubsection{Scientific workflows}
+                \subsubsection{Big Data: MapReduce}
+            
+
             \tristan{So this is now about data structures, not just language.
             This is really excellent, but this should perhaps go into a 
             specific sub-section. I think you could mention that 
@@ -520,7 +525,7 @@
             Dask Dataframe is based off of the Pandas Dataframe API.
 
 
-        \section{Modularity}\label{mod}
+        \section{Tool interfaces}\label{mod}
             \tristan{Since this section is about interfaces, I would
             rather call it ``Interfaces" or ``Tool interfaces".}
             Often times, users will want to integrate existing tools, in 
@@ -663,11 +668,13 @@
             program options. A useful feature found in PSOM is the ability 
             to perform a ``dry-run" of the Brick without executing the command.
 
-
-            OpenMOLE has the ability to encapsulate UDF Scala tasks and CLI. 
+            OpenMOLE has the ability to encapsulate UDF Scala scripts and CLI. 
             In the case of CLI tasks, it is also possible to containerize or 
-            encapsulate with CARE \note{cite} to make it portable. 
-
+            encapsulate with CARE \note{cite} to make it portable. OpenMOLE
+            defines several classes to allow for the execution of different 
+            types of tools. Like other framworks, it is vital to describe the
+            inputs and outputs of the Tasks such that the execution of tasks 
+            can be performed. 
 
             The Make pipeline is expressed in a makefile containing a set of 
             rules (Tool interfaces). Rules consist of three components: targets, 
@@ -676,6 +683,32 @@
             execution of a recipe and the dependencies are the input required to 
             produce the given target. Recipes are the shell commands that will
             generate the target from its dependencies. 
+
+            Unlike scientific workflow engines, BigData frameworks do not 
+            provide default interfaces for the execution of tools written in 
+            languages different from their own. Users defining their workflows
+            in Dask or the Spark and MapReduce using the Python API integrate
+            Python UDFs in their workflow. While Dask users can reference their 
+            UDF of Python function directly in their workflow, Spark users
+            must define a lambda function within an action or transformation 
+            that executes their UDF or library on the data. Similarly to Spark,
+            functions referenced in MapReduce must be called from within a Map
+            or Reduce task. MapReduce can additionally reference Java 
+            code and Spark can call on code also written in Scala, Java and R.
+            \note{verify if it's possible to mix-and-match different libraries
+            ...don't think so} 
+
+            For all workflow engines that do not, by default, interface with 
+            command-line tools or containers, there are libraries that can be
+            easily integrated to achieve that. Boutiques, for instance, is a 
+            Python library that can execute command-line or containerized tools
+            defined within a JSON schema. Furthermore, the library's richness
+            compete with Galaxy's XML. Python-based BigData frameworks can 
+            easily call on this library from within the workflow in order to
+            communicate with the tools.
+
+            \subsection{input and output definitions}
+                TBD
 
             \tristan{Good material in here, but it lacks a bit structure.
             I like your structure of the previous sub-section, by language. I think
@@ -688,15 +721,62 @@
 
 
         \section{Workflow sharing}\label{sharing}
+            
+            
     \chapter{Performance}\label{performance}
-        \section{Filesystems}
+        Neuroimaging frameworks are notoriously known to be compute-intensive.
+        The tools and their respective workflows needed to incorporate 
+        parallelism in order to save on computing time. Maintaining good 
+        performance has become especially critical now that BigData has been
+        introduced into the mix. The dichotomy remains between scientific 
+        workflows and BigData workflows. While scientific workflows have made
+        advances towards more performant engines, they still lack the 
+        strategies BigData frameworks employ to reduce data transfers. 
+        
+        Another notable aspect to consider is that both types of engines 
+        (scientific and BigData) are tightly coupled to the infrastructure
+        they were intended to be used on. That is, as scientific workflow 
+        try to remain efficient in their handling of compute resources, as such
+        resources were previously scarce. In contrast, BigData frameworks 
+        make efficient use of commodity clusters, where data transfers are 
+        burdensome, particularly when faced with BigData.
+
+        As some researchers are trying to shift towards the use of commodity 
+        infrastructure while others are trying to process BigData on HPC, the 
+        ideal workflow engine must run efficiently regardless of 
+        infrastructure available. Otherwise, researchers are either left with
+        workflows running inefficiently on resources or having to learn 
+        multiple frameworks and rewrite their workflows depending on the 
+        infrastructure selected.
+ 
+        In this Chapter, we will compare scientific
+        workflows to BigData frameworks on the basis of performance. 
+        Section~\ref{fs} will look at what filesystems are required by the 
+        engines. This is important because data movement of any kind is costly,
+        and may be worse depending on the filesystems available. 
+        Section~\ref{sched} will provide an overview of the schedulers 
+        available and their compatibility with the workflow engines. 
+        Section~\ref{other} will discuss other performance improvement 
+        strategies employed by the workflow engines.
+ 
+        \section{Filesystems}\label{fs}
+            
+            Scientific workflows historically relied on I/O to transfer data
+            between nodes. As scientific workflows are usually executed on
+            HPC infrastructure, this meant writing to a filesystem such as 
+            Lustre 
+
+            \subsection{Lustre}
+            \subsection{Hadoop Distributed File System}
+            \subsection{Amazon S3}
+            
             scientific: shared FS such as Lustre, NFS, S3
             big data: mapreduce - HDFS, spark and dask shared or distributed
-        \section{Scheduling}
+        \section{Scheduling}\label{sched}
             scientific: SLURM, PBS, SGE, HTCondor, Mesos (sometimes)
             big data: mapreduce - local or YARN, Spark - standalone, YARN or 
             Mesos, dask: any (easy to extend to any scheduler)
-        \section{Performance enhancement strategies}
+        \section{Performance enhancement strategies}\label{other}
             scientific: workflow checkpointing (looking at file hashes)
             big data: data locality, in memory computing, lazy evaluation
     \chapter{Portability}\label{portability}
