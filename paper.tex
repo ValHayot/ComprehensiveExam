@@ -761,21 +761,172 @@
  
         \section{Filesystems}\label{fs}
             
-            Scientific workflows historically relied on I/O to transfer data
-            between nodes. As scientific workflows are usually executed on
-            HPC infrastructure, this meant writing to a filesystem such as 
-            Lustre 
-
-            \subsection{Lustre}
-            \subsection{Hadoop Distributed File System}
-            \subsection{Amazon S3}
             
-            scientific: shared FS such as Lustre, NFS, S3
-            big data: mapreduce - HDFS, spark and dask shared or distributed
-        \section{Scheduling}\label{sched}
-            scientific: SLURM, PBS, SGE, HTCondor, Mesos (sometimes)
+            Unlike MapReduce and Spark-based workflows, Dask and scientific 
+            workflows are not data-centric. They focus on the efficient 
+            scheduling of tasks and rely on I/O and network transfers to
+            communicate the data between nodes. With BigData workflows, such
+            operations could incur significant performance penalties. 
+            Filesystems. To mitigate this and remain efficient in the face of
+            BigData, Dask implements lazy evaluation and in-memory processing.
+            BigData platforms such as MapReduce rely heavily on I/O, but the 
+            I/O performed occurs on the compute node rather than on 
+            shared storaged, making it generally more efficient than scientific
+            workflows. Additionally, MapReduce uses the concept of 
+            locality to ensure limit data transfers across the network. Spark
+            uses data locality, lazy evaluation and in-memory computing to 
+            ensure its optimal performance.
+            For the efficient processing of neuroimaging BigData, it will be
+            necessary for scientific worflow engines to incorporate these 
+            strategies.
+        
+
+            \subsection{Strategies}
+                \subsubsection{in-memory computing}
+                    Random Access Memory (RAM) is the fastest memory available
+                    to workflow engines. BigData frameworks, such as Spark and 
+                    Dask, leverage this feature by maintaining data in memory 
+                    between tasks rather that saving them to local disk or 
+                    shared memory which may incur significant overhead.
+
+                    Spark and Dask can both read from filesystems available to
+                    all nodes. When an action (Spark) or a compute (Dask) is 
+                    called, the data is read from the storage and uploaded into
+                    memory. Tasks use the data located in memory to compute the
+                    results. Should data not fit in memory, the results may 
+                    spill to local disk, in the instance where nodes contain
+                    storage. Otherwise, the engines will spill data to shared 
+                    filesystem. The later is a common case in HPC systems as 
+                    storage and compute resources are typically separate, 
+                    however, these shared filesystems are typically slower than 
+                    local storage, and therefore, there will be additional 
+                    performance penalties.
+
+                    As data is not stored within a resilient distributed 
+                    filesystem such as Lustre and HDFS, it risks being 
+                    permanently lost if a node failure occurs. Spark and Dask
+                    have both addressed this through the notion of 
+                    \textit{lineage}. Lineage refers to the set of operations
+                    that the data has undergone. By recording the lineage, lost
+                    data will always be recoverable as the set of operations
+                    to reproduce the data are known. Should a node be lost to 
+                    the cluster, Spark and Dask reschedule the tasks required 
+                    to rebuild the dataset to other nodes.
+
+                    \note{mention caching}
+
+                    
+                    While Spark and Dask both rely on the concept of shared 
+                    memory, Spark avoids data transfers as often as possible by
+                    scheduling tasks to nodes where the memory is located. Dask
+                    , however, will schedule its tasks to the next available 
+                    node.
+                    
+                    
+                \subsubsection{Data locality}
+                    Data locality, with respect to BigData frameworks, is a
+                    scheduling
+                    strategy in which location of the data is known by the 
+                    scheduler and tasks are scheduled to the location where the
+                    necessary data is located. It was one of the first main 
+                    strategies implemented to make BigData processing more 
+                    efficient. The reasoning behind data locality is that 
+                    network transfers are expensive, particularly within 
+                    commodity infrastracture, and therefore transferring large 
+                    volumes of data across the network for every task would be 
+                    rather expensive.
+
+                    While MapReduce and Spark both partition data across the 
+                    network similarly, they achieve data locality slightly 
+                    differently. MapReduce can use the local filesystem in 
+                    standalone mode, but requires use of a distributed 
+                    filesystem executing on the compute nodes such as the 
+                    Hadoop Distributed File System (HDFS). The reason as to why
+                    parallel file systems such as Lustre do not work is that 
+                    the storage nodes on such file systems are separate from 
+                    the compute nodes. Separate storage and compute nodes 
+                    eliminate any possiblity of data locality as network 
+                    transfers will occur regardless of storage node. When the 
+                    next MapReduce task is available, the master node will 
+                    query the distributed file system to determine the 
+                    available nodes closest. The master will first attempt to
+                    schedule the task on a node containing the data, but if 
+                    that node is not available, it will attempt to schedule
+                    the task on the same rack. If all else fails, the task will
+                    be scheduled on a node found on a different rack. 
+
+                    In contrast to MapReduce, Spark does not require data to 
+                    be stored on a HDFS-like filesystem. It can read data from
+                    any form of shared-filesystem, including Lustre. If data 
+                    is extracted from a non HDFS-like filesystem, the initial 
+                    loading of data will not use data locality. However, in all
+                    future tasks in which the data is already loaded into an 
+                    RDD, the scheduler will be able to assign task to the most
+                    favorable partition dictated by delay scheduling.
+
+                    
+                \subsubsection{lazy evaluation}
+
+                    Lazy evaluation is a strategy used throughout computer 
+                    science to improve performance of operations. Rather than
+                    evaluating a expression immediately, it will wait until it 
+                    is required in order to compute the result. This is 
+                    achieved in Spark through the calling of an \textit{action}
+                    on an RDD and in Dask through the calling of a 
+                    \textit{compute} function on one of its data structures.
+                    By using lazy evaluation, the engines are capable of 
+                    constructing graphs that result in the most optimal
+                    task order of execution.
+
+            \subsection{BigData Filesystem optimizations for HPC}
+
+                Writting BigData to Lustre is very costly compared to local 
+                node storage. BigData filesystems like HDFS may not necessarily
+                be the best solution for HPC as they will not only use up 
+                storage on compute nodes, but also replicate the data across 
+                the cluster taking up a significant amount of storage space.
+                Moreover, while BigData frameworks typically execute on a 
+                dedicated BigData cluster, they will be on a shared cluster in
+                HPC.
+
+                Alluxio, formerly known as tachyon, is an in-memory filesystem
+                that stores lineage data rather than the data itself. It is
+                assumed that recomputation of data will occur more rapidly than
+                data transfer over the network. However, 
+
+                Triple-H leverages the heterogeneity of HPC clusters to 
+                optimize the data's placement across the cluster for most 
+                efficient use.
+            
+            \note{scientific: shared FS such as Lustre, NFS, S3
+            big data: mapreduce - HDFS, spark and dask shared or distributed}
+        \section{BigData Scheduling}\label{sched}
+
+            
+            Scientific workflows typically rely on HPC schedulers for 
+            distributed scheduling on clusters. These schedulers include SLURM,
+            PBS,TORQUE, SGE, HTCondor and Mesos. Additionally, they may provide
+            their own form of scheduling for computations on a single node. 
+            Nipype uses mutliproc... etc. BigData frameworks, such as Dask,
+            also provide interfaces to these HPC schedulers. However, other
+            frameworks such as MapReduce and Spark are limited to BigData 
+            clusters such as Yet Another Resource Negotiator (YARN and MESOS).
+            Spark additionally provides its own standalone scheduler. Similarly
+            to scientific workflows, all three BigData frameworks provide their
+            own schedulers for single-node scheduling.
+
+            Spark's standalone scheduler is a simple scheduler that can be used
+            in distributed workflows. It can execute in two modes: client and
+            cluster. In client mode, the  \note{cannot run in cluster mode in pyspark} 
+
+            YARN needs hadoop cluster
+
+            Mesos can run on HPC
+
+            dask distributed
+            \note{scientific: SLURM, PBS, SGE, HTCondor, Mesos (sometimes)
             big data: mapreduce - local or YARN, Spark - standalone, YARN or 
-            Mesos, dask: any (easy to extend to any scheduler)
+            Mesos, dask: any (easy to extend to any scheduler)}
         \section{Performance enhancement strategies}\label{other}
             scientific: workflow checkpointing (looking at file hashes)
             big data: data locality, in memory computing, lazy evaluation
@@ -785,6 +936,8 @@
         all tools used in the pipeline must be installed on system
         Taverna - exception as relies on web services
         \section{Containers}
+
+             Containeri
             use of containers increase portability. none of the scientific 
             pipelines can be containerized and communicate with the scheduler 
             outside of the container
