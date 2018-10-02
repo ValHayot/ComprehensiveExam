@@ -728,14 +728,14 @@
         The tools and their respective workflows needed to incorporate 
         parallelism in order to save on computing time. Maintaining good 
         performance has become especially critical now that BigData has been
-        introduced into the mix. The dichotomy remains between scientific 
+        introduced \weird{into the mix}. The dichotomy remains between scientific 
         workflows and BigData workflows. While scientific workflows have made
         advances towards more performant engines, they still lack the 
         strategies BigData frameworks employ to reduce data transfers. 
         
         Another notable aspect to consider is that both types of engines 
         (scientific and BigData) are tightly coupled to the infrastructure
-        they were intended to be used on. That is, as scientific workflow 
+        they were intended to be used on. That is, as scientific workflows \tristan{use 'engine' and 'workflows' consistently (think nipype vs fmriprep).}
         try to remain efficient in their handling of compute resources, as such
         resources were previously scarce. In contrast, BigData frameworks 
         make efficient use of commodity clusters, where data transfers are 
@@ -751,9 +751,10 @@
  
         In this Chapter, we will compare scientific
         workflows to BigData frameworks on the basis of performance. 
-        Section~\ref{fs} will look at what filesystems are required by the 
+        Section~\ref{fs} will look at what filesystems are \weird{required} \tristan{supported?} by the 
         engines. This is important because data movement of any kind is costly,
-        and may be worse depending on the filesystems available. 
+        and may be worse depending on the filesystems available. \tristan{Also, mention that neuroinformatics
+        pipelines manipulate files.}
         Section~\ref{sched} will provide an overview of the schedulers 
         available and their compatibility with the workflow engines. 
         Section~\ref{other} will discuss other performance improvement 
@@ -767,7 +768,7 @@
             scheduling of tasks and rely on I/O and network transfers to
             communicate the data between nodes. With BigData workflows, such
             operations could incur significant performance penalties. 
-            Filesystems. To mitigate this and remain efficient in the face of
+            \weird{Filesystems}. To mitigate this and remain efficient in the face of
             BigData, Dask implements lazy evaluation and in-memory processing.
             BigData platforms such as MapReduce rely heavily on I/O, but the 
             I/O performed occurs on the compute node rather than on 
@@ -818,7 +819,7 @@
                     
                     While Spark and Dask both rely on the concept of shared 
                     memory, Spark avoids data transfers as often as possible by
-                    scheduling tasks to nodes where the memory is located. Dask
+                    scheduling tasks to nodes where the memory is located \tristan{You mean where RAM is available or where the data is located?}. Dask
                     , however, will schedule its tasks to the next available 
                     node.
                     
@@ -862,10 +863,10 @@
                     loading of data will not use data locality. However, in all
                     future tasks in which the data is already loaded into an 
                     RDD, the scheduler will be able to assign task to the most
-                    favorable partition dictated by delay scheduling.
+                    favorable partition dictated by delay scheduling \tristan{ignoring data locality?}.
 
                     
-                \subsubsection{lazy evaluation}
+                \subsubsection{Lazy evaluation}
 
                     Lazy evaluation is a strategy used throughout computer 
                     science to improve performance of operations. Rather than
@@ -876,7 +877,7 @@
                     \textit{compute} function on one of its data structures.
                     By using lazy evaluation, the engines are capable of 
                     constructing graphs that result in the most optimal
-                    task order of execution.
+                    task order of execution. \tristan{And further save on data transfers}
 
             \subsection{BigData Filesystem optimizations for HPC}
 
@@ -938,9 +939,13 @@
         \section{Performance enhancement strategies}\label{other}
             scientific: workflow checkpointing (looking at file hashes)
             big data: data locality, in memory computing, lazy evaluation
+            
+            \tristan{Mentioning fault tolerance would be wise too.}
+            \tristan{How about: burst buffers, pilot jobs, deployments of Spark on HPC?}
+            
     \chapter{Portability}\label{portability}
-        In order for a workflow engine to be utilized, it much be simple for 
-        users to install and execute the data. Platform-independence of both 
+        In order for a workflow engine to be utilized, \weird{it much be simple} for 
+        users to \weird{install and execute the data}. Platform-independence of both 
         the frameworks and tools, as well as, simple installation of all 
         necessary components and straightforward execution of workflows  are a 
         requirement for frameworks and their respective pipelines to be 
@@ -962,14 +967,15 @@
             Dask. These workflow engines achieve platform independence through
             running on the Java Virtual Machine (JVM) or being written in 
             Python. Platform-independent engines that are Java-based include: 
-            PSOM, SPM, LONI, AA, Taverna, MapReduce and Spark. The remainder of
+            PSOM, SPM, LONI, AA, Taverna, MapReduce and Spark \tristan{this list contains Matlab
+            engines}. The remainder of
             the pipelines are implemented in Python. The remainder of the 
             workflow engines (Pegasus, Make, OpenMOLE, Nextflow, Galaxy, and 
             Toil are not platform-independent, but can execute on UNIX-like 
-            systems.
+            systems \tristan{macOS and Linux}.
 
-            Engines built ontop of a platform-independent language does not 
-            necessarily imply platform independence. For instance, OpenMOLE is 
+            Engines built on top of a platform-independent language does not 
+            necessarily imply platform independence \tristan{Grammar? Engines ... does not}. For instance, OpenMOLE is 
             built in Scala and Netflow runs on Groovy, yet neither are platform
             independent. In the case of OpenMOLE, this is due to its CARETask
             blackbox, which is only possible for Linux environments. However,
@@ -985,10 +991,10 @@
             Unless building a workflow exclusively based on custom
             functions or using a monolithic workflow engine such as SPM, users
             will need to install the tools necessary for their workflow on
-            their computer or cluster. Depending on the workflow engine 
+            their infrastructure. Depending on the workflow engine 
             selected, this may be managed by the engine or performed manually 
             by the user. Most install the dependencies themselves. Workflow engines that
-            delegate tool installation to the user include: Nipype, PSOMi,  
+            delegate tool installation to the user include: Nipype, PSOM,  
 
         Many of these platforms have selected to be written in 
         platform-independent languages. However,  Due to the modularity of these
