@@ -725,18 +725,18 @@
             
     \chapter{Performance}\label{performance}
         Neuroimaging frameworks are notoriously known to be compute-intensive.
-        The tools and their respective workflows needed to incorporate 
+        The workflows and their respective tools needed to incorporate 
         parallelism in order to save on computing time. Maintaining good 
-        performance has become especially critical now that BigData has been
-        introduced \weird{into the mix}. The dichotomy remains between scientific 
+        performance has become especially critical now that neuroimaging
+        BigData has emerged. The dichotomy remains between scientific 
         workflows and BigData workflows. While scientific workflows have made
         advances towards more performant engines, they still lack the 
         strategies BigData frameworks employ to reduce data transfers. 
         
         Another notable aspect to consider is that both types of engines 
         (scientific and BigData) are tightly coupled to the infrastructure
-        they were intended to be used on. That is, as scientific workflows \tristan{use 'engine' and 'workflows' consistently (think nipype vs fmriprep).}
-        try to remain efficient in their handling of compute resources, as such
+        they were intended to be used on. Scientific workflow engines
+        try to remain efficient in their handling of compute resources since such
         resources were previously scarce. In contrast, BigData frameworks 
         make efficient use of commodity clusters, where data transfers are 
         burdensome, particularly when faced with BigData.
@@ -795,8 +795,8 @@
                     called, the data is read from the storage and uploaded into
                     memory. Tasks use the data located in memory to compute the
                     results. Should data not fit in memory, the results may 
-                    spill to local disk, in the instance where nodes contain
-                    storage. Otherwise, the engines will spill data to shared 
+                    spill to local disk, if local storage is available. 
+                    Otherwise, the engines will spill data to a shared 
                     filesystem. The later is a common case in HPC systems as 
                     storage and compute resources are typically separate, 
                     however, these shared filesystems are typically slower than 
@@ -819,7 +819,7 @@
                     
                     While Spark and Dask both rely on the concept of shared 
                     memory, Spark avoids data transfers as often as possible by
-                    scheduling tasks to nodes where the memory is located \tristan{You mean where RAM is available or where the data is located?}. Dask
+                    scheduling tasks to nodes where the data is located. Dask
                     , however, will schedule its tasks to the next available 
                     node.
                     
@@ -863,7 +863,8 @@
                     loading of data will not use data locality. However, in all
                     future tasks in which the data is already loaded into an 
                     RDD, the scheduler will be able to assign task to the most
-                    favorable partition dictated by delay scheduling \tristan{ignoring data locality?}.
+                    favorable partition dictated by delay scheduling according
+                    to data locality.
 
                     
                 \subsubsection{Lazy evaluation}
@@ -1011,9 +1012,36 @@
             outside of the container
             big data frameworks can
     \chapter{Reproducibility}\label{reproducibility}
-        \section{Provenance Tracking}
-        big data frameworks: limited to lineage
-        \section{containerization}
+        Reproducibility is a vital component to all scientific workflows. 
+        Without reproducibility, correctness of results could never be 
+        determined. Reproducibility is defined as the ability to obtain similar 
+        results by 
+        recreating or executing the original workflow on the same or different
+        infrastructure\note{cite}. It have been found that more than 70\% of
+        scientific experiments are not reproducible \note{cite Mbaker} 
+
+        Current studies show that different tools 
+        performing the same function, in addition to the same versions of tools 
+        executing on top of different operating systems produce significantly 
+        dissimilar results. As a result, it is necessary that specific details 
+        on the workflow, such a data used, software versions and operating 
+        system used are provided. For this reason, many workflow engines have
+        incorporated provenance tracking into their design.
+
+        Getting specific versions of tools and their workflows is not always 
+        a straightforward process. To facilitate this, many workflow engines
+        have begun to use containers to ensure that users can reproduce the 
+        experiment within a contained environment identical to the one it that
+        was originally experimented on. 
+
+        This chapter will examine how different workflow engines tackle the 
+        issue of reproducibility. Section~\ref{prov} will discuss how the 
+        engines assimilate and distribute the provenance data. 
+        Section~\ref{repcont} will examine how these engines use containers to
+        facilitate reproducibility of the experiments.
+        \section{Provenance Tracking}\label{prov}
+            
+        \section{Containerization}\label{repcont}
     \chapter{Discussion/Conclusion}
 
 
