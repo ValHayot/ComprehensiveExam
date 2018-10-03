@@ -1012,7 +1012,7 @@
             outside of the container
             big data frameworks can
     \chapter{Reproducibility}\label{reproducibility}
-        Reproducibility is a vital \tristan{critical?} component to all scientific workflows. 
+        Reproducibility is a critical component to all scientific workflows. 
         Without reproducibility, correctness of results could never be 
         determined. Reproducibility is defined as the ability to obtain similar 
         results by 
@@ -1035,17 +1035,65 @@
         was originally experimented on. 
 
         This chapter will examine how different workflow engines tackle the 
-        issue of reproducibility. Section~\ref{prov} will discuss how the 
+        issue of reproducibility. Section~\ref{metadata} will investigate three 
+        different provenance metadata specifications available (W3C PROV, NIDM,
+        and BIDS Derivates).Section~\ref{prov} will discuss how the 
         engines assimilate and distribute the provenance data. 
         Section~\ref{repcont} will examine how these engines use containers to
         facilitate reproducibility of the experiments.
-        \section{Metadata formats}
-            In order for prove
-            \subsection{W3 PROV}
+        \section{Metadata formats}\label{metadata}
+            The recent increase in data-sharing resulted in the rise of BigData 
+            in neuroscience. To continue the promotion of data sharing in 
+            neuroscience, the derived data's metadata must be well understood
+            by the community. Even if the provenance tracking is comprehensive,
+            it is useless if it is only understood by some. To address this 
+            issue, specifications for the standardization of metadata have been 
+            proposed. Here we look at three provenance metadata specifications.
+            The first is W3 PROV, a general-purpose provenance specification; 
+            NIDM-results
+            a comprehensive neuroimaging provenance specification; and BIDS 
+            Derivatives the recent provenance addition to the family of 
+            popular neuroimaging metadata specifications, BIDS.
+
+            \subsection{W3C PROV}
+            The W3C PROV specification came out from the need to explain the 
+            origin of data shared on the internet. 
+            The aim of the W3 PROV specification was gather information on
+            the activities, entities and involved parties in the creation of 
+            the data. This metadata would allow for assements of the quality, 
+            reliability and trustworthiness to be performed. Sharing of the 
+            provenance is faciliated through the use of widely-used formats 
+            such as RDF and XML. 
+
+            The PROV model has three main objects involved: 1) entities, 2) 
+            activities and 3) agents. Any kind of thing is considered an entity
+            . Actions act upon entities to generate new ones. Activities have 
+            agents associated to them. These agents are responsible for the 
+            activity taking place. Agents can be individuals, companies and 
+            software, amongst others.
+            
             \subsection{NIDM-Results}
+                NIDM-results was designed to improve the limited XML-based 
+                Clinical and Experimental Data Exchange (XCEDE) neuroimaging
+                provenance metadata format. It is a domain-specific extension
+                to the W3 PROV model that aims to provide comprehensive and
+                machine-readable provenance from raw data to its final stage.
+                However, it is currently limited in the provenance 
+                information it can provide.
+
             \subsection{BIDS Derivatives}
+                The BIDS-Derivatives metadata specification is the newest 
+                addition to the BIDS family of neuroimaging-related 
+                specifications. It is the sister
+                specification to the widely adopted BIDSRaw metadata format 
+                and it remains compatible with the BIDS Raw specification. 
+                Unlike NIDM-Results, BIDS derivatives, like BIDS Raw, do not
+                use the W3C PROV specification. Rather, the provenance can be
+                derived from its folder structure and filename. Any additional
+                metadata can be found in a JSON sidecar file.
+
         \section{Provenance Tracking}\label{prov}
-            Provenance tracking is \weird{of vital importance} \tristan{twice} to scientific reporting.
+            Provenance tracking is crucial to scientific reporting.
             On its own, source code is insufficient to reproduce the workflow 
             described in a research paper. This is because source code does 
             not specify the specific dataset used nor the specific versions of
@@ -1053,20 +1101,139 @@
             changes to any of these features can significantly affect results.
 
             As explained by the W3 PROV specification, provenance details 
-            information on the data, the tools involved in its creation, and the
-            responsible parties. Provenance tracking, in the context of 
+            information on the data, the tools involved in its creation, and 
+            the responsible parties. Provenance tracking, in the context of 
             workflows, is the act of capturing provenance data during
             workflow execution. With detailed provenance and access to source 
-            code information, researchers should have enough information to be able 
-            to reproduce workflows.
+            code information, researchers should have enough information to be 
+            able to reproduce workflows.
 
-            To to the importance of provenance tracking for scientific 
+            To address the importance of provenance tracking for scientific 
             workflows several workflow engines adapted strategies to capture 
-            comprehensive provenance data. These include Nipype, PSOM, FastR, 
-            LONI, Taverna, Pegasus, Nextflow, Galaxy. Other workflow engines,
-            such as SPM, AA, Pydpiper,            
+            provenance metadata. Some leverage the W3C PROV specification (e.g.
+            Nipype, FastR, Taverna), while others may chose to use NIDM (e.g. 
+            SPM). The 
+            remainder use a custom format to share their metadata.
+
+            Although Nipype, FastR and Taverna all capture provenance using 
+            the W3C Prov specification, they differ slightly in how they
+            present provenance
+            information and what they capture.
+            Currently, Nipype's support for W3C PROV is experimental. However,
+            it is capable of outputting provenance using the W3C PROV data 
+            model for each workflow interface, as well as the workflow as a 
+            whole.
+    
+            FastR performs provenance very similarly to Nipype. However,
+            FastR's agents can be Fastr, Networks, Tools, Nodes. Additionally,
+            activities, in
+            FastR map to Jobs and entities map to the data.
+    
+            Taverna differs from Nipype and Taverna in that it provides 
+            tracking of
+            both workflow runs and of the derived data.
+
+            Likewise to the engines that capture provenance that follows the
+            W3C PROV specification, all MATLAB-based workflow engines capture
+            provenance data similarly.
+            By default, SPM saves an execution by writing the  workflow, with
+            all its input parameters as a MATLAB file. Saving the workflow as
+            a MATLAB file allows for distribution of the workflow and 
+            reexecution. To export to NIDM-Results, the option must be 
+            sslected.
+            
+            As in SPM's MATLAB workflow execution files, PSOM and AA 
+            also save
+            their workflow to a MATLAB file for future reexecution. 
+            In addition, PSOM generates
+            also files containing additional provenance information such 
+            as username, date, time and operating system used.
+            
+            While all workflow engines capture generally the same type of 
+            provenance information, they differ in how much provenance 
+            information is captured and how it's done. LONI, Pegasus, Pydpiper 
+            and Galaxy
+            capture an above minimum amount of provenance data, whereas engines 
+            like Nextflow, Make, Toil and MapReduce capture very limited  
+            provenance 
+            information. OpenMOLE handles provenance through encapsulation of
+            tasks using CARE to simulate runtime environments
+            and BigData frameworks like Spark and Dask mainly rely on 
+            lineage.
+
+            An above minimum amount of provenance details captured includes 
+            capturing details on the workflow stages as well as the inputs and
+            outputs. LONI stores this type of information in an XML file.
+
+            Pegasus uses an SQL database to store its provenace. Data collected 
+            includes runtime information,
+            in addition to, data locations, software used and parameters 
+            applied to the software.
+
+            Pydpiper has no formal form of provenance tracking, but will save 
+            essential pipeline information after each completed stage to a 
+            serialized Python object. Data captured includes: the DAG, the 
+            array of pipeline stages, the current stage counter, hash of stages 
+            and output files and an array of stage statuses.
+
+
+            As provenance is a major component of the Galaxy project, it 
+            provides comprehensive provenance tracking. This includes gathering
+            of metadata similarly to other workflow engines, but also allows
+            users to add annotations to make the intent of their analysis known
+            .
+
+            The workflows that capture limited provenance information typically
+            restrict themselves to capturing only runtime information.
+            Nextflow generates an
+            HTML report that contains details on execution commands, runtime, 
+            CPU usage and status.
+
+            Toil captures at most tool execution logs and provides runtime 
+            statistics.
+
+            Make is another workflow engine that does not provide built-in 
+            provenance tracking. However, Make can be adapted to capture 
+            provenance as in \note{cite make paper}.
+
+            Similarly, MapReduce also captures runtime information and relays 
+            it through a web UI.
+
+            OpenMOLE tackles provanence differently by wrapping workflow tools
+            into CARETasks. CARETasks simulate the runtime environment of the 
+            execution, such that workflows can be executed on any Linux 
+            distribution avoiding any silent errors that may arise from 
+            executing a workflow in a different environment. An issue with 
+            restricting provenance to CARETasks, however, is that provenance is
+            a bit more than just simulating an environment. Provenance 
+            information should also be accessible. Understanding of CARE should
+            not be a prerequisite to obtaining provenance information.
+                     
+            Dask and Spark rely on their lineage to relay details on which 
+            tasks modified the data. They also provide a web UI that provides
+            additional information on runtime statistics. Methods to improve 
+            provenance tracking in Spark, particularly interactively are 
+            currently being explored \note{cite bigdebug}. Unfortunately, both
+            of them lack the ability to provide provenance capture of external
+            tools at present.
 
         \section{Containerization}\label{repcont}
+
+            To handle issues with numerical instability of tools and relieve 
+            users from
+            having to configure their environment to be almost identical to 
+            that of the study they are trying to replicate, significant 
+            emphasis has been placed on containerization. Similarly to 
+            OpenMOLE's CARETasks, containerization provides an encapsulated
+            environment for the tools to run which mimics the environment of 
+            the original study. This ensures that users executing their 
+            workflows in the same environments will obtain the same results.
+            A major issue with containerization is that despite it controlling
+            environments and permitting experiments to be reproducible, it does
+            not solve the issue of numerical instability. Moreover, this 
+            mentality may lead researchers to limit themselves to older tool 
+            versions and further limit scientific advancement.
+    
     \chapter{Discussion/Conclusion}
 
 
