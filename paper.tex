@@ -1040,7 +1040,27 @@
         Section~\ref{repcont} will examine how these engines use containers to
         facilitate reproducibility of the experiments.
         \section{Provenance Tracking}\label{prov}
-            
+            Provenance tracking is of vital importance to scientific reporting.
+            On its own, source code is insuffient to reproduce the workflow 
+            described in a research paper. This is because source code does 
+            not specify the specific dataset used nor the specific versions of
+            tools and the environments that they were executed on. Minor 
+            changes to any of these features can significantly affect results.
+
+            As explained by the W3 PROW specification, provenance details 
+            information on the data, the tools involved in its creation and the
+            responsible parties. Provenance tracking, in the context of 
+            workflows, is the the act of capturing provenance data during
+            workflow execution. With detailed provenance and access to source 
+            codeinfo, researchers should have enough information to be able 
+            to reproduce workflows.
+
+            To to the importance of provenance tracking for scientific 
+            workflows several workflow engines adapted strategies to capture 
+            comprehensive provenance data. These include Nipype, PSOM, FastR, 
+            LONI, Taverna, Pegasus, Nextflow, Galaxy. Other workflow engines,
+            such as SPM, AA, Pydpiper,            
+
         \section{Containerization}\label{repcont}
     \chapter{Discussion/Conclusion}
 
