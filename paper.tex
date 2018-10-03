@@ -1012,18 +1012,18 @@
             outside of the container
             big data frameworks can
     \chapter{Reproducibility}\label{reproducibility}
-        Reproducibility is a vital component to all scientific workflows. 
+        Reproducibility is a vital \tristan{critical?} component to all scientific workflows. 
         Without reproducibility, correctness of results could never be 
         determined. Reproducibility is defined as the ability to obtain similar 
         results by 
         recreating or executing the original workflow on the same or different
-        infrastructure\note{cite}. It have been found that more than 70\% of
+        infrastructure\note{cite Peng 2011}. It has been found that more than 70\% of
         scientific experiments are not reproducible \note{cite Mbaker} 
 
         Current studies show that different tools 
         performing the same function, in addition to the same versions of tools 
-        executing on top of different operating systems produce significantly 
-        dissimilar results. As a result, it is necessary that specific details 
+        executing on top of different operating systems, produce significantly 
+        dissimilar results \cite{bowring, gronenschild 2011, glatard 2015}. As a result, it is necessary that specific details 
         on the workflow, such a data used, software versions and operating 
         system used are provided. For this reason, many workflow engines have
         incorporated provenance tracking into their design.
@@ -1045,19 +1045,19 @@
             \subsection{NIDM-Results}
             \subsection{BIDS Derivatives}
         \section{Provenance Tracking}\label{prov}
-            Provenance tracking is of vital importance to scientific reporting.
-            On its own, source code is insuffient to reproduce the workflow 
+            Provenance tracking is \weird{of vital importance} \tristan{twice} to scientific reporting.
+            On its own, source code is insufficient to reproduce the workflow 
             described in a research paper. This is because source code does 
             not specify the specific dataset used nor the specific versions of
             tools and the environments that they were executed on. Minor 
             changes to any of these features can significantly affect results.
 
-            As explained by the W3 PROW specification, provenance details 
-            information on the data, the tools involved in its creation and the
+            As explained by the W3 PROV specification, provenance details 
+            information on the data, the tools involved in its creation, and the
             responsible parties. Provenance tracking, in the context of 
-            workflows, is the the act of capturing provenance data during
+            workflows, is the act of capturing provenance data during
             workflow execution. With detailed provenance and access to source 
-            codeinfo, researchers should have enough information to be able 
+            code information, researchers should have enough information to be able 
             to reproduce workflows.
 
             To to the importance of provenance tracking for scientific 
