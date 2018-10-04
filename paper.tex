@@ -1041,7 +1041,7 @@
     \chapter{Reproducibility}\label{reproducibility}
         Reproducibility is a critical component to all scientific workflows. 
         Without reproducibility, correctness of results could never be 
-        determined. Reproducibility is defined as the ability to obtain similar 
+        determined \tristan{Link between two first sentences could be smoothened}. Reproducibility is defined as the ability to obtain similar 
         results by 
         recreating or executing the original workflow on the same or different
         infrastructure\note{cite Peng 2011}. It has been found that more than 70\% of
@@ -1053,7 +1053,8 @@
         dissimilar results \cite{bowring, gronenschild 2011, glatard 2015}. As a result, it is necessary that specific details 
         on the workflow, such a data used, software versions and operating 
         system used are provided. For this reason, many workflow engines have
-        incorporated provenance tracking into their design.
+        incorporated provenance tracking into their design. \tristan{Provenance is also
+        a way to merely document what happened so that results can be traced.}
 
         Getting specific versions of tools and their workflows is not always 
         a straightforward process. To facilitate this, many workflow engines
@@ -1063,14 +1064,15 @@
 
         This chapter will examine how different workflow engines tackle the 
         issue of reproducibility. Section~\ref{metadata} will investigate three 
-        different provenance metadata specifications available (W3C PROV, NIDM,
-        and BIDS Derivates).Section~\ref{prov} will discuss how the 
+        different provenance specifications used in neuroinformatics (W3C PROV, NIDM,
+        and BIDS Derivates) \tristan{I don't think you want to talk about 'metadata'. Just
+        mention 'provenance'.}. Section~\ref{prov} will discuss how the 
         engines assimilate and distribute the provenance data. 
         Section~\ref{repcont} will examine how these engines use containers to
         facilitate reproducibility of the experiments.
-        \section{Metadata formats}\label{metadata}
+        \section{Provenance Formats}\label{metadata}
             The recent increase in data-sharing resulted in the rise of BigData 
-            in neuroscience. To continue the promotion of data sharing in 
+            in neuroscience \tristan{This feels like general intro to me}. To continue the promotion of data sharing in 
             neuroscience, the derived data's metadata must be well understood
             by the community. Even if the provenance tracking is comprehensive,
             it is useless if it is only understood by some. To address this 
@@ -1080,21 +1082,22 @@
             NIDM-results
             a comprehensive neuroimaging provenance specification; and BIDS 
             Derivatives the recent provenance addition to the family of 
-            popular neuroimaging metadata specifications, BIDS.
+            popular neuroimaging metadata specifications, BIDS \tristan{Make sure that
+            the acronym is defined earlier.}.
 
             \subsection{W3C PROV}
             The W3C PROV specification came out from the need to explain the 
-            origin of data shared on the internet. 
-            The aim of the W3 PROV specification was gather information on
+            origin of data shared on the Web. 
+            The aim of the W3 PROV specification was \tristan{to?} gather information on
             the activities, entities and involved parties in the creation of 
-            the data. This metadata would allow for assements of the quality, 
+            data. This metadata would allow for assessments of the quality, 
             reliability and trustworthiness to be performed. Sharing of the 
             provenance is faciliated through the use of widely-used formats 
             such as RDF and XML. 
 
             The PROV model has three main objects involved: 1) entities, 2) 
-            activities and 3) agents. Any kind of thing is considered an entity
-            . Actions act upon entities to generate new ones. Activities have 
+            activities and 3) agents. Any kind of thing is considered an entity.
+            Actions act upon entities to generate new ones. Activities have 
             agents associated to them. These agents are responsible for the 
             activity taking place. Agents can be individuals, companies and 
             software, amongst others.
@@ -1102,11 +1105,11 @@
             \subsection{NIDM-Results}
                 NIDM-results was designed to improve the limited XML-based 
                 Clinical and Experimental Data Exchange (XCEDE) neuroimaging
-                provenance metadata format. It is a domain-specific extension
+                provenance metadata format \tristan{I guess you'll cite references for that}. It is a domain-specific extension
                 to the W3 PROV model that aims to provide comprehensive and
-                machine-readable provenance from raw data to its final stage.
+                machine-readable provenance from raw data to its final stage. \tristan{give example?}
                 However, it is currently limited in the provenance 
-                information it can provide.
+                information it can provide. \tristan{Be more specific, what are the limitations?}
 
             \subsection{BIDS Derivatives}
                 The BIDS-Derivatives metadata specification is the newest 
@@ -1117,7 +1120,13 @@
                 Unlike NIDM-Results, BIDS derivatives, like BIDS Raw, do not
                 use the W3C PROV specification. Rather, the provenance can be
                 derived from its folder structure and filename. Any additional
-                metadata can be found in a JSON sidecar file.
+                metadata can be found in a JSON sidecar file. \tristan{Explain that
+                although BIDS doesn't rely on semantic web technologies, this is the
+                solution being adopted in the community, mostly for simplicity. Mention
+                that there is a community effort around it and that bidsraw has been
+                very successful.}
+            
+            \tristan{You might want to add data lineage here.}
 
         \section{Provenance Tracking}\label{prov}
             Provenance tracking is crucial to scientific reporting.
@@ -1133,7 +1142,7 @@
             workflows, is the act of capturing provenance data during
             workflow execution. With detailed provenance and access to source 
             code information, researchers should have enough information to be 
-            able to reproduce workflows.
+            able to reproduce workflows. \tristan{These 2 paragraphs should be in the chapter intro.}
 
             To address the importance of provenance tracking for scientific 
             workflows several workflow engines adapted strategies to capture 
@@ -1154,7 +1163,9 @@
             FastR performs provenance very similarly to Nipype. However,
             FastR's agents can be Fastr, Networks, Tools, Nodes. Additionally,
             activities, in
-            FastR map to Jobs and entities map to the data.
+            FastR map to Jobs and entities map to the data \tristan{how is the mapping in nipype? If different,
+            it might be a good place to comment on the fact that PROV can be used
+            in many different ways}.
     
             Taverna differs from Nipype and Taverna in that it provides 
             tracking of
@@ -1186,8 +1197,11 @@
             information. OpenMOLE handles provenance through encapsulation of
             tasks using CARE to simulate runtime environments
             and BigData frameworks like Spark and Dask mainly rely on 
-            lineage.
+            lineage \tristan{which is?}.
 
+            \tristan{The rest of this section is very difficult to read because
+            it lacks structure. Perhaps you could classify provenance tracking in PROV-based, lineage-based,
+            and other custom formats?}
             An above minimum amount of provenance details captured includes 
             capturing details on the workflow stages as well as the inputs and
             outputs. LONI stores this type of information in an XML file.
@@ -1260,6 +1274,11 @@
             not solve the issue of numerical instability. Moreover, this 
             mentality may lead researchers to limit themselves to older tool 
             versions and further limit scientific advancement.
+            \tristan{Nextflow should be mentioned here, as they make a big deal
+            of using containers for reproducibility. I would structure this section in 
+            2 paragraphs: (1) what engines support containers, (2) why containers help
+            reproducibility and why there aren't enough.}
+    
     
     \chapter{Discussion/Conclusion}
 
