@@ -994,16 +994,43 @@
             will need to install the tools necessary for their workflow on
             their infrastructure. Depending on the workflow engine 
             selected, this may be managed by the engine or performed manually 
-            by the user. Most install the dependencies themselves. Workflow engines that
-            delegate tool installation to the user include: Nipype, PSOM,  
+            by the user. Although not a direct requirement of workflows engines, 
+            engines that simplify tool installation promote sharing of 
+            workflows. To simplify this process, many workflow engines rely on 
+            importing and running containerized workflow tools. These engines
+            include: Galaxy, Toil, Netflow, Pegasus and FastR. While most 
+            provide support for Docker and Singularity, Toil and Galaxy only 
+            support Docker containers. All that is required by these workflow 
+            engines is the URL to the image in DockerHub or SingularityHub and
+            the engine will abstract the process of acquiring the container and
+            running the tool.
 
-        Many of these platforms have selected to be written in 
-        platform-independent languages. However,  Due to the modularity of these
-        frameworks, it may be necessary
-        java or python backend (most) typically platform independent (some 
-        exceptions)
-        all tools used in the pipeline must be installed on system
-        Taverna - exception as relies on web services
+            Alternatively, engines such as OpenMOLE use a different tool to
+            sandbox the environment, known as CARE. CARE allows 
+            users to make a compressed file wrapping the tool in the 
+            environment it was meant to be executed on. It uses environment 
+            information to simulate the system calls of the environment when
+            interacting with the tool. CARE was suggested as an alternative to
+            Docker as Docker requires a Docker engine to be running on each 
+            node, which may not always be the case. Moreover, Docker engines 
+            cannot be launched on-the-fly as they require administrative 
+            privileges. However, should a user wish to run a Docker container,
+            OpenMOLE provides a mechanism to run DockerHub tools in 
+            unprivileged using udocker.
+
+            Other workflow engines do not use an form of containerization to
+            ensure that workflows can be shared easily amongst users. These 
+            include Taverna, Make, Pydpiper, AA, SPM, PSOM, Nipype, LONI, 
+            MapReduce, Spark and Dask.
+            Taverna is different from the other workflow engines, however, as 
+            it is webservice-based an thus it expects that a server is up, 
+            running the desired version of the tool.
+
+            As for the engines with no tool dependency setup, it is still 
+            possible for the user to manually reference a container within 
+            a UDF. Conversly, libraries that manage execution of containerized 
+            tools, such as Boutiques, can be intergrated into these engines.
+
         \section{Containers}
 
              Containeri
