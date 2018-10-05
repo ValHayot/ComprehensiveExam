@@ -987,7 +987,50 @@
             is usually Linux-based and it is therefore crucial that all 
             workflows are compatible with and tested on Linux systems.
              
-       \section{Tool installation}
+       \section{Containers}
+
+            Containers are lightweight solutions to isolating 
+            environments. Although similar, containers and virtual machines 
+            differ from each 
+            other in that VMs virtualize the
+            hardware by running an entirely different operating system, whereas
+            containers virtualize the software by running on top of the host's
+            kernel. 
+        
+            Containerization greatly increases the portability of workflows. 
+            They allows users to package their workflows and/or tools with all 
+            their dependencies in a package that users can download and 
+            execute. Moreover, these packages can be versioned permitting users 
+            to select the preferred version of the container. Although there 
+            exist many containerization technologies, the two most notable ones
+            in scientific computing are Docker and Singularity. Docker and 
+            Singularity are both platform independent meaning users can run
+            containerizaed versions of their workflows ontop of an otherwise
+            incompatible OS.
+
+            Singularity is the current preferred solution for running 
+            containers on HPC systems. It is an open-source project designed to
+            meet the security, portability and reproducibility requirements of 
+            the scientific community. The main difference between Docker and 
+            Singularity is that users gain root permissions in a Docker 
+            container, and thus obtain root access to the underlying host OS. 
+            This is a serious security concern in HPC systems where many users
+            share the same resources and therefore are given restricted access
+            only. Singularity addresses this concern by disabling the user from
+            acquiring elevated permissions within the container. 
+
+            Containers are widely used to isolate tool executions and eliminate
+            the need to manually install dependencies in scientific workflows.
+            Pipeline tools can be containerized. In neuroinformatics, 
+            NeuroDocker, a command-line tool for creating Docker and 
+            Singularity containers with specific versions of neuroimaging tools
+            installed. Examples of 
+            containerized applications include all of the BIDS Apps. 
+            Additionally, entire workflows can also be containerized, as can be
+            observed in fMRIPrep, a Nipype-based workflow for fMRI 
+            Preprocessing.
+            
+       \section{Tool sharing}\label{sharing}
 
             Unless building a workflow exclusively based on custom
             functions or using a monolithic workflow engine such as SPM, users
@@ -1031,13 +1074,6 @@
             a UDF. Conversly, libraries that manage execution of containerized 
             tools, such as Boutiques, can be intergrated into these engines.
 
-        \section{Containers}
-
-             Containeri
-            use of containers increase portability. none of the scientific 
-            pipelines can be containerized and communicate with the scheduler 
-            outside of the container
-            big data frameworks can
     \chapter{Reproducibility}\label{reproducibility}
         Reproducibility is a critical component to all scientific workflows. 
         Without reproducibility, correctness of results could never be 
