@@ -911,13 +911,12 @@
             \note{scientific: shared FS such as Lustre, NFS, S3
             big data: mapreduce - HDFS, spark and dask shared or distributed}
         \section{BigData Scheduling}\label{sched}
-
             
             Scientific workflows typically rely on HPC schedulers for 
             distributed scheduling on clusters. These schedulers include SLURM,
             PBS,TORQUE, SGE, HTCondor and Mesos. Additionally, they may provide
             their own form of scheduling for computations on a single node. 
-            Nipype uses mutliproc... etc. BigData frameworks, such as Dask,
+            BigData frameworks, such as Dask,
             also provide interfaces to these HPC schedulers. However, other
             frameworks such as MapReduce and Spark are limited to BigData 
             clusters such as Yet Another Resource Negotiator (YARN and MESOS).
@@ -925,21 +924,67 @@
             to scientific workflows, all three BigData frameworks provide their
             own schedulers for single-node scheduling.
 
-            Spark's standalone scheduler is a simple scheduler that can be used
-            in distributed workflows. It can execute in two modes: client and
-            cluster. In client mode, the  \note{cannot run in cluster mode in pyspark} 
+            Spark's standalone scheduler is a simple scheduler packaged with 
+            Spark that can be used in distributed workflows. It can be used
+            for single-node and cluster deployments. For cluster deployments,
+            Spark has two execution modes: client and cluster. For client 
+            execution, the application driver is intended to be executed on the
+            client node. In cluster mode, however, the driver is intended to be
+            running on a compute node. Cluster mode can ensure fault-tolerance 
+            of not only the workers and master, but also the driver. However,
+            cluster mode is not available to PySpark deployments using the 
+            standalone scheduler.
 
-            YARN needs hadoop cluster
+            YARN is the main scheduler used for MapReduce applications. It was 
+            designed in order to decouple resource management from the 
+            MapReduce programming model while also addressing issues created 
+            by ad-hoc clusters, such as Hadoop on Demand (HoD), and helped 
+            users transition to shared Hadoop clusters. YARN is not restricted 
+            to MapReduce applications, and can also be used as a scheduler for 
+            Spark and Dask applications. Unlike Spark's standalone scheduler, 
+            YARN cluster deployment mode can be used with PySpark.
+            
+            Mesos is another scheduler compatible with Hadoop and Spark 
+            applications. It differs with YARN in that it is designed for the
+            efficient resource sharing of many cluster computing frameworks,
+            not just those that belong to the Hadoop family. Cluster deployment
+            mode is also available to PySpark applications using Mesos. 
+            
+            Dask provides support for two built-in schedulers: single machine
+            and distributed. The single machine scheduler is Dask's default
+            scheduler. It allows users to parallelize their application on a
+            single machine at either the thread or process level. For any 
+            application that needs to scale to multiple nodes, the Dask 
+            distributed scheduler is recommended. Dask distributed can also be
+            run on a single machine as is useful to use in applications with 
+            significant data transfers as it employs more efficient 
+            locality-aware scheduling strategies. 
 
-            Mesos can run on HPC
+            Unlike Spark, Dask can interface with HPC schedulers. The 
+            dask-jobqueue interface is compatible with PBS, SLURM and SGE 
+            resource managers, while the dask-drmaa interface is compatible 
+            with any DRMAA compliant resource manager. It is recommended to use
+            these interfaces for interactive scheduling, but they can also be
+            used for batch processing.
 
-            dask distributed
-            \note{scientific: SLURM, PBS, SGE, HTCondor, Mesos (sometimes)
-            big data: mapreduce - local or YARN, Spark - standalone, YARN or 
-            Mesos, dask: any (easy to extend to any scheduler)}
+            Since Spark does not natively interface with HPC schedulers, 
+            the use of overlay Spark clusters, similar to HoD, has been 
+            investigated for Spark applications running on HPC. The reasons 
+            listed for HoD's failure include poor 
+            data locality when deploying a dynamic cluster on a shared HDFS 
+            instance, inability to resize cluster resulting in idle nodes and 
+            high cluster allocation latency. To address the issue of high 
+            cluster allocation, pilot-agent scheduling strategies can be used.
+            Pilot-agent scheduling strategies allow for clusters to grow 
+            dynamically and to add nodes when required. This relieves users, 
+            in the case of Spark, from having to wait until all nodes become 
+            available to begin execution. Both papers \note{jha and baer} use 
+            this strategy. Furthermore, pilot-agent scheduling could be adapted
+            to enable smart cluster resizing. Conversly, maintaining data 
+            locality using a shared HDFS instance will remain an issue. 
+
         \section{Performance enhancement strategies}\label{other}
             scientific: workflow checkpointing (looking at file hashes)
-            big data: data locality, in memory computing, lazy evaluation
             
             \tristan{Mentioning fault tolerance would be wise too.}
             \tristan{How about: burst buffers, pilot jobs, deployments of Spark on HPC?}
