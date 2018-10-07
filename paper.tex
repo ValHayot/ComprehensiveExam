@@ -39,7 +39,7 @@
         
         Many neuroimaging workflow engines currently exist. Examples include
         Nipype, Pipeline System for Octave and Matlab (PSOM), LONI, SPM, FastR,
-        Automated Analysis (AA) and Pydpiper\note{add citations here}. These 
+        Automatic Analysis (AA) and Pydpiper\note{add citations here}. These 
         workflow engines aim to satisfy four criteria: 1) straightforward \tristan{easy? facilitated?} 
         workflow composition, 2) performance, 3) portability of the workflows 
         and 4) reproducibility of the analyses. While these workflow engines
@@ -720,8 +720,6 @@
             the interface ran.)}
 
 
-        \section{Workflow sharing}\label{sharing}
-            
             
     \chapter{Performance}\label{performance}
         Neuroimaging frameworks are notoriously known to be compute-intensive.
@@ -883,14 +881,17 @@
             \subsection{BigData Filesystem optimizations for HPC}
 
                 Writting BigData to Lustre is very costly compared to local 
-                node storage. BigData filesystems like HDFS may not necessarily
-                be the best solution for HPC as they will not only use up 
-                storage on compute nodes, but also replicate the data across 
-                the cluster taking up a significant amount of storage space.
+                node storage. Distributed filesystems found on HPC 
+                infrastructure provide their own form of fault-tolerance, 
+                therefore, adding a BigData filesystem such as HDFS which 
+                replicates the data may burden the storage layer only to 
+                providea feature which already exist. This is especially 
+                problematic as storage on HPC compute nodes may be limited.
                 Moreover, while BigData frameworks typically execute on a 
                 dedicated BigData cluster, they will be on a shared cluster in
                 HPC, with many processed trying to access the memory. The 
-                following are two optimizations made for  \note{two or one}
+                following are two optimizations made for the storing of BigData
+                .
 
                 Alluxio, formerly known as Tachyon, is an in-memory filesystem
                 that stores lineage data to offset the cost of writing data to 
@@ -900,16 +901,28 @@
                 unlike Spark applications, Alluxio is meant to run indefinitely
                 , making it unfavourable, in some cases, to recompute the data
                 from its starting point. For this, Alluxio evaluates the 
-                lineage data and selects the 
+                lineage data and checkpoints the files which have been 
+                repeatedly accessed (i.e. hot files). This strategy also helps 
+                in avoiding the checkpointing of intermediary files. 
 
                 Triple-H leverages the heterogeneity of HPC clusters to 
                 optimize the data's placement across the cluster for most 
-                efficient use. It has two modes, default and Lustre integrated,
-                that allows it to execute on systems with and without access
-                to a distributed filesystem. 
+                efficient use. It aims to reduce the I/O bottleneck of writing 
+                through data buffering and caching. Triple-H has two modes of
+                operation, Default and Lustre integrated,
+                that allows it to execute on systems both with and without 
+                access to a distributed filesystem. To further reduce I/O in
+                HPC systems, Triple-H leverage's Lustre's fault tolerance 
+                instead of using HDFS's replication-based fault-tolerance. 
+                Triple-H improves 
+                performance of cluster I/O by writing the data to
+                the most optimal storage layer (RAMDisk, SSD, HDD, Lustre) 
+                dictacted by the selected placement policy (i.e. Greedy or 
+                Load-balanced). 
+
+                Although both of these solutions have shown to improve I/O
+                performance 
             
-            \note{scientific: shared FS such as Lustre, NFS, S3
-            big data: mapreduce - HDFS, spark and dask shared or distributed}
         \section{BigData Scheduling}\label{sched}
             
             Scientific workflows typically rely on HPC schedulers for 
