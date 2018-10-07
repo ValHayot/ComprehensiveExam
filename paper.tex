@@ -995,6 +995,10 @@
             this strategy. Furthermore, pilot-agent scheduling could be adapted
             to enable smart cluster resizing. Conversly, maintaining data 
             locality using a shared HDFS instance will remain an issue. 
+            \tristan{The section is interesting, but it lacks a bit of context: one would like to 
+            understand why Spark and Hadoop developed their own scheduler instead of
+            reusing the ones available on HPC. And what are the main characteristics of these
+            schedulers: data locality should be mentioned here.}
 
         \section{Performance enhancement strategies}\label{other}
             scientific: workflow checkpointing (looking at file hashes)
