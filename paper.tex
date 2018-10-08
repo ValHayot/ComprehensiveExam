@@ -1000,11 +1000,65 @@
             reusing the ones available on HPC. And what are the main characteristics of these
             schedulers: data locality should be mentioned here.}
 
-        \section{Performance enhancement strategies}\label{other}
-            scientific: workflow checkpointing (looking at file hashes)
-            
-            \tristan{Mentioning fault tolerance would be wise too.}
+        \section{Checkpointing}\label{other}                                    
+                                                                                
+            Scientific workflow engines employ other strategies for improving   
+            performance. As scientific worflows are compute intensive, it is    
+            necessary for workflow engines to avoid repeating steps that have   
+            completed successfully. This is achieved by scientific workflow     
+            engines through the process of checkpointing. Workflow engines such 
+            as Nipype, PSOM, AA, Pydpiper, Nextflow, Taverna, Pegasus, Galaxy,  
+            Toil, Make and LONI all provide a mechanism to resume a pipeline    
+            from last successful state. This can be done either by detecting    
+            changes in the task definition (e.g. Nipype, PSOM, AA, Pydpiper,    
+            Nextflow), checking if modification of input                        
+            data is more recent than previously stored output data (e.g. Make), 
+            or requesting that the user manually restart execution from         
+            selected task (e.g. LONI).                                          
+                                                                                
+            Big Data frameworks such as MapReduce, Spark and Dask do not have   
+            any form of checkpointing functionality outside of a given          
+            execution. For instance, it is possible to checkpoint an RDD, but   
+            that RDD will only be accessible within the application's context   
+            and will not be shared with future executions. As failures do       
+            happen and individual neuroimaging tasks may take a non-negligable  
+            amount of time to execute, a mechanism to checkpoint workflows      
+            will need to be added to any BigData framework used for             
+            neuroinformatics.                                                   
+            \note{dont know how Taverna, Pegasus, Galaxy or Toil achieves this} 
+            \note{openMole says it checks to see if outputs exist. similar to   
+            make?}                                                              
+            \note{what about SPM, FastR??}                                      
+                                                                                
+            \tristan{Mentioning fault tolerance would be wise too.}             
             \tristan{How about: burst buffers, pilot jobs, deployments of Spark on HPC?}
+                                                                                
+        \section{Evaluation of BigData Frameworks for Scientific Computing}     
+            The BigData frameworks have sparked significant interest within the 
+            scientific community, leading to research on the efficiency of      
+            these frameworks for scientific computing. ~\cite{valduriez} found  
+            that Spark scales better than expected with longer tasks. This is   
+            because                                                             
+            there is less I/O occurring and the scheduler is not as overloaded. 
+            Additionally, ~\cite{Boubela} found that Spark in conjunction with  
+            GPU acceleration greatly reduced the processing time of large       
+            neuroimaging datasets.                                              
+            As scientific, specifically neuroimaging workflows are typically    
+            comprised of long tasks, it                                         
+            is crucial that BigData frameworks scale well with tasks of longer  
+            durations.
+    
+            To determine how different BigData frameworks compare in their 
+            efficiency for the processing of scientific workflows, 
+            ~\cite{ariel} compared Spark, Dask, SciDB, Myria and TensorFlow on
+            a neuroimaging and astronomy use case. It was found that Dask, 
+            Myria and Spark performed consistently better and had comparable 
+            performance. Dask had poorer performance when data did not fit in
+            memory. It was also found that Spark exhibited slower performance 
+            when the individual images are larger due to the lack of overlap 
+            between shuffle and map stages \note{revise this}. Overall it was
+            found that BigData Frameworks still required some adaptations to be
+            effectively used as scientific workflow engines.            
             
     \chapter{Portability}\label{portability}
         In order for a workflow engine to be utilized, \weird{it much be simple} for 
