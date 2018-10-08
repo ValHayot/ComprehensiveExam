@@ -26,21 +26,26 @@
     \chapter{Introduction}
         In recent years, the volume of neuroimaging data acquired has exceeded
         both the storage and computation capacity of a standard research 
-        lab workstation. With the advancement of data sharing technologies, this 
-        data has been made widely available, \weird{with the only factor impeding
-        research on this data being access to infrastructure and software that 
-        enables efficient processing on such infrastructure}. Many research labs 
-        do have access to high performance computing (HPC) clusters, however, 
-        without efficient software to process this data, processing can take an 
-        excessive amount of time. Ensuring efficient processing of data is 
-        complex and likely beyond the knowledge of an average neuroimaging 
-        researcher \tristan{Be careful with 'knowledge', some neuroimaging researchers are very compute-savvy}. As a result, frameworks for the efficient processing of 
-        neuroimaging data need to be developed. \tristan{Add a sentence to transition from 'frameworks for efficient processing' to 'workflow engines'}
+        lab workstation. With the advancement of data sharing technologies, 
+        this data has been made widely available, however, accessibility to 
+        such data remains limited due to infrastructural demands and lack of 
+        performant software. Even with powerful infrastructure, such as High
+        Performance Computing (HPC) infrastructure, software configured to 
+        efficiently use resources is required to make execution time manageable
+        . Ensuring efficient processing of data is 
+        complex and limits accessibility to researchers with little programming 
+        knowledge. Existing neuroimaging workflow engines primarily rely on HPC
+        resource managers for performance and are therefore not well suited for
+        BigData processing. As a result, frameworks for the efficient 
+        processing of Big neuroimaging Data need to be developed\tristan{Add a sentence to transition from 'frameworks for efficient processing' to 'workflow engines'}
         
         Many neuroimaging workflow engines currently exist. Examples include
-        Nipype~\cite{nipype}, Pipeline System for Octave and Matlab (PSOM)~\cite{10.3389/fninf.2012.00007}, LONI~\cite{REX20031033}, SPM~\cite{spm}, FastR~\cite{10.3389/fict.2016.00015},
-        Automatic Analysis (AA)~\cite{10.3389/fninf.2014.00090} and Pydpiper~\cite{10.3389/fninf.2014.00067}. These 
-        workflow engines aim to satisfy four criteria: 1) straightforward \tristan{easy? facilitated?} 
+        Nipype~\cite{nipype}, Pipeline System for Octave and Matlab 
+        (PSOM)~\cite{10.3389/fninf.2012.00007}, LONI~\cite{REX20031033}, 
+        SPM~\cite{spm}, FastR~\cite{10.3389/fict.2016.00015},
+        Automatic Analysis (AA)~\cite{10.3389/fninf.2014.00090} and 
+        Pydpiper~\cite{10.3389/fninf.2014.00067}. These 
+        workflow engines aim to satisfy four criteria: 1) simplified
         workflow composition, 2) performance, 3) portability of the workflows 
         and 4) reproducibility of the analyses. While these workflow engines
         do tackle performance, it is mainly limited to minimizing computation
@@ -50,20 +55,22 @@
 
         Big Data frameworks differ from those available in neuroimaging as their
         focus is mainly on workflow composition and performance. Big Data 
-        frameworks such as Apache Spark and Dask \tristan{Add references} both aim to be easy-to-use,
+        frameworks such as Apache Spark~\cite{Zaharia:2016:ASU:3013530.2934664} 
+        and Dask~\cite{rocklin2015dask} both aim to be easy-to-use,
         applicable to a wide variety of analyses and improve performance in the 
         processing of Big Data. These types of systems were primarily designed 
         to be efficient on commodity infrastructure in which transferring data
-        over a network would be extremely costly.
+        over a network is extremely costly.
 
-        Currently, there exists no Big Data framework which is adapted for the
+        Currently, there lacks a Big Data framework which is adapted for the
         processing of neuroimaging data. However, tools such as the Thunder 
-        Project \note{add citation} allow for the processing of time-series
-        neuroimaging data using Spark as the backend framework. \weird{Tools such as 
-        these} provide built-in functions to process the data. For users to 
-        extend functionality, it is necessary for them to understand the backend
-        framework. Other scientific workflow engines, such as Toil and Pegasus
-        \note{add citations}, have incorporated features that enable more 
+        Project~\cite{Freeman:2014aa} allow for the processing of time-series
+        neuroimaging data using Spark as the backend framework. Such tools
+        provide built-in functions to process the data. For users to 
+        extend functionality, it is necessary for them to understand the 
+        backend framework. Other scientific workflow engines, such as 
+        Toil~\cite{Vivian:2017aa} and Pegasus~\cite{DEELMAN201517}, have 
+        incorporated features that enable more 
         performant workflow executions for scientific Big Data. They also enable
         the integration of Big Data frameworks as sub-pipelines within their 
         workflows. Despite integration with Big Data frameworks, it is not
@@ -82,6 +89,10 @@
         for processing on HPC.
 
         \tristan{Add a sentence to present the goal of the report.}
+        This paper aims to evaluate the efficiency of current neuroimaging 
+        frameworks in comparison to BigData frameworks and to determine the 
+        extent to which BigData frameworks must be adapted to be effective
+        neuroimaging workflow engines. 
         In section~\ref{datasets}, we will briefly introduce the two 
         types of datasets that are giving rise to the neuroimaging big 
         data. Section~\ref{platforms} will provide a brief introduction 
@@ -99,7 +110,7 @@
         Toil for other scientific workflows; and MapReduce, Spark and Dask for
         Big Data Frameworks. Chapter \ref{workcomp} will evaluate these 
         workflows on the basis of workflow composition: we will % 'in other words' is on my list of expressions to avoid
-        look at the programming languages necessary to construct these workflows
+        examine the programming languages necessary to construct these workflows
         , how easy is it to add new tools and will these workflows be understood
         by the community. In Chapter \ref{performance}, we will proceed to 
         investigate the strategies employed by these frameworks to improve the 
@@ -706,9 +717,6 @@
             compete with Galaxy's XML. Python-based BigData frameworks can 
             easily call on this library from within the workflow in order to
             communicate with the tools.
-
-            \subsection{input and output definitions}
-                TBD
 
             \tristan{Good material in here, but it lacks a bit structure.
             I like your structure of the previous sub-section, by language. I think
