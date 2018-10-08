@@ -106,13 +106,17 @@
         break down our analyses by the four principal features necessary for
         effective neuroimaging workflow engines. The workflow engines discussed
         will include SPM, LONI, Nipype, PSOM, FastR, AA, Pydpiper 
-        for neuroimaging; Taverna, Pegasus, Make, OpenMOLE, Nextflow, Galaxy, 
-        Toil for other scientific workflows; and MapReduce, Spark and Dask for
+        for neuroimaging; Taverna~\cite{doi:10.1093/bioinformatics/bth361}, 
+        Pegasus, Make~\cite{10.3389/fninf.2016.00002}, 
+        OpenMOLE~\cite{passerat2014openmole}, Nextflow~\cite{Di-Tommaso:2017aa}
+        , Galaxy~\cite{Goecks2010}, 
+        Toil for other scientific workflows; and Hadoop 
+        MapReduce~\cite{Dean:2008:MSD:1327452.1327492}, Spark and Dask for
         Big Data Frameworks. Chapter \ref{workcomp} will evaluate these 
         workflows on the basis of workflow composition: we will % 'in other words' is on my list of expressions to avoid
         examine the programming languages necessary to construct these workflows
-        , how easy is it to add new tools and will these workflows be understood
-        by the community. In Chapter \ref{performance}, we will proceed to 
+        , as well as, how easy is it to add new tools. In Chapter 
+        \ref{performance}, we will proceed to 
         investigate the strategies employed by these frameworks to improve the 
         performance of their workflows. Chapter \ref{portability} will discuss
         the portability of the workflows written using these frameworks. 
@@ -122,21 +126,25 @@
 
         \section{Big Neuroimaging Datasets}\label{datasets}
 
-            As a result of the rise in data sharing in neuroscience, neuroimaging
-            Big Data has come to fruition. The field of neuroscience has now
+            As a result of the rise in data sharing in neuroscience, 
+            neuroimaging
+            BigData has come to fruition. The field of neuroscience has now
             reached a bottleneck where there exists sufficient data to make
             impactful studies, but the software to process these datasets have 
             not evolved with the size of the data.
 
             Neuroimaging big data comes in two formats: 1) large images and 2) 
             large datasets. Large images consist of singular images ranging 
-            from 100s of gigabytes to terabytes in size. A well-known example of 
-            such an image is the BigBrain \note{cite here}, a histological image 
+            from 100s of gigabytes to terabytes in size. A well-known example 
+            of 
+            such an image is the BigBrain~\cite{Amunts1472}, a histological 
+            image 
             of the brain of a healthy 69 year-old man. At its highest resolution
             , it is 1x1x20$\mu$m or 1TB in
             size. Other examples of large images can be found in electron 
-            microscopy (EM), polarized light imaging (PLI) and micro computational
-            tomography (microCT) \note{need to do more research here.cite}. 
+            microscopy (EM)~\cite{Hildebrand:2017aa}, polarized light imaging 
+            (PLI)~\cite{10.1007/978-3-319-12084-3_1} and micro computational
+            tomography (microCT)~\cite{10.1371/journal.pone.0035691}. 
             Images at 
             such high resolution are important to researchers as they provide 
             insights into aspects not otherwise detectible in images at lower 
@@ -147,11 +155,16 @@
             In contrast, large datasets consist of many images acquired from
             multiple subjects, which are too large to be processed in their
             entirety. Notable examples of these datasets include the 
-            Alzheimer's Disease Neuroimaging Initiative (ADNI), OpenfMRI, 
-            the Autism Brain Imaging Data Exchange (ABIDE), the Consortium for
-            Reliability and Reproducibility (CoRR), the Human Connectome Project
-            (HCP) and the UK Biobank, with the later
-            two being flagship recent examples of large datasets in neuroimaging.
+            Alzheimer's Disease Neuroimaging Initiative 
+            (ADNI)~\cite{doi:10.1002/jmri.21049}, 
+            OpenfMRI~\cite{POLDRACK2017259}, 
+            the Autism Brain Imaging Data Exchange 
+            (ABIDE)~\cite{Di-Martino:2013aa}, the Consortium for
+            Reliability and Reproducibility (CoRR)~\cite{Zuo:2014aa}, the Human 
+            Connectome Project (HCP)~\cite{VANESSEN201362} and the UK 
+            Biobank~\cite{Miller:2016aa}, with the later
+            two being flagship recent examples of large datasets in 
+            neuroimaging.
 
             The ADNI intiative is a collection of images (structural and 
             functional MRI, PET), urine,
@@ -179,11 +192,14 @@
             structural MRI and phenotypic data. As data made available in ABIDE
             is preprocessed, standardized pipelines were developed for the 
             preprocessing of the images. Popular neuroimaging processing tools
-            such as CIVET, ANTs, and FreeSurfer \note{cite} were used for the 
+            such as CIVET~\cite{citation-0}, ANTs~\cite{avants2009advanced}, 
+            and FreeSurfer~\cite{FISCHL2012774} were used for the 
             preprocessing of structural data, and several other pipelines were
             used for the processing of functional data.
 
-            The CoRR \tristan{expand acronym} was developed as an initiative to study and improve the 
+            The Consortium for Reliability and Reproducibility 
+            \tristan{expand acronym} was developed as an initiative to study 
+            and improve the 
             reliability and reproducibility of functional connectomics. The 
             data made available by the Consortium consists of test-retest data 
             obtained from 33 datasets. The repository contains data from 1629 
@@ -229,12 +245,13 @@
             they lack compute and storage resources to process the data in its
             entirety. It is also important to note that many of the pipelines 
             developed by these initiatives made use of popular neuroimaging 
-            toolboxes, such as FSL, FreeSurfer, ANTS, CIVET, rather that
+            toolboxes, such as FSL~\cite{SMITH2004S208}, FreeSurfer, ANTS, 
+            CIVET, rather than
             creating their own. Therefore, there is a great need for Big Data
             frameworks that can leverage existing tools for the efficient 
-            processing of large-scale datasets. With the availability of such 
-            tools, many more research labs will be able to perform
-            higher-impact studies \note{reword}.
+            processing of large-scale datasets. Widespread availability and 
+            accessibility of such frameworks will in turn lead to a greater
+            volume of higher-impact studies.
 
 
         \section{Open-science Platforms}\label{platforms}
