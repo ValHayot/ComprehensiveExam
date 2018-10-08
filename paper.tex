@@ -1226,16 +1226,17 @@
             that the tools, and as a consequence, the pipelines created will
             also be platform-independent. Many workflow engines have opted to 
             be platform independent. These workflow engines include: Nipype,
-            PSOM, SPM, FASTR, LONI, AA, Pydpiper, Taverna, MapReduce, Spark and
+            PSOM, SPM, FASTR, LONI, AA, Pydpiper, Taverna, Toil, MapReduce, Spark and
             Dask. These workflow engines achieve platform independence through
-            running on the Java Virtual Machine (JVM) or being written in 
-            Python. Platform-independent engines that run on the JVM include: 
+            running on the Java Virtual Machine (JVM) being written in 
+            Python or CWL. Platform-independent engines that run on the JVM include: 
             MATLAB engine frameworks, such as PSOM, SPM and AA; LONI; Taverna; 
             MapReduce; and Spark \tristan{this list contains Matlab
             engines}. Nipype, FastR, Pydpiper are all python-based platform 
-            independent workflow engines. The remainder of the 
-            workflow engines (Pegasus, Make, OpenMOLE, Nextflow, Galaxy, and 
-            Toil are not platform-independent, but can execute on macOS and Linux.
+            independent workflow engines and Toil is CWL-based platform independent. 
+            The remainder of the 
+            workflow engines (Pegasus, Make, OpenMOLE, Nextflow and Galaxy are 
+            not platform-independent, but can execute on macOS and Linux.
 
             Engines built on top of a platform-independent language do not 
             necessarily imply platform independence \tristan{Grammar? Engines ... does not}. For instance, OpenMOLE is 
