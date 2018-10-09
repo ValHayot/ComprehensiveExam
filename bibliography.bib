@@ -1,12 +1,9 @@
-%% This BibTeX bibliography file was created using BibDesk.
-%% http://bibdesk.sourceforge.net/
 
-%% Created for Valerie Hayot-Sasson at 2018-10-09 05:41:53 +0900 
-
-
-%% Saved with string encoding Unicode (UTF-8) 
-
-
+@misc{neurodoc,
+  title = {NeuroDocker},
+  howpublished = {\url{https://github.com/kaczmarj/neurodocker}},
+  note = {Accessed: 2018-10-09}
+}
 
 @article{interlandi2018adding,
 	Author = {Interlandi, Matteo and Ekmekji, Ari and Shah, Kshitij and Gulzar, Muhammad Ali and Tetali, Sai Deep and Kim, Miryung and Millstein, Todd and Condie, Tyson},
@@ -105,7 +102,6 @@
 	Bdsk-Url-1 = {http://dl.acm.org/citation.cfm?id=2228298.2228301}}
 
 @article{10.3389/fninf.2017.00063,
-	Abstract = {The contribution of this paper is to identify and describe current best practices for using Amazon Web Services (AWS) to execute neuroimaging workflows ``in the cloud.'' Neuroimaging offers a vast set of techniques by which to interrogate the structure and function of the living brain. However, many of the scientists for whom neuroimaging is an extremely important tool have limited training in parallel computation. At the same time, the field is experiencing a surge in computational demands, driven by a combination of data-sharing efforts, improvements in scanner technology that allow acquisition of images with higher image resolution, and by the desire to use statistical techniques that stress processing requirements. Most neuroimaging workflows can be executed as independent parallel jobs and are therefore excellent candidates for running on AWS, but the overhead of learning to do so and determining whether it is worth the cost can be prohibitive. In this paper we describe how to identify neuroimaging workloads that are appropriate for running on AWS, how to benchmark execution time, and how to estimate cost of running on AWS. By benchmarking common neuroimaging applications, we show that cloud computing can be a viable alternative to on-premises hardware. We present guidelines that neuroimaging labs can use to provide a cluster-on-demand type of service that should be familiar to users, and scripts to estimate cost and create such a cluster.},
 	Author = {Madhyastha, Tara M. and Koh, Natalie and Day, Trevor K. M. and Hern{\'a}ndez-Fern{\'a}ndez, Moises and Kelley, Austin and Peterson, Daniel J. and Rajan, Sabreena and Woelfer, Karl A. and Wolf, Jonathan and Grabowski, Thomas J.},
 	Date-Added = {2018-10-08 12:00:52 +0900},
 	Date-Modified = {2018-10-08 12:00:52 +0900},
@@ -150,12 +146,12 @@
 	Volume = {7},
 	Year = {2018},
 	Bdsk-Url-1 = {http://dx.doi.org/10.1093/gigascience/giy016}}
-
-@electronic{bidsderiv,
-	Date-Added = {2018-10-08 03:41:43 +0900},
-	Date-Modified = {2018-10-08 03:42:57 +0900},
-	Title = {BIDS Derivatives RC1},
-	Url = {https://docs.google.com/document/d/17ebopupQxuRwp7U7TFvS6BH03ALJOgGHufxK8ToAvyI/edit}}
+	
+@misc{bidsderiv,
+  title = {BIDS Derivatives RC1},
+  howpublished = {\url{https://docs.google.com/document/d/17ebopupQxuRwp7U7TFvS6BH03ALJOgGHufxK8ToAvyI/edit}},
+  note = {Accessed: 2018-10-09}
+}
 
 @article{Maumet:2016aa,
 	Author = {Maumet, Camille and Auer, Tibor and Bowring, Alexander and Chen, Gang and Das, Samir and Flandin, Guillaume and Ghosh, Satrajit and Glatard, Tristan and Gorgolewski, Krzysztof J. and Helmer, Karl G. and Jenkinson, Mark and Keator, David B. and Nichols, B. Nolan and Poline, Jean-Baptiste and Reynolds, Richard and Sochat, Vanessa and Turner, Jessica and Nichols, Thomas E.},
@@ -187,7 +183,6 @@
 	Year = {2013}}
 
 @article{10.3389/fninf.2015.00012,
-	Abstract = {Neuroimaging pipelines are known to generate different results depending on the computing platform where they are compiled and executed. We quantify these differences for brain tissue classification, fMRI analysis, and cortical thickness (CT) extraction, using three of the main neuroimaging packages (FSL, Freesurfer and CIVET) and different versions of GNU/Linux. We also identify some causes of these differences using library and system call interception. We find that these packages use mathematical functions based on single-precision floating-point arithmetic whose implementations in operating systems continue to evolve. While these differences have little or no impact on simple analysis pipelines such as brain extraction and cortical tissue classification, their accumulation creates important differences in longer pipelines such as subcortical tissue classification, fMRI analysis, and cortical thickness extraction. With FSL, most Dice coefficients between subcortical classifications obtained on different operating systems remain above 0.9, but values as low as 0.59 are observed. Independent component analyses (ICA) of fMRI data differ between operating systems in one third of the tested subjects, due to differences in motion correction. With Freesurfer and CIVET, in some brain regions we find an effect of build or operating system on cortical thickness. A first step to correct these reproducibility issues would be to use more precise representations of floating-point numbers in the critical sections of the pipelines. The numerical stability of pipelines should also be reviewed.},
 	Author = {Glatard, Tristan and Lewis, Lindsay B. and Ferreira da Silva, Rafael and Adalat, Reza and Beck, Natacha and Lepage, Claude and Rioux, Pierre and Rousseau, Marc-Etienne and Sherif, Tarek and Deelman, Ewa and Khalili-Mahani, Najmeh and Evans, Alan C.},
 	Date-Added = {2018-10-08 03:34:32 +0900},
 	Date-Modified = {2018-10-08 03:34:32 +0900},
@@ -203,7 +198,6 @@
 	Bdsk-Url-2 = {https://doi.org/10.3389/fninf.2015.00012}}
 
 @article{10.1371/journal.pone.0038234,
-	Abstract = {FreeSurfer is a popular software package to measure cortical thickness and volume of neuroanatomical structures. However, little if any is known about measurement reliability across various data processing conditions. Using a set of 30 anatomical T1-weighted 3T MRI scans, we investigated the effects of data processing variables such as FreeSurfer version (v4.3.1, v4.5.0, and v5.0.0), workstation (Macintosh and Hewlett-Packard), and Macintosh operating system version (OSX 10.5 and OSX 10.6). Significant differences were revealed between FreeSurfer version v5.0.0 and the two earlier versions. These differences were on average 8.8$\pm$6.6% (range 1.3--64.0%) (volume) and 2.8$\pm$1.3% (1.1--7.7%) (cortical thickness). About a factor two smaller differences were detected between Macintosh and Hewlett-Packard workstations and between OSX 10.5 and OSX 10.6. The observed differences are similar in magnitude as effect sizes reported in accuracy evaluations and neurodegenerative studies. The main conclusion is that in the context of an ongoing study, users are discouraged to update to a new major release of either FreeSurfer or operating system or to switch to a different type of workstation without repeating the analysis; results thus give a quantitative support to successive recommendations stated by FreeSurfer developers over the years. Moreover, in view of the large and significant cross-version differences, it is concluded that formal assessment of the accuracy of FreeSurfer is desirable.},
 	Author = {Gronenschild, Ed H. B. M. AND Habets, Petra AND Jacobs, Heidi I. L. AND Mengelers, Ron AND Rozendaal, Nico AND van Os, Jim AND Marcelis, Machteld},
 	Date-Added = {2018-10-08 03:33:10 +0900},
 	Date-Modified = {2018-10-08 03:33:10 +0900},
@@ -248,8 +242,6 @@
 	Year = {2016}}
 
 @article{Peng1226,
-	Abstract = {Computational science has led to exciting new developments, but the nature of the work has exposed limitations in our ability to evaluate published findings. Reproducibility has the potential to serve as a minimum standard for judging scientific claims when full independent replication of a study is not possible.},
-	Author = {Peng, Roger D.},
 	Date-Added = {2018-10-08 03:25:57 +0900},
 	Date-Modified = {2018-10-08 03:25:57 +0900},
 	Doi = {10.1126/science.1213847},
@@ -268,7 +260,6 @@
 	Bdsk-File-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QOy4uLy4uLy4uL0Rvd25sb2Fkcy8xMC4zMzg5LWZuaW5mLjIwMTcuMDAwNjMtY2l0YXRpb24oMSkuYmli0hcLGBlXTlMuZGF0YU8RAdgAAAAAAdgAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAANUt139IKwAAAAmn9h8xMC4zMzg5LWZuaW5mLjIwMTcuMCNDM0Q1NzUuYmliAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAw9V11+D3XgAAAAAAAAAAAAMAAgAACSAAAAAAAAAAAAAAAAAAAAAJRG93bmxvYWRzAAAQAAgAANUtWO8AAAARAAgAANfgeM4AAAABAAwACaf2AAmn8wAGaAwAAgBDTWFjaW50b3NoIEhEOlVzZXJzOgB2aHM6AERvd25sb2FkczoAMTAuMzM4OS1mbmluZi4yMDE3LjAjQzNENTc1LmJpYgAADgBSACgAMQAwAC4AMwAzADgAOQAtAGYAbgBpAG4AZgAuADIAMAAxADcALgAwADAAMAA2ADMALQBjAGkAdABhAHQAaQBvAG4AKAAxACkALgBiAGkAYgAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASADxVc2Vycy92aHMvRG93bmxvYWRzLzEwLjMzODktZm5pbmYuMjAxNy4wMDA2My1jaXRhdGlvbigxKS5iaWIAEwABLwAAFQACAAr//wAAgAbSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXU5TTXV0YWJsZURhdGGjHR8gVk5TRGF0YVhOU09iamVjdNIbHCIjXE5TRGljdGlvbmFyeaIiIF8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBxAHMAdQB3AIQAjgDMANEA2QK1ArcCvALHAtAC3gLiAukC8gL3AwQDBwMZAxwDIQAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAMj}}
 
 @article{Esteban306951,
-	Abstract = {Preprocessing of functional MRI (fMRI) involves numerous steps to clean and standardize data before statistical analysis. Generally, researchers create ad hoc preprocessing workflows for each new dataset, building upon a large inventory of tools available for each step. The complexity of these workflows has snowballed with rapid advances in MR data acquisition and image processing techniques. We introduce fMRIPrep, an analysis-agnostic tool that addresses the challenge of robust and reproducible preprocessing for task-based and resting fMRI data. FMRIPrep automatically adapts a best-in-breed workflow to the idiosyncrasies of virtually any dataset, ensuring high-quality preprocessing with no manual intervention. By introducing visual assessment checkpoints into an iterative integration framework for software-testing, we show that fMRIPrep robustly produces high-quality results on a diverse fMRI data collection comprising participants from 54 different studies in the OpenfMRI repository. We review the distinctive features of fMRIPrep in a qualitative comparison to other preprocessing workflows. We demonstrate that fMRIPrep achieves higher spatial accuracy as it introduces less uncontrolled spatial smoothness than one commonly used preprocessing tool. FMRIPrep has the potential to transform fMRI research by equipping neuroscientists with a high-quality, robust, easy-to-use and transparent preprocessing workflow which can help ensure the validity of inference and the interpretability of their results.},
 	Author = {Esteban, Oscar and Markiewicz, Christopher and Blair, Ross W and Moodie, Craig and Isik, Ayse Ilkay and Erramuzpe Aliaga, Asier and Kent, James and Goncalves, Mathias and DuPre, Elizabeth and Snyder, Madeleine and Oya, Hiroyuki and Ghosh, Satrajit and Wright, Jessey and Durnez, Joke and Poldrack, Russell and Gorgolewski, Krzysztof Jacek},
 	Date-Added = {2018-10-08 03:23:19 +0900},
 	Date-Modified = {2018-10-08 03:23:19 +0900},
@@ -283,7 +274,6 @@
 	Bdsk-Url-2 = {https://doi.org/10.1101/306951}}
 
 @article{10.1371/journal.pcbi.1005209,
-	Abstract = {Author summary Magnetic Resonance Imaging (MRI) is a non-invasive way to measure human brain structure and activity that has been used for over 25 years. There are thousands MRI studies performed every year generating a substantial amount of data. At the same time, many new data analysis methods are being developed every year. The potential of using new analysis methods on the variety of existing and newly acquired data is hindered by difficulties in software deployment and lack of support for standardized input data. Here we propose to use container technology to make deployment of a wide range of data analysis techniques easy. In addition, we adapt the existing data analysis tools to interface with data organized in a standardized way. We hope that this approach will enable researchers to access a wider range of methods when analyzing their data which will lead to accelerated progress in human neuroscience.},
 	Author = {Gorgolewski, Krzysztof J. AND Alfaro-Almagro, Fidel AND Auer, Tibor AND Bellec, Pierre AND Capot{\u a}, Mihai AND Chakravarty, M. Mallar AND Churchill, Nathan W. AND Cohen, Alexander Li AND Craddock, R. Cameron AND Devenyi, Gabriel A. AND Eklund, Anders AND Esteban, Oscar AND Flandin, Guillaume AND Ghosh, Satrajit S. AND Guntupalli, J. Swaroop AND Jenkinson, Mark AND Keshavan, Anisha AND Kiar, Gregory AND Liem, Franziskus AND Raamana, Pradeep Reddy AND Raffelt, David AND Steele, Christopher J. AND Quirion, Pierre-Olivier AND Smith, Robert E. AND Strother, Stephen C. AND Varoquaux, Ga{\"e}l AND Wang, Yida AND Yarkoni, Tal AND Poldrack, Russell A.},
 	Date-Added = {2018-10-08 03:22:16 +0900},
 	Date-Modified = {2018-10-08 03:22:16 +0900},
@@ -309,7 +299,6 @@
 	Year = {2017}}
 
 @article{10.1371/journal.pone.0177459,
-	Abstract = {Here we present Singularity, software developed to bring containers and reproducibility to scientific computing. Using Singularity containers, developers can work in reproducible environments of their choosing and design, and these complete environments can easily be copied and executed on other platforms. Singularity is an open source initiative that harnesses the expertise of system and software engineers and researchers alike, and integrates seamlessly into common workflows for both of these groups. As its primary use case, Singularity brings mobility of computing to both users and HPC centers, providing a secure means to capture and distribute software and compute environments. This ability to create and deploy reproducible environments across these centers, a previously unmet need, makes Singularity a game changing development for computational science.},
 	Author = {Kurtzer, Gregory M. AND Sochat, Vanessa AND Bauer, Michael W.},
 	Date-Added = {2018-10-08 03:19:25 +0900},
 	Date-Modified = {2018-10-08 03:19:25 +0900},
@@ -388,12 +377,12 @@
 	Bdsk-Url-1 = {http://doi.acm.org/10.1145/2723372.2742797},
 	Bdsk-Url-2 = {https://doi.org/10.1145/2723372.2742797}}
 
-@url{nilearn,
-	Date-Added = {2018-10-08 03:09:26 +0900},
-	Date-Modified = {2018-10-08 03:09:26 +0900},
-	Title = {Nilearn},
-	Url = {http://nilearn.github.io/},
-	Bdsk-Url-1 = {http://nilearn.github.io/}}
+
+@misc{nilearn,
+  title = {Nilearn},
+  howpublished = {\url{http://nilearn.github.io/}},
+  note = {Accessed: 2018-10-09}
+}
 
 @inproceedings{BosaghZadeh:2016:MCO:2939672.2939675,
 	Acmid = {2939675},
@@ -471,7 +460,6 @@
 	Bdsk-Url-2 = {https://doi.org/10.1145/1327452.1327492}}
 
 @article{Goecks2010,
-	Abstract = {Increased reliance on computational approaches in the life sciences has revealed grave concerns about how accessible and reproducible computation-reliant results truly are. Galaxy http://usegalaxy.org, an open web-based platform for genomic research, addresses these problems. Galaxy automatically tracks and manages data provenance and provides support for capturing the context and intent of computational methods. Galaxy Pages are interactive, web-based documents that provide users with a medium to communicate a complete computational analysis.},
 	Author = {Goecks, Jeremy and Nekrutenko, Anton and Taylor, James and {The Galaxy Team}},
 	Date-Added = {2018-10-07 09:52:02 +0900},
 	Date-Modified = {2018-10-07 09:52:02 +0900},
@@ -517,7 +505,6 @@
 	Year = {2014}}
 
 @article{10.3389/fninf.2016.00002,
-	Abstract = {The contribution of this paper is to describe how we can program neuroimaging workflow using Make, a software development tool designed for describing how to build executables from source files. We show that we can achieve many of the features of more sophisticated neuroimaging pipeline systems, including reproducibility, parallelization, fault tolerance, and quality assurance reports. We suggest that Make represents a large step towards these features with only a modest increase in programming demands over shell scripts.  This approach reduces the technical skill and time required to write, debug, and maintain neuroimaging workflows in a dynamic environment, where pipelines are often modified to accommodate new best practices or to study the effect of alternative preprocessing steps, and where the underlying packages change frequently.  This paper has a comprehensive accompanying manual with lab practicals and examples (see Supplemental Materials) and all data, scripts and makefiles necessary to run the practicals and examples are available in the ``makepipelines'' project at NITRC.},
 	Author = {Askren, Mary K. and McAllister-Day, Trevor K. and Koh, Natalie and Mestre, Zo{\'e} and Dines, Jennifer N. and Korman, Benjamin A. and Melhorn, Susan J. and Peterson, Daniel J. and Peverill, Matthew and Qin, Xiaoyan and Rane, Swati D. and Reilly, Melissa A. and Reiter, Maya A. and Sambrook, Kelly A. and Woelfer, Karl A. and Grabowski, Thomas J. and Madhyastha, Tara M.},
 	Date-Added = {2018-10-07 09:48:27 +0900},
 	Date-Modified = {2018-10-07 09:48:27 +0900},
@@ -617,17 +604,16 @@
 	Year = {2010},
 	Bdsk-Url-1 = {https://doi.org/10.1109/MSST.2010.5496972}}
 
-@webpage{htcondor,
-	Date-Added = {2018-10-07 09:19:22 +0900},
-	Date-Modified = {2018-10-07 09:19:39 +0900},
-	Title = {htcondor},
-	Url = {https://research.cs.wisc.edu/htcondor/}}
-
-@electronic{SGE,
-	Date-Added = {2018-10-07 09:11:44 +0900},
-	Date-Modified = {2018-10-07 09:12:03 +0900},
-	Title = {Sun Grid Engine},
-	Url = {https://www.oracle.com/sun/index.html}}
+@misc{htcondor,
+  title = {HTCondor},
+  howpublished = {\url{https://research.cs.wisc.edu/htcondor/}},
+  note = {Accessed: 2018-10-09}
+}
+@misc{SGE,
+  title = {Sun Grid Engine},
+  howpublished = {\url{https://www.oracle.com/sun/index.html}},
+  note = {Accessed: 2018-10-09}
+}
 
 @inproceedings{10.1007/3-540-60153-8_34,
 	Abstract = {The typical batch queuing system schedules jobs for execution by a set of queue controls. The controls determine the queue from which jobs will be selected. Within each queue, jobs are typically selected in first-in, first-out (FIFO) order. This limits the set of scheduling policies available to a site.},
@@ -663,7 +649,6 @@
 	Year = {2018}}
 
 @article{10.3389/fninf.2014.00054,
-	Abstract = {The Canadian Brain Imaging Research Platform (CBRAIN) is a web-based collaborative research platform developed in response to the challenges raised by data-heavy, compute-intensive neuroimaging research. CBRAIN offers transparent access to remote data sources, distributed computing sites and an array of processing and visualization tools within a controlled, secure environment. Its web interface is accessible through any modern browser and uses graphical interface idioms to reduce the technical expertise required to perform large-scale computational analyses. CBRAIN's flexible meta-scheduling has allowed the incorporation of a wide range of heterogeneous computing sites, currently including nine national research High Performance Computing (HPC) centers in Canada, one in Korea, one in Germany and several local research servers. CBRAIN leverages remote computing cycles and facilitates resource-interoperability in a transparent manner for the end-user. Compared with typical grid solutions available, our architecture was designed to be easily extendable and deployed on existing remote computing sites with no tool modification, administrative intervention or special software/hardware configuration. As October 2013, CBRAIN serves over 200 users spread across 53 cities in 17 countries. The platform is built as a generic framework that can accept data and analysis tools from any discipline. However, its current focus is primarily on neuroimaging research and studies of neurological diseases such as Autism, Parkinson's and Alzheimer's diseases, Multiple Sclerosis as well as on normal brain structure and development. This technical report presents the CBRAIN Platform, its current deployment and usage and future direction.},
 	Author = {Sherif, Tarek and Rioux, Pierre and Rousseau, Marc-Etienne and Kassis, Nicolas and Beck, Natacha and Adalat, Reza and Das, Samir and Glatard, Tristan and Evans, Alan C.},
 	Date-Added = {2018-10-07 08:26:06 +0900},
 	Date-Modified = {2018-10-07 08:26:06 +0900},
@@ -804,7 +789,6 @@
 	Bdsk-Url-2 = {https://doi.org/10.1016/j.neuroimage.2015.05.073}}
 
 @article{doi:10.1002/jmri.21049,
-	Abstract = {Abstract The Alzheimer's Disease Neuroimaging Initiative (ADNI) is a longitudinal multisite observational study of healthy elders, mild cognitive impairment (MCI), and Alzheimer's disease. Magnetic resonance imaging (MRI), (18F)-fluorodeoxyglucose positron emission tomography (FDG PET), urine serum, and cerebrospinal fluid (CSF) biomarkers, as well as clinical/psychometric assessments are acquiredat multiple time points. All data will be cross-linked and made available to the general scientific community. The purpose of this report is to describe the MRI methods employed in ADNI. The ADNI MRI core established specifications thatguided protocol development. A major effort was devoted toevaluating 3D T1-weighted sequences for morphometric analyses. Several options for this sequence were optimized for the relevant manufacturer platforms and then compared in a reduced-scale clinical trial. The protocol selected for the ADNI study includes: back-to-back 3D magnetization prepared rapid gradient echo (MP-RAGE) scans; B1-calibration scans when applicable; and an axial proton density-T2 dual contrast (i.e., echo) fast spin echo/turbo spin echo (FSE/TSE) for pathology detection. ADNI MRI methods seek to maximize scientific utility while minimizing the burden placed on participants. The approach taken in ADNI to standardization across sites and platforms of the MRI protocol, postacquisition corrections, and phantom-based monitoring of all scanners could be used as a model for other multisite trials. J. Magn. Reson. Imaging 2008. {\copyright} 2008 Wiley-Liss, Inc.},
 	Author = {Jack, Clifford R. and Bernstein, Matt A. and Fox, Nick C. and Thompson, Paul and Alexander, Gene and Harvey, Danielle and Borowski, Bret and Britson, Paula J. and L. Whitwell, Jennifer and Ward, Chadwick and Dale, Anders M. and Felmlee, Joel P. and Gunter, Jeffrey L. and Hill, Derek L.G. and Killiany, Ron and Schuff, Norbert and Fox-Bosetti, Sabrina and Lin, Chen and Studholme, Colin and DeCarli, Charles S. and Gunnar Krueger and Ward, Heidi A. and Metzger, Gregory J. and Scott, Katherine T. and Mallozzi, Richard and Blezek, Daniel and Levy, Joshua and Debbins, Josef P. and Fleisher, Adam S. and Albert, Marilyn and Green, Robert and Bartzokis, George and Glover, Gary and Mugler, John and Weiner, Michael W.},
 	Date-Added = {2018-10-07 08:01:33 +0900},
 	Date-Modified = {2018-10-07 08:01:33 +0900},
@@ -824,7 +808,6 @@
 	Bdsk-File-3 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QHi4uLy4uLy4uL0Rvd25sb2Fkcy8yMjI4MzAxLmJpYtIXCxgZV05TLmRhdGFPEQFuAAAAAAFuAAIAAAxNYWNpbnRvc2ggSEQAAAAAAAAAAAAAAAAAAADVLdd/SCsAAAAJp/YLMjIyODMwMS5iaWIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMOr2dfgemQAAAAAAAAAAAADAAIAAAkgAAAAAAAAAAAAAAAAAAAACURvd25sb2FkcwAAEAAIAADVLVjvAAAAEQAIAADX3/vUAAAAAQAMAAmn9gAJp/MABmgMAAIAL01hY2ludG9zaCBIRDpVc2VyczoAdmhzOgBEb3dubG9hZHM6ADIyMjgzMDEuYmliAAAOABgACwAyADIAMgA4ADMAMAAxAC4AYgBpAGIADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgAfVXNlcnMvdmhzL0Rvd25sb2Fkcy8yMjI4MzAxLmJpYgAAEwABLwAAFQACAAr//wAAgAbSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXU5TTXV0YWJsZURhdGGjHR8gVk5TRGF0YVhOU09iamVjdNIbHCIjXE5TRGljdGlvbmFyeaIiIF8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBxAHMAdQB3AIQAjgCvALQAvAIuAjACNQJAAkkCVwJbAmICawJwAn0CgAKSApUCmgAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAAKc}}
 
 @article{10.1371/journal.pone.0035691,
-	Abstract = {Bone strength and failure are increasingly thought to be due to ultrastructural properties, such as the morphology of the lacuno-canalicular network, the collagen fiber orientation and the mineralization on the nanoscale. However, these properties have not been studied in 3D so far. Here we report the investigation of the human bone ultrastructure with X-ray phase nanotomography, which now provides the required sensitivity, spatial resolution and field of view. The 3D organization of the lacuno-canalicular network is studied in detail over several cells in osteonal and interstitial tissue. Nanoscale density variations are revealed and show that the cement line separating these tissues is hypermineralized. Finally, we show that the collagen fibers are organized as a twisted plywood structure in 3D.},
 	Author = {Langer, Max AND Pacureanu, Alexandra AND Suhonen, Heikki AND Grimal, Quentin AND Cloetens, Peter AND Peyrin, Fran{\c c}oise},
 	Date-Added = {2018-10-07 07:59:40 +0900},
 	Date-Modified = {2018-10-07 07:59:52 +0900},
@@ -874,7 +857,6 @@
 	Bdsk-File-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QKi4uLy4uLy4uL0Rvd25sb2Fkcy9wZXJpY2xlc18xNTIyMjU4NjI3LmJpYtIXCxgZV05TLmRhdGFPEQGeAAAAAAGeAAIAAAxNYWNpbnRvc2ggSEQAAAAAAAAAAAAAAAAAAADVLdd/SCsAAAAJp/YXcGVyaWNsZXNfMTUyMjI1ODYyNy5iaWIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMOIcNffbcgAAAAAAAAAAAADAAIAAAkgAAAAAAAAAAAAAAAAAAAACURvd25sb2FkcwAAEAAIAADVLVjvAAAAEQAIAADX3u84AAAAAQAMAAmn9gAJp/MABmgMAAIAO01hY2ludG9zaCBIRDpVc2VyczoAdmhzOgBEb3dubG9hZHM6AHBlcmljbGVzXzE1MjIyNTg2MjcuYmliAAAOADAAFwBwAGUAcgBpAGMAbABlAHMAXwAxADUAMgAyADIANQA4ADYAMgA3AC4AYgBpAGIADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgArVXNlcnMvdmhzL0Rvd25sb2Fkcy9wZXJpY2xlc18xNTIyMjU4NjI3LmJpYgAAEwABLwAAFQACAAr//wAAgAbSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXU5TTXV0YWJsZURhdGGjHR8gVk5TRGF0YVhOU09iamVjdNIbHCIjXE5TRGljdGlvbmFyeaIiIF8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBxAHMAdQB3AIQAjgC7AMAAyAJqAmwCcQJ8AoUCkwKXAp4CpwKsArkCvALOAtEC1gAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALY}}
 
 @inproceedings{10.1007/978-3-319-12084-3_1,
-	Abstract = {To understand the microscopical organization including cellular and fiber architecture it is a necessary prerequisite to build models of the human brain on a sound biological basis. We have recently pushed the limits of current technology by creating the first ultra-high resolution 3D-model of the human brain at nearly cellular resolution of 20 microns, the BigBrain model. At the same time, 3D Polarized Light Imaging provides a window to analyze the fiber architecture, i.e., the way, how brain regions are inter-connected, with unprecedented spatial resolution at the micrometer level. Considering the complexity and the pure size of the human brain with its nearly 86 billion nerve cells, both approaches are most challenging with respect to data handling and analysis in the TeraByte to PetaByte range, and require supercomputers. Parallelization and automation of image processing steps open up new perspectives to speed up the generation of new, ultra-high resolution models of the human brain, to provide new insights into the three-dimensional micro architecture of the human brain.},
 	Address = {Cham},
 	Author = {Amunts, Katrin and B{\"u}cker, Oliver and Axer, Markus},
 	Booktitle = {Brain-Inspired Computing},
@@ -889,7 +871,6 @@
 	Year = {2014}}
 
 @article{Amunts1472,
-	Abstract = {Reference brains have become a standard tool in human brain research. Reference brains presently in the public domain provide a spatial framework at the macroscopic level. Amunts et al. (p. 1472) present a high-resolution (20 {\textmu}m) three-dimensional reconstruction of a human brain. The tool will be freely available to help with interpreting functional neuroimaging studies, fiber tract analyses, and assigning molecular and gene expression data. Reference brains are indispensable tools in human brain mapping, enabling integration of multimodal data into an anatomically realistic standard space. Available reference brains, however, are restricted to the macroscopic scale and do not provide information on the functionally important microscopic dimension. We created an ultrahigh-resolution three-dimensional (3D) model of a human brain at nearly cellular resolution of 20 micrometers, based on the reconstruction of 7404 histological sections. {\textquotedblleft}BigBrain{\textquotedblright} is a free, publicly available tool that provides considerable neuroanatomical insight into the human brain, thereby allowing the extraction of microscopic data for modeling and simulation. BigBrain enables testing of hypotheses on optimal path lengths between interconnected cortical regions or on spatial organization of genetic patterning, redefining the traditional neuroanatomy maps such as those of Brodmann and von Economo.},
 	Author = {Amunts, Katrin and Lepage, Claude and Borgeat, Louis and Mohlberg, Hartmut and Dickscheid, Timo and Rousseau, Marc-{\'E}tienne and Bludau, Sebastian and Bazin, Pierre-Louis and Lewis, Lindsay B. and Oros-Peusquens, Ana-Maria and Shah, Nadim J. and Lippert, Thomas and Zilles, Karl and Evans, Alan C.},
 	Date-Added = {2018-10-07 07:40:43 +0900},
 	Date-Modified = {2018-10-07 07:40:43 +0900},
@@ -996,7 +977,6 @@
 	Bdsk-Url-2 = {https://doi.org/10.1145/2934664}}
 
 @article{10.3389/fninf.2014.00067,
-	Abstract = {Using neuroimaging technologies to elucidate the relationship between genotype and phenotype and brain and behavior will be a key contribution to biomedical research in the twenty-first century. Among the many methods for analyzing neuroimaging data, image registration deserves particular attention due to its wide range of applications. Finding strategies to register together many images and analyze the differences between them can be a challenge, particularly given that different experimental designs require different registration strategies. Moreover, writing software that can handle different types of image registration pipelines in a flexible, reusable and extensible way can be challenging. In response to this challenge, we have created Pydpiper, a neuroimaging registration toolkit written in Python. Pydpiper is an open-source, freely available pipeline framework that provides multiple modules for various image registration applications. Pydpiper offers five key innovations. Specifically: (1) a robust file handling class that allows access to outputs from all stages of registration at any point in the pipeline; (2) the ability of the framework to eliminate duplicate stages; (3) reusable, easy to subclass modules; (4) a development toolkit written for non-developers; (5) four complete applications that run complex image registration pipelines ``out-of-the-box.''  In this paper, we will discuss both the general Pydpiper framework and the various ways in which component modules can be pieced together to easily create new registration pipelines. This will include a discussion of the core principles motivating code development and a comparison of Pydpiper with other available toolkits. We also provide a comprehensive, line-by-line example to orient users with limited programming knowledge and highlight some of the most useful features of Pydpiper.  In addition, we will present the four current applications of the code.},
 	Author = {Friedel, Miriam and van Eede, Matthijs C. and Pipitone, Jon and Chakravarty, M. Mallar and Lerch, Jason P.},
 	Date-Added = {2018-10-07 07:33:48 +0900},
 	Date-Modified = {2018-10-07 07:33:48 +0900},
@@ -1013,7 +993,6 @@
 	Bdsk-File-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QIC4uLy4uLy4uL0Rvd25sb2Fkcy9uZXVyb2RhdGEuYmli0hcLGBlXTlMuZGF0YU8RAXYAAAAAAXYAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAANUt139IKwAAAAmn9g1uZXVyb2RhdGEuYmliAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAw4761993IwAAAAAAAAAAAAMAAgAACSAAAAAAAAAAAAAAAAAAAAAJRG93bmxvYWRzAAAQAAgAANUtWO8AAAARAAgAANfe+JMAAAABAAwACaf2AAmn8wAGaAwAAgAxTWFjaW50b3NoIEhEOlVzZXJzOgB2aHM6AERvd25sb2FkczoAbmV1cm9kYXRhLmJpYgAADgAcAA0AbgBlAHUAcgBvAGQAYQB0AGEALgBiAGkAYgAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASACFVc2Vycy92aHMvRG93bmxvYWRzL25ldXJvZGF0YS5iaWIAABMAAS8AABUAAgAK//8AAIAG0hscHR5aJGNsYXNzbmFtZVgkY2xhc3Nlc11OU011dGFibGVEYXRhox0fIFZOU0RhdGFYTlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVkQXJjaGl2ZXLRJidUcm9vdIABAAgAEQAaACMALQAyADcAQABGAE0AVQBgAGcAagBsAG4AcQBzAHUAdwCEAI4AsQC2AL4COAI6Aj8CSgJTAmECZQJsAnUCegKHAooCnAKfAqQAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACpg==}}
 
 @article{10.3389/fninf.2014.00090,
-	Abstract = {Recent years have seen neuroimaging data becoming richer, with larger cohorts of participants, a greater variety of acquisition techniques, and increasingly complex analyses. These advances have made data analysis pipelines complex to set up and run (increasing the risk of human error) and time consuming to execute (restricting what analyses are attempted). Here we present an open-source framework, automatic analysis (aa), to address these concerns. Human efficiency is increased by making code modular and reusable, and managing its execution with a processing engine that tracks what has been completed and what needs to be (re)done. Analysis is accelerated by optional parallel processing of independent tasks on cluster or cloud computing resources. A pipeline comprises a series of modules that each perform a specific task. The processing engine keeps track of the data, calculating a map of upstream and downstream dependencies for each module. Existing modules are available for many analysis tasks, such as SPM-based fMRI preprocessing, individual and group level statistics, voxel-based morphometry, tractography, and multi-voxel pattern analyses (MVPA). However, aa also allows for full customization, and encourages efficient management of code: new modules may be written with only a small code overhead. aa has been used by more than 50 researchers in hundreds of neuroimaging studies comprising thousands of subjects. It has been found to be robust, fast and efficient, for simple single subject studies up to multimodal pipelines on hundreds of subjects. It is attractive to both novice and experienced users. aa can reduce the amount of time neuroimaging laboratories spend performing analyses and reduce errors, expanding the range of scientific questions it is practical to address.},
 	Author = {Cusack, Rhodri and Vicente-Grabovetsky, Alejandro and Mitchell, Daniel J. and Wild, Conor J. and Auer, Tibor and Linke, Annika C. and Peelle, Jonathan E.},
 	Date-Added = {2018-10-07 07:32:57 +0900},
 	Date-Modified = {2018-10-07 07:32:57 +0900},
@@ -1029,14 +1008,6 @@
 	Bdsk-Url-2 = {https://doi.org/10.3389/fninf.2014.00090}}
 
 @article{10.3389/fict.2016.00015,
-	Abstract = {With the increasing number of datasets encountered in imaging studies, the increasing
-complexity of processing workflows, and a growing awareness for data stewardship, there
-is a need for managed, automated workflows. In this paper we introduce Fastr, an automated
-workflow engine with support for advanced data flows. Fastr has built-in data provenance for
-recording processing trails and ensuring reproducible results. The extensible plugin-based design
-allows the system to interface with virtually any image archive and processing infrastructure. This
-workflow engine is designed to consolidate quantitative imaging biomarker pipelines in order to
-enable easy application to new data.},
 	Author = {Achterberg, Hakim C. and Koek, Marcel and Niessen, Wiro J.},
 	Date-Added = {2018-10-07 07:30:05 +0900},
 	Date-Modified = {2018-10-07 07:30:05 +0900},
@@ -1050,14 +1021,12 @@ enable easy application to new data.},
 	Year = {2016},
 	Bdsk-Url-1 = {https://www.frontiersin.org/article/10.3389/fict.2016.00015},
 	Bdsk-Url-2 = {https://doi.org/10.3389/fict.2016.00015}}
-
-@electronic{spm,
-	Date-Added = {2018-10-07 07:26:22 +0900},
-	Date-Modified = {2018-10-07 07:28:36 +0900},
-	Title = {SPM},
-	Url = {https://www.fil.ion.ucl.ac.uk/spm/software/},
-	Bdsk-File-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QHC4uLy4uLy4uL0Rvd25sb2Fkcy9jaXZldC5iaWLSFwsYGVdOUy5kYXRhTxEBZgAAAAABZgACAAAMTWFjaW50b3NoIEhEAAAAAAAAAAAAAAAAAAAA1S3Xf0grAAAACaf2CWNpdmV0LmJpYgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADDizLX33DiAAAAAAAAAAAAAwACAAAJIAAAAAAAAAAAAAAAAAAAAAlEb3dubG9hZHMAABAACAAA1S1Y7wAAABEACAAA197yUgAAAAEADAAJp/YACafzAAZoDAACAC1NYWNpbnRvc2ggSEQ6VXNlcnM6AHZoczoARG93bmxvYWRzOgBjaXZldC5iaWIAAA4AFAAJAGMAaQB2AGUAdAAuAGIAaQBiAA8AGgAMAE0AYQBjAGkAbgB0AG8AcwBoACAASABEABIAHVVzZXJzL3Zocy9Eb3dubG9hZHMvY2l2ZXQuYmliAAATAAEvAAAVAAIACv//AACABtIbHB0eWiRjbGFzc25hbWVYJGNsYXNzZXNdTlNNdXRhYmxlRGF0YaMdHyBWTlNEYXRhWE5TT2JqZWN00hscIiNcTlNEaWN0aW9uYXJ5oiIgXxAPTlNLZXllZEFyY2hpdmVy0SYnVHJvb3SAAQAIABEAGgAjAC0AMgA3AEAARgBNAFUAYABnAGoAbABuAHEAcwB1AHcAhACOAK0AsgC6AiQCJgIrAjYCPwJNAlECWAJhAmYCcwJ2AogCiwKQAAAAAAAAAgEAAAAAAAAAKAAAAAAAAAAAAAAAAAAAApI=},
-	Bdsk-File-2 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QOC4uLy4uLy4uL0Rvd25sb2Fkcy8xMC4zMzg5LWZuaW5mLjIwMTQuMDAwNTQtY2l0YXRpb24uYmli0hcLGBlXTlMuZGF0YU8RAdAAAAAAAdAAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAANUt139IKwAAAAmn9h8xMC4zMzg5LWZuaW5mLjIwMTQuMCNDMzhENkQuYmliAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAw41t199zjAAAAAAAAAAAAAMAAgAACSAAAAAAAAAAAAAAAAAAAAAJRG93bmxvYWRzAAAQAAgAANUtWO8AAAARAAgAANfe9PwAAAABAAwACaf2AAmn8wAGaAwAAgBDTWFjaW50b3NoIEhEOlVzZXJzOgB2aHM6AERvd25sb2FkczoAMTAuMzM4OS1mbmluZi4yMDE0LjAjQzM4RDZELmJpYgAADgBMACUAMQAwAC4AMwAzADgAOQAtAGYAbgBpAG4AZgAuADIAMAAxADQALgAwADAAMAA1ADQALQBjAGkAdABhAHQAaQBvAG4ALgBiAGkAYgAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASADlVc2Vycy92aHMvRG93bmxvYWRzLzEwLjMzODktZm5pbmYuMjAxNC4wMDA1NC1jaXRhdGlvbi5iaWIAABMAAS8AABUAAgAK//8AAIAG0hscHR5aJGNsYXNzbmFtZVgkY2xhc3Nlc11OU011dGFibGVEYXRhox0fIFZOU0RhdGFYTlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVkQXJjaGl2ZXLRJidUcm9vdIABAAgAEQAaACMALQAyADcAQABGAE0AVQBgAGcAagBsAG4AcQBzAHUAdwCEAI4AyQDOANYCqgKsArECvALFAtMC1wLeAucC7AL5AvwDDgMRAxYAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAADGA==}}
+	
+@misc{spm,
+  title = {SPM},
+  howpublished = {\url{https://www.fil.ion.ucl.ac.uk/spm/software/}}},
+  note = {Accessed: 2018-10-09}
+}
 
 @article{REX20031033,
 	Author = {David E Rex and Jeffrey Q Ma and Arthur W Toga},
@@ -1078,7 +1047,6 @@ enable easy application to new data.},
 	Bdsk-File-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QKi4uLy4uLy4uL0Rvd25sb2Fkcy9wZXJpY2xlc18xNTIyMjU4NjI3LmJpYtIXCxgZV05TLmRhdGFPEQGeAAAAAAGeAAIAAAxNYWNpbnRvc2ggSEQAAAAAAAAAAAAAAAAAAADVLdd/SCsAAAAJp/YXcGVyaWNsZXNfMTUyMjI1ODYyNy5iaWIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMOIcNffbcgAAAAAAAAAAAADAAIAAAkgAAAAAAAAAAAAAAAAAAAACURvd25sb2FkcwAAEAAIAADVLVjvAAAAEQAIAADX3u84AAAAAQAMAAmn9gAJp/MABmgMAAIAO01hY2ludG9zaCBIRDpVc2VyczoAdmhzOgBEb3dubG9hZHM6AHBlcmljbGVzXzE1MjIyNTg2MjcuYmliAAAOADAAFwBwAGUAcgBpAGMAbABlAHMAXwAxADUAMgAyADIANQA4ADYAMgA3AC4AYgBpAGIADwAaAAwATQBhAGMAaQBuAHQAbwBzAGgAIABIAEQAEgArVXNlcnMvdmhzL0Rvd25sb2Fkcy9wZXJpY2xlc18xNTIyMjU4NjI3LmJpYgAAEwABLwAAFQACAAr//wAAgAbSGxwdHlokY2xhc3NuYW1lWCRjbGFzc2VzXU5TTXV0YWJsZURhdGGjHR8gVk5TRGF0YVhOU09iamVjdNIbHCIjXE5TRGljdGlvbmFyeaIiIF8QD05TS2V5ZWRBcmNoaXZlctEmJ1Ryb290gAEACAARABoAIwAtADIANwBAAEYATQBVAGAAZwBqAGwAbgBxAHMAdQB3AIQAjgC7AMAAyAJqAmwCcQJ8AoUCkwKXAp4CpwKsArkCvALOAtEC1gAAAAAAAAIBAAAAAAAAACgAAAAAAAAAAAAAAAAAAALY}}
 
 @article{10.3389/fninf.2012.00007,
-	Abstract = {The analysis of neuroimaging databases typically involves a large number of inter-connected steps called a pipeline. The pipeline system for Octave and Matlab (PSOM) is a flexible framework for the implementation of pipelines in the form of Octave or Matlab scripts. PSOM does not introduce new language constructs to specify the steps and structure of the workflow. All steps of analysis are instead described by a regular Matlab data structure, documenting their associated command and options, as well as their input, output and cleaned-up files. The PSOM execution engine provides a number of automated services: (1) it executes jobs in parallel on a local computing facility as long as the dependencies between jobs allow for it and sufficient resources are available; (2) it generates a comprehensive record of the pipeline stages and the history of execution, which is detailed enough to fully reproduce the analysis; (3) if an analysis is started multiple times, it executes only the parts of the pipeline that need to be reprocessed. PSOM is distributed under an opensource MIT license and can be used without restriction for academic or commercial projects. The package has no external dependencies besides Matlab or Octave, is straightforward to install and supports of variety of operating systems (Linux, Windows, Mac). We ran several benchmark experiments on a public database including 200 subjects, using a pipeline for the preprocessing of functional magnetic resonance images. The benchmark results showed that PSOM is a powerful solution for the analysis of large databases using local or distributed computing resources.},
 	Author = {Bellec, Pierre and Lavoie-Courchesne, S{\'e}bastien and Dickinson, Phil and Lerch, Jason and Zijdenbos, Alex and Evans, Alan},
 	Date-Added = {2018-10-07 07:24:05 +0900},
 	Date-Modified = {2018-10-07 07:24:05 +0900},
@@ -1094,7 +1062,6 @@ enable easy application to new data.},
 	Bdsk-Url-2 = {https://doi.org/10.3389/fninf.2012.00007}}
 
 @article{nipype,
-	Abstract = {Current neuroimaging software offer users an incredible opportunity to analyze their data in different ways, with different underlying assumptions. Several sophisticated software packages (e.g., AFNI, BrainVoyager, FSL, FreeSurfer, Nipy, R, SPM) are used to process and analyze large and often diverse (highly multi-dimensional) data. However, this heterogeneous collection of specialized applications creates several issues that hinder replicable, efficient and optimal use of neuroimaging analysis approaches: 1) No uniform access to neuroimaging analysis software and usage information; 2) No framework for comparative algorithm development and dissemination; 3) Personnel turnover in laboratories often limits methodological continuity and training new personnel takes time; 4) Neuroimaging software packages do not address computational efficiency; and 5) Methods sections in journal articles are inadequate for reproducing results. To address these issues, we present Nipype (Neuroimaging in Python: Pipelines and Interfaces; http://nipy.org/nipype), an open-source, community-developed, software package and scriptable library. Nipype solves the issues by providing Interfaces to existing neuroimaging software with uniform usage semantics and by facilitating interaction between these packages using Workflows. Nipype provides an environment that encourages interactive exploration of algorithms, eases the design of Workflows within and between packages, allows rapid comparative development of algorithms and reduces the learning curve necessary to use different packages. Nipype supports both local and remote execution on multi-core machines and clusters, without additional scripting. Nipype is BSD licensed, allowing anyone unrestricted usage. An open, community-driven development philosophy allows the software to quickly adapt and address the varied needs of the evolving neuroimaging community, especially in the context of increasing demand for reproducible research.},
 	Author = {Gorgolewski, Krzysztof and Burns, Christopher and Madison, Cindee and Clark, Dav and Halchenko, Yaroslav and Waskom, Michael and Ghosh, Satrajit},
 	Date-Added = {2018-10-07 07:21:48 +0900},
 	Date-Modified = {2018-10-08 03:56:16 +0900},
@@ -1111,7 +1078,6 @@ enable easy application to new data.},
 	Bdsk-File-1 = {YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJXTlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAFgAdccmVsYXRpdmVQYXRoWWFsaWFzRGF0YV8QIC4uLy4uLy4uL0Rvd25sb2Fkcy8yMjI4MzAxLTEuYmli0hcLGBlXTlMuZGF0YU8RAXYAAAAAAXYAAgAADE1hY2ludG9zaCBIRAAAAAAAAAAAAAAAAAAAANUt139IKwAAAAmn9g0yMjI4MzAxLTEuYmliAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAw+Ov1+FcIQAAAAAAAAAAAAMAAgAACSAAAAAAAAAAAAAAAAAAAAAJRG93bmxvYWRzAAAQAAgAANUtWO8AAAARAAgAANfg3ZEAAAABAAwACaf2AAmn8wAGaAwAAgAxTWFjaW50b3NoIEhEOlVzZXJzOgB2aHM6AERvd25sb2FkczoAMjIyODMwMS0xLmJpYgAADgAcAA0AMgAyADIAOAAzADAAMQAtADEALgBiAGkAYgAPABoADABNAGEAYwBpAG4AdABvAHMAaAAgAEgARAASACFVc2Vycy92aHMvRG93bmxvYWRzLzIyMjgzMDEtMS5iaWIAABMAAS8AABUAAgAK//8AAIAG0hscHR5aJGNsYXNzbmFtZVgkY2xhc3Nlc11OU011dGFibGVEYXRhox0fIFZOU0RhdGFYTlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVkQXJjaGl2ZXLRJidUcm9vdIABAAgAEQAaACMALQAyADcAQABGAE0AVQBgAGcAagBsAG4AcQBzAHUAdwCEAI4AsQC2AL4COAI6Aj8CSgJTAmECZQJsAnUCegKHAooCnAKfAqQAAAAAAAACAQAAAAAAAAAoAAAAAAAAAAAAAAAAAAACpg==}}
 
 @inproceedings{10.1007/978-3-319-69953-0_5,
-	Abstract = {Big Data analytics frameworks (e.g., Apache Hadoop and Apache Spark) have been increasingly used by many companies and research labs to facilitate large-scale data analysis. However, with the growing needs of users and size of data, commodity-based infrastructure will strain under the heavy weight of Big Data. On the other hand, HPC systems offer a rich set of opportunities for Big Data processing. As first steps toward Big Data processing on HPC systems, several research efforts have been devoted to understanding the performance of Big Data applications on these systems. Yet the HPC specific performance considerations have not been fully investigated. In this work, we conduct an experimental campaign to provide a clearer understanding of the performance of Spark, the de facto in-memory data processing framework, on HPC systems. We ran Spark using representative Big Data workloads on Grid'5000 testbed to evaluate how the latency, contention and file system's configuration can influence the application performance. We discuss the implications of our findings and draw attention to new ways (e.g., burst buffers) to improve the performance of Spark on HPC systems.},
 	Address = {Cham},
 	Author = {Yildiz, Orcun and Ibrahim, Shadi},
 	Booktitle = {Supercomputing Frontiers},

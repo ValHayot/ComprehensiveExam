@@ -8,7 +8,7 @@
 \usepackage{hyperref} 
 \usepackage{xcolor} 
 \usepackage{ulem}                     
-\usepackage{pdfpages} 
+\usepackage{graphicx} 
 \usepackage{rotating}
                                                                                  
 \newcommand{\note}[1]{\textcolor{blue}{\textit{note}: #1}}                       
@@ -32,7 +32,8 @@
     \author{Valerie Hayot-Sasson}
     \maketitle 
     
-    \begin{abstract} Text of abstract.  
+    \begin{abstract}
+         
     \end{abstract} 
     \tableofcontents
     \chapter{Introduction}
@@ -540,7 +541,7 @@
             Spark also interfaces with R, another programming language commonly
             used in neuroimaging.
 
-            \section{Data structures}
+            \section{Data structures}\label{ds}
                 
                 The data structures made available by workflow engines dictate
                 the maximum performance available to a workflow. \tristan{I don't understand the previous sentence, 
@@ -838,7 +839,7 @@
         Section~\ref{eval}.
         
  
-        \section{Filesystems}\label{fs}
+        \section{Data-centric optimizations}\label{fs}
             
             
             Although MapReduce, Spark and Dask are all data-intensive worflows,
@@ -1191,10 +1192,11 @@
             be platform independent. These workflow engines include: Nipype,
             PSOM, SPM, FASTR, LONI, AA, Pydpiper, Taverna, Toil, MapReduce, Spark and
             Dask. These workflow engines achieve platform independence through
-            running on the Java Virtual Machine (JVM) being written in 
+            running on the Java Virtual Machine (JVM), running on the MATLAB
+            engine, being written in 
             Python or CWL. Platform-independent engines that run on the JVM include: 
-            MATLAB engine frameworks, such as PSOM, SPM and AA; LONI; Taverna; 
-            MapReduce; and Spark \tristan{you don't have to mention that Matlab has a JVM}. Nipype, FastR, Pydpiper are all Python-based platform 
+            LONI, Taverna, MapReduce and Spark. MATLAB engine frameworks include PSOM, SPM and AA. 
+            Nipype, FastR, Pydpiper are all Python-based platform 
             independent workflow engines and Toil and Galaxy are CWL-based 
             platform independent engines. 
             The remainder of the 
@@ -1424,7 +1426,7 @@
             To address the importance of provenance tracking for scientific 
             workflows several workflow engines adapted strategies to capture 
             provenance metadata. Some leverage the W3C PROV specification (e.g.
-            Nipype, FastR, Taverna), while others may chose to use NIDM (e.g. 
+            Nipype, FastR, Taverna), while others may chose to use NIDM-results (e.g. 
             SPM). Big Data frameworks, such as Dask and Spark utilize data lineage
             to record their provenance. Other scienific workflow engines prefer 
             to record provenance in a custom format.
@@ -1495,14 +1497,14 @@
             captured, Pegasus records runtime information, data locations, 
             software used and parameters applied. Pydpiper captures the DAG, the 
             array of pipeline stages, the current stage counter, hash of stages 
-            and output files and an array of stage statuses.As provenance is a 
+            and output files and an array of stage statuses. As provenance is a 
             major component of the Galaxy project, it 
             provides comprehensive provenance tracking. This includes gathering
             of metadata similarly to other workflow engines, but also allows
             users to add annotations to make the intent of their analysis known
             .
 
-            Some workflows engines do not really capture provenance details. At 
+            Some workflows engines capture limited provenance details. At 
             most, the provenance captured is limited to runtime information.
             Nextflow, Make, Toil and MapReduce are all examples of these types
             of systems.
@@ -1688,11 +1690,11 @@
         for the processing of both large images and large datasets. Additional
         comparative evaluations between Dask and Spark will need to be performed.
 
-    \clearpage
     \begin{sidewaysfigure}[!p]
+        \centering
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/summary.pdf}
         \caption{Summary table comparing the 17 workflow engines on four axes:
         workflow composition, performance, portability and reproducibility.}
-        \includepdf[landscape=true]{Figures/summary.pdf}
     \end{sidewaysfigure} 
     \addcontentsline{toc}
         {chapter}{Bibliography} 
