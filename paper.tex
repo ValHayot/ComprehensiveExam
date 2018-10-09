@@ -8,7 +8,7 @@
 \usepackage{hyperref} 
 \usepackage{xcolor} 
 \usepackage{ulem}                     
-\usepackage{pdfpages} 
+\usepackage{graphicx} 
 \usepackage{rotating}
                                                                                  
 \newcommand{\note}[1]{\textcolor{blue}{\textit{note}: #1}}                       
@@ -22,7 +22,8 @@
     \author{Valerie Hayot-Sasson}
     \maketitle 
     
-    \begin{abstract} Text of abstract.  
+    \begin{abstract}
+         
     \end{abstract} 
     \tableofcontents
     \chapter{Introduction}
@@ -540,7 +541,7 @@
             Spark also interfaces with R, another programming language commonly
             used in neuroimaging.
 
-            \section{Data structures}
+            \section{Data structures}\label{ds}
                 
                 The data structures made available by workflow engines dictate
                 the maximum performance available to a workflow. Scientific
@@ -871,7 +872,7 @@
         Section~\ref{eval}.
         
  
-        \section{Filesystems}\label{fs}
+        \section{Data-centric optimizations}\label{fs}
             
             
             Although MapReduce, Spark and Dask are all data-intensive worflows,
@@ -900,7 +901,7 @@
         
 
             \subsection{Strategies}
-                \subsubsection{in-memory computing}
+                \subsubsection{In-memory computing}
                     Random Access Memory (RAM) is the fastest memory available
                     to workflow engines. BigData frameworks, such as Spark and 
                     Dask, leverage this feature by maintaining data in memory 
@@ -1469,7 +1470,7 @@
             To address the importance of provenance tracking for scientific 
             workflows several workflow engines adapted strategies to capture 
             provenance metadata. Some leverage the W3C PROV specification (e.g.
-            Nipype, FastR, Taverna), while others may chose to use NIDM (e.g. 
+            Nipype, FastR, Taverna), while others may chose to use NIDM-results (e.g. 
             SPM). Big Data frameworks, such as Dask and Spark utilize data lineage
             to record their provenance. Other scienific workflow engines prefer 
             to record provenance in a custom format.
@@ -1736,11 +1737,11 @@
         for the processing of both large images and large datasets. Additional
         comparative evaluations between Dask and Spark will need to be performed.
 
-    \clearpage
     \begin{sidewaysfigure}[!p]
+        \centering
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/summary.pdf}
         \caption{Summary table comparing the 17 workflow engines on four axes:
         workflow composition, performance, portability and reproducibility.}
-        \includepdf[landscape=true]{Figures/summary.pdf}
     \end{sidewaysfigure} 
     \addcontentsline{toc}
         {chapter}{Bibliography} 
