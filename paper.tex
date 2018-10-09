@@ -23,6 +23,31 @@
     \maketitle 
     
     \begin{abstract}
+        The rate of data aquisition coupled with the volume of data obtained 
+        from datasharing initiatives has lead to unprecedented amount of 
+        neuroimaging data. This surge of open neuroimaging data is of great 
+        importance to scientific advancement, however, it is currently 
+        inaccessible to many research labs due to limited infrastructure and 
+        lack of software available to faciliate processing. Despite the existance
+        of many neuroimaging workflow engines, none of them are well adapted for
+        the processing of neuroimaging Big Data. Generalized Big Data frameworks
+        exist, however they may lack crucial aspects necessary to process neuroimaging
+        data. Here we evaluate 7 neuroimaging workflow engines (Nipype, PSOM, SPM, FastR,
+        LONI, Automatic Analysis and Pydpiper with 7 other scientific workflow
+        engines (Taverna, Pegasus, Make, OpenMOLE, Nextflow, Galaxy and Toil) and
+        3 popular Big Data frameworks (Hadoop MapReduce, Apache Spark and Dask) 
+        against 4 different criteria: Workflow composition, Performance, Portability
+        and Reproducibility. Scientific workflow engines are found to lack the 
+        inherent qualities required to be successful scientific Big Data workflow 
+        engines. However, Big Data frameworks are found exhibit features crucial
+        to the processing of neuroimaging Big Data, although may lack some features
+        necessary for the processing of neuroimaging data, such as data checkpointing and 
+        standardized provenance tracking formats. Adaptations required to make Big
+        Data frameworks compatible with the processing of neuroimaging Big Data 
+        appear less significant than adaptation required to make current neuroimaging 
+        workflows efficient in the processing of Big Data, thus making Big Data frameworks
+        such as Dask and Spark good contenders for the processing of neuroimaging Big Data.
+        
          
     \end{abstract} 
     \tableofcontents
