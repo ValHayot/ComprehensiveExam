@@ -29,7 +29,13 @@
 \begin{document} 
     \title{Pipeline systems and infrastructure for the efficient
             and open processing of Big neuroimaging Data} 
-    \author{Valerie Hayot-Sasson}
+    \author{Valerie Hayot-Sasson \\
+    PhD Comprehensive Examination\\
+    Departement of Computer Science and Software Engineering \\
+    Concordia University \\
+    Montreal, Quebec
+    }
+    \date{\today}
     \maketitle 
     
     \begin{abstract}
@@ -69,12 +75,12 @@
         such data remains limited due to infrastructural demands and lack of 
         performant software. Even with powerful infrastructure, such as High
         Performance Computing (HPC) infrastructure, software configured to 
-        efficiently use resources is required to make execution time manageable
-        . Ensuring efficient processing of data is 
+        efficiently use resources is required to make execution time manageable. 
+        Ensuring efficient processing of data is 
         complex and limits accessibility to researchers with little programming 
         knowledge. Existing neuroimaging workflow engines primarily rely on HPC
         resource managers for performance and are therefore not well suited for
-        BigData processing. As a result, frameworks for the efficient 
+        Big Data processing. As a result, frameworks for the efficient 
         processing of Big neuroimaging Data need to be developed.
         
         Many neuroimaging workflow engines currently exist. Examples include
@@ -127,8 +133,8 @@
         for processing on HPC.
 
         This paper aims to evaluate the efficiency of current neuroimaging 
-        frameworks in comparison to BigData frameworks and to determine the 
-        extent to which BigData frameworks must be adapted to be effective
+        frameworks in comparison to Big Data frameworks and to determine the 
+        extent to which Big Data frameworks must be adapted to be effective
         neuroimaging workflow engines. 
         In section~\ref{datasets}, we will briefly introduce the two 
         types of datasets that are giving rise to the neuroimaging big 
@@ -165,7 +171,7 @@
 
             As a result of the rise in data sharing in neuroscience, 
             neuroimaging
-            BigData has come to fruition. The field of neuroscience has now
+            Big Data has come to fruition. The field of neuroscience has now
             reached a bottleneck where there exists sufficient data to make
             impactful studies, but the software to process these datasets have 
             not evolved with the size of the data.
@@ -444,11 +450,11 @@
         of seven neuroimaging frameworks (SPM, LONI, Nipype, PSOM, FastR, AA and
         Pydpiper), seven scientific workflow engines stemming from other fields
         (Taverna, Pegasus, Make, OpenMOLE, Nextflow, Galaxy, Toil), and three
-        BigData frameworks (MapReduce, Spark, Dask). We will use two axes to
+        Big Data frameworks (MapReduce, Spark, Dask). We will use two axes to
         evaluate workflow composition. Section~\ref{lang} will compare the 
         framework on the basis of programming language used. Section~\ref{ds}
         will then examine the differences in data structures between scientific
-        and BigData frameworks. 
+        and Big Data frameworks. 
         Section~\ref{mod} will look at how easy it is to integrate existing 
         tools into the workflows.
 
@@ -492,7 +498,7 @@
             as SciPy~\cite{scipy} and Scikit Learn~\cite{pedregosa2011scikit},
              and an lower learning curve compared to other 
             programming languages. Additionally, Python is platform independent
-            meaning it can be installed on any system. In terms of BigData 
+            meaning it can be installed on any system. In terms of Big Data 
             frameworks that employ Python, Dask is exclusively written in Python,
             whereas Hadoop MapReduce and Spark both have interfaces to Python
             while being written in Java and Scala, respectively.
@@ -581,9 +587,9 @@
                 such as PSOM which accept nested structures as long as the
                 structures's terminal fields are either strings or cells of 
                 strings. Due to workflow engines being file-based, performance
-                is limited, particularly with BigData.
+                is limited, particularly with Big Data.
                 
-                In order to improve performance, BigData frameworks introduced
+                In order to improve performance, Big Data frameworks introduced
                 data-centric data structures. MapReduce is key-value based, 
                 therefore, data with the same keys would be located at the
                 same nodes. As MapReduce still requires file-based I/O, the 
@@ -801,7 +807,7 @@
             Galaxy enables users to specific actions to be performed on the 
             output files once created and define test cases.
 
-            Unlike scientific workflow engines, BigData frameworks do not 
+            Unlike scientific workflow engines, Big Data frameworks do not 
             provide default interfaces for the execution of complex tools 
             written in 
             languages different from their own. While Dask users can reference
@@ -818,7 +824,7 @@
             Boutiques~\cite{doi:10.1093/gigascience/giy016}, for instance, is a 
             Python library that can execute command-line or containerized tools
             defined within a JSON schema. Furthermore, the library's richness
-            compete with Galaxy's XML. Python-based BigData frameworks can 
+            compete with Galaxy's XML. Python-based Big Data frameworks can 
             easily call on this library from within the workflow in order to
             communicate with the tools.
 
@@ -828,21 +834,21 @@
         The workflows and their respective tools needed to incorporate 
         parallelism in order to save on computing time. Maintaining good 
         performance has become especially critical now that neuroimaging
-        BigData has emerged. The dichotomy remains between scientific 
-        workflows and BigData workflows. While scientific workflows have made
+        Big Data has emerged. The dichotomy remains between scientific 
+        workflows and Big Data workflows. While scientific workflows have made
         advances towards more performant engines, they still lack the 
-        strategies BigData frameworks employ to reduce data transfers. 
+        strategies Big Data frameworks employ to reduce data transfers. 
         
         Another notable aspect to consider is that both types of engines 
-        (scientific and BigData) are tightly coupled to the infrastructure
+        (scientific and Big Data) are tightly coupled to the infrastructure
         they were intended to be used on. Scientific workflow engines
         try to remain efficient in their handling of compute resources since such
-        resources were previously scarce. In contrast, BigData frameworks 
+        resources were previously scarce. In contrast, Big Data frameworks 
         make efficient use of commodity clusters, where data transfers are 
-        burdensome, particularly when faced with BigData.
+        burdensome, particularly when faced with Big Data.
 
         As some researchers are trying to shift towards the use of commodity 
-        infrastructure while others are trying to process BigData on HPC, the 
+        infrastructure while others are trying to process Big Data on HPC, the 
         ideal workflow engine must run efficiently regardless of 
         infrastructure available. Otherwise, researchers are either left with
         workflows running inefficiently on resources or having to learn 
@@ -850,7 +856,7 @@
         infrastructure selected.
  
         In this Chapter, we will compare scientific
-        workflows to BigData frameworks on the basis of performance. 
+        workflows to Big Data frameworks on the basis of performance. 
         Section~\ref{fs} will look at what filesystems are supported by the 
         engines. This is important because data movement of any kind is costly,
         and may be worse depending on the filesystems available. Furthermore, 
@@ -872,10 +878,10 @@
             particularly in a multiprocessing environment. It focuses on the 
             efficient 
             scheduling of tasks and relies on I/O and network transfers to
-            communicate the data between nodes. With BigData workflows, such
+            communicate the data between nodes. With Big Data workflows, such
             operations could incur significant performance penalties. 
             To mitigate this issue and remain efficient in the face of
-            BigData, Spark and Dask implement data locality, lazy evaluation 
+            Big Data, Spark and Dask implement data locality, lazy evaluation 
             and in-memory processing. Data locality is the scheduler's ability
             to schedule tasks nearest to data location to reduce data transfers.
             Lazy evaluation is the workflow's ability to optimize performance
@@ -887,7 +893,7 @@
             shared storaged, making it generally more efficient than scientific
             workflows. Additionally, MapReduce uses the concept of 
             locality to ensure limit data transfers across the network.
-            For the efficient processing of neuroimaging BigData, it will be
+            For the efficient processing of neuroimaging Big Data, it will be
             necessary for scientific worflow engines to incorporate these 
             strategies.
         
@@ -895,7 +901,7 @@
             \subsection{Strategies}
                 \subsubsection{In-memory computing}
                     Random Access Memory (RAM) is the fastest memory available
-                    to workflow engines. BigData frameworks, such as Spark and 
+                    to workflow engines. Big Data frameworks, such as Spark and 
                     Dask, leverage this feature by maintaining data in memory 
                     between tasks rather that saving them to local disk or 
                     shared memory which may incur significant overhead.
@@ -931,12 +937,12 @@
                                       
  
                 \subsubsection{Data locality}
-                    Data locality, with respect to BigData frameworks, is a
+                    Data locality, with respect to Big Data frameworks, is a
                     scheduling
                     strategy in which location of the data is known by the 
                     scheduler and tasks are scheduled to the location where the
                     necessary data is located. It was one of the first main 
-                    strategies implemented to make BigData processing more 
+                    strategies implemented to make Big Data processing more 
                     efficient. The reasoning behind data locality is that 
                     network transfers are expensive, particularly within 
                     Big Data infrastracture, and therefore transferring large 
@@ -988,19 +994,19 @@
                     constructing graphs that result in the most optimal
                     task order of execution and further save on data transfers. 
 
-            \subsection{BigData Filesystem optimizations for HPC}
+            \subsection{Big Data Filesystem optimizations for HPC}
 
-                Writting BigData to Lustre is very costly compared to local 
+                Writting Big Data to Lustre is very costly compared to local 
                 node storage. Distributed filesystems found on HPC 
                 infrastructure provide their own form of fault-tolerance, 
-                therefore, adding a BigData filesystem such as HDFS which 
+                therefore, adding a Big Data filesystem such as HDFS which 
                 replicates the data may burden the storage layer only to 
                 provide a feature which already exists. This is especially 
                 problematic as storage on HPC compute nodes may be limited.
-                Moreover, while BigData frameworks typically execute on a 
-                dedicated BigData cluster, they will be on a shared cluster in
+                Moreover, while Big Data frameworks typically execute on a 
+                dedicated Big Data cluster, they will be on a shared cluster in
                 HPC, with many processed trying to access the memory. The 
-                following are two optimizations made for the storing of BigData
+                following are two optimizations made for the storing of Big Data
                 .
 
                 Alluxio~\cite{Li:2014:TRM:2670979.2670985}, 
@@ -1051,7 +1057,7 @@
                 any performance improvements in systems without local storage 
                 may be negligable at best.   
             
-        \section{BigData Scheduling}\label{sched}
+        \section{Big Data Scheduling}\label{sched}
             
             Scientific workflows typically rely on HPC schedulers for 
             distributed scheduling on clusters. These schedulers include 
@@ -1061,7 +1067,7 @@
             SGE~\cite{SGE}, HTCondor~\cite{htcondor} and 
             Mesos~\cite{hindman2011mesos}. Additionally, they may provide
             their own form of scheduling for computations on a single node. 
-            BigData frameworks, such as Dask,
+            Big Data frameworks, such as Dask,
             also provide interfaces to these HPC schedulers. However, other
             frameworks such as MapReduce and Spark are limited to Big Data 
             schedulers such as Yet Another Resource Negotiator (YARN) and Mesos.
@@ -1071,7 +1077,7 @@
             In addition to YARN and Mesos, Spark provides its own standalone 
             scheduler. The standalone scheduler is simple providing only a 
             basic scheduler. It allows users to use Spark out-of-the-box. Similarly
-            to scientific workflows, all three BigData frameworks provide their
+            to scientific workflows, all three Big Data frameworks provide their
             own schedulers for single-node scheduling.
 
             Spark's standalone scheduler is a simple scheduler packaged with 
@@ -1159,7 +1165,7 @@
             and will not be shared with future executions. As failures do       
             happen and individual neuroimaging tasks may take a non-negligable  
             amount of time to execute, a mechanism to checkpoint workflows      
-            will need to be added to any BigData framework used for             
+            will need to be added to any Big Data framework used for             
             neuroinformatics.                                                   
             \note{dont know how Taverna, Pegasus, Galaxy or Toil achieves this} 
             \note{openMole says it checks to see if outputs exist. similar to   
@@ -1167,8 +1173,8 @@
             \note{what about SPM, FastR??}                                      
 
                                                                                 
-        \section{Evaluation of BigData Frameworks for Scientific Computing}\label{eval}     
-            The BigData frameworks have sparked significant interest within the 
+        \section{Evaluation of Big Data Frameworks for Scientific Computing}\label{eval}     
+            The Big Data frameworks have sparked significant interest within the 
             scientific community, leading to research on the efficiency of      
             these frameworks for scientific computing. ~\cite{souza2017spark} found  
             that Spark scales better than expected with longer tasks. This is   
@@ -1179,10 +1185,10 @@
             neuroimaging datasets.                                              
             As scientific, specifically neuroimaging workflows are typically    
             comprised of long tasks, it                                         
-            is crucial that BigData frameworks scale well with tasks of longer  
+            is crucial that Big Data frameworks scale well with tasks of longer  
             durations.
     
-            To determine how different BigData frameworks compare in their 
+            To determine how different Big Data frameworks compare in their 
             efficiency for the processing of scientific workflows, 
             ~\cite{mehta2017comparative} compared Spark, Dask and other Big Data 
             frameworks on
@@ -1193,7 +1199,7 @@
             memory. It was also found that Spark exhibited slower performance 
             when the individual images are larger due to the amount of transfers
             occuring between map and shuffle phases. Overall it was
-            found that BigData Frameworks still required some adaptations to be
+            found that Big Data Frameworks still required some adaptations to be
             effectively used as scientific workflow engines.            
             
     \chapter{Portability}\label{portability}
@@ -1503,7 +1509,7 @@
             provenance 
             information. OpenMOLE handles provenance through encapsulation of
             tasks using CARE to simulate runtime environments
-            and BigData frameworks like Spark and Dask mainly rely on 
+            and Big Data frameworks like Spark and Dask mainly rely on 
             lineage.
 
             \tristan{The rest of this section is very difficult to read because
