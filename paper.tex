@@ -1231,11 +1231,12 @@
             be platform independent. These workflow engines include: Nipype,
             PSOM, SPM, FASTR, LONI, AA, Pydpiper, Taverna, Toil, MapReduce, Spark and
             Dask. These workflow engines achieve platform independence through
-            running on the Java Virtual Machine (JVM) being written in 
+            running on the Java Virtual Machine (JVM), running on the MATLAB
+            engine, being written in 
             Python or CWL. Platform-independent engines that run on the JVM include: 
-            MATLAB engine frameworks, such as PSOM, SPM and AA; LONI; Taverna; 
-            MapReduce; and Spark \tristan{this list contains Matlab
-            engines}. Nipype, FastR, Pydpiper are all python-based platform 
+            LONI, Taverna, MapReduce and Spark \tristan{this list contains Matlab
+            engines}. MATLAB engine frameworks include PSOM, SPM and AA. 
+            Nipype, FastR, Pydpiper are all python-based platform 
             independent workflow engines and Toil and Galaxy are CWL-based 
             platform independent engines. 
             The remainder of the 
@@ -1542,14 +1543,14 @@
             captured, Pegasus records runtime information, data locations, 
             software used and parameters applied. Pydpiper captures the DAG, the 
             array of pipeline stages, the current stage counter, hash of stages 
-            and output files and an array of stage statuses.As provenance is a 
+            and output files and an array of stage statuses. As provenance is a 
             major component of the Galaxy project, it 
             provides comprehensive provenance tracking. This includes gathering
             of metadata similarly to other workflow engines, but also allows
             users to add annotations to make the intent of their analysis known
             .
 
-            Some workflows engines do not really capture provenance details. At 
+            Some workflows engines capture limited provenance details. At 
             most, the provenance captured is limited to runtime information.
             Nextflow, Make, Toil and MapReduce are all examples of these types
             of systems.
