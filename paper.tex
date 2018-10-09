@@ -7,7 +7,9 @@
 \usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
 \usepackage{hyperref} 
 \usepackage{xcolor} 
-\usepackage{ulem}                      
+\usepackage{ulem}                     
+\usepackage{pdfpages} 
+\usepackage{rotating}
                                                                                  
 \newcommand{\note}[1]{\textcolor{blue}{\textit{note}: #1}}                       
 \newcommand{\tristan}[1]{\textcolor{red}{TG: #1}}                                
@@ -1226,16 +1228,18 @@
             that the tools, and as a consequence, the pipelines created will
             also be platform-independent. Many workflow engines have opted to 
             be platform independent. These workflow engines include: Nipype,
-            PSOM, SPM, FASTR, LONI, AA, Pydpiper, Taverna, MapReduce, Spark and
+            PSOM, SPM, FASTR, LONI, AA, Pydpiper, Taverna, Toil, MapReduce, Spark and
             Dask. These workflow engines achieve platform independence through
-            running on the Java Virtual Machine (JVM) or being written in 
-            Python. Platform-independent engines that run on the JVM include: 
+            running on the Java Virtual Machine (JVM) being written in 
+            Python or CWL. Platform-independent engines that run on the JVM include: 
             MATLAB engine frameworks, such as PSOM, SPM and AA; LONI; Taverna; 
             MapReduce; and Spark \tristan{this list contains Matlab
             engines}. Nipype, FastR, Pydpiper are all python-based platform 
-            independent workflow engines. The remainder of the 
-            workflow engines (Pegasus, Make, OpenMOLE, Nextflow, Galaxy, and 
-            Toil are not platform-independent, but can execute on macOS and Linux.
+            independent workflow engines and Toil and Galaxy are CWL-based 
+            platform independent engines. 
+            The remainder of the 
+            workflow engines (Pegasus, Make, OpenMOLE and Nextflow are 
+            not platform-independent, but can execute on macOS and Linux.
 
             Engines built on top of a platform-independent language do not 
             necessarily imply platform independence \tristan{Grammar? Engines ... does not}. For instance, OpenMOLE is 
@@ -1732,6 +1736,12 @@
         for the processing of both large images and large datasets. Additional
         comparative evaluations between Dask and Spark will need to be performed.
 
+    \clearpage
+    \begin{sidewaysfigure}[!p]
+        \caption{Summary table comparing the 17 workflow engines on four axes:
+        workflow composition, performance, portability and reproducibility.}
+        \includepdf[landscape=true]{Figures/summary.pdf}
+    \end{sidewaysfigure} 
     \addcontentsline{toc}
         {chapter}{Bibliography} 
         \bibliographystyle{ieeetr}
