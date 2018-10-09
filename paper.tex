@@ -195,11 +195,11 @@
             available to process such images, research on this data remains 
             limited.
 
-            \tristan{It could be useful to refer to this special issue on workflows
-            in neuroimaging in intro:
-            https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2844796/}
-            \tristan{This special issue on data sharing is also worth citing:
-            https://www.sciencedirect.com/journal/neuroimage/vol/124/part/PB}
+            %\tristan{It could be useful to refer to this special issue on workflows
+            %in neuroimaging in intro:
+            %https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2844796/}
+            %\tristan{This special issue on data sharing is also worth citing:
+            %https://www.sciencedirect.com/journal/neuroimage/vol/124/part/PB}
             In contrast, large datasets consist of many images acquired from
             multiple subjects, which are too large to be processed in their
             entirety. Notable examples of these datasets include the 
@@ -230,7 +230,7 @@
             Raw data must be made available for all datasets published to 
             OpenfMRI, however, preprocessed data may also accompany the raw data
             . At present, OpenfMRI houses data of a total 3372 subjects
-            originating from 95 studies \note{obtained from website}.
+            originating from 95 studies.
 
             ABIDE was conceived to promote the advancement of knowledge 
             of Autism Spectrum Disorders (ASD). % inverted the sentence to keep symmetry with the other paragraphs
@@ -245,14 +245,13 @@
             preprocessing of structural data, and several other pipelines were
             used for the processing of functional data.
 
-            The Consortium for Reliability and Reproducibility 
-            \tristan{expand acronym} was developed as an initiative to study 
+            The Consortium for Reliability and Reproducibility (CoRR) was developed as an initiative to study 
             and improve the 
             reliability and reproducibility of functional connectomics. The 
             data made available by the Consortium consists of test-retest data 
             obtained from 33 datasets. The repository contains data from 1629 
             subjects, in which anatomical, R-fMRI, dMRI, CBF and ASL scans are 
-            available \note{obtained from website}.
+            available.
 
 
             The HCP initiative aimed to characterize the human connectome of 
@@ -293,7 +292,7 @@
             they lack compute and storage resources to process the data in its
             entirety. It is also important to note that many of the pipelines 
             developed by these initiatives made use of popular neuroimaging 
-            toolboxes, such as FSL~\cite{SMITH2004S208} \tristan{You should cite it the first time you mention it}, FreeSurfer, ANTS, 
+            toolboxes, such as FSL~\cite{SMITH2004S208}, FreeSurfer, ANTS, 
             CIVET, rather than
             creating their own. Therefore, there is a great need for Big Data
             frameworks that can leverage existing tools for the efficient 
@@ -441,10 +440,10 @@
         the community at large, these workflows must be easily understood by the
         community. This relates to the reproducibility of studies, as it is 
         more than likely that easily understood workflows are reproducible. 
-        \tristan{Perhaps mention that this also relates to the sharing
-        of reproducible results -- VH: not sure if this is what you meant --
-        yeah, we might want to explicit this further in the paper but
-        good enough for now}.
+        %\tristan{Perhaps mention that this also relates to the sharing
+        %of reproducible results -- VH: not sure if this is what you meant --
+        %yeah, we might want to explicit this further in the paper but
+        %good enough for now}}.
 
         In this Chapter, we will compare and contrast the workflow composition 
         of seven neuroimaging frameworks (SPM, LONI, Nipype, PSOM, FastR, AA and
@@ -518,12 +517,12 @@
             composition. 
 
             Many researchers have been exposed to Shell scripting languages as 
-            several scientific workflows are composed in UNIX-based 
+            several scientific workflows are composed in Linux and OSX-based 
             environments. These environments typically have Make installed by
             default eliminating the need for users to install it manually.
             These features make workflow engine Make desirable for scientific
             computing.
-            As Make is exclusive to UNIX environments, it is not 
+            As Make is exclusive to Linux environments, it is not 
             platform-independent. However, Make has the flexibility of being
             easily extensible and can interface directly with any command-line
             tool. Shell scripting, nevertheless, is generally not as intuitive
@@ -543,20 +542,15 @@
             does provide many interfaces to describe the pipeline in including
             Java, Python and Perl.
 
-            Another example of a DSL is the Common Workflow
-            Language (CWL). CWL can be seen in workflow engines like Toil. 
-            It is similar to XML in that its main difference is that it is 
-            YAML/JSON-based. \tristan{Review the previous sentence, it doesn't make sense. And the end of the paragraph is till fuzzy too}
-            \tristan{It is a YAML-based DSL for workflows. Just like Pegasus' DAX is an XML-based DSL}. Files can either be written in JSON or YAML formats. CWL is 
-            based on workflow engines like Make \tristan{? I don't think CWL relies on make, does it?}, but differs in that tasks
-            are isolated \tristan{inputs and outputs are somewhat explicit in a Makefile}. Similarly to 
-            make, CWL is only available on Linux and OSX platforms \tristan{strange, the CWL interpreter is in Python so I'd expect it to run anywhere}. \note{cite cwl 
-            website}
+            Another example of a DSL is the YAML/JSON-based Common Workflow
+            Language (CWL). CWL can be seen in workflow engines like Toil and Galaxy.
+            CWL is similar to Make, however, it differs from Make in the tasks are 
+            isolated. CWL-based workflow engines are platform-independent. 
 
             Programming language-based DSL workflow engines include OpenMOLE, which is  
             derived from Scala, and Nextflow, which is derived from the Apache 
             Groovy programming language. While both are written on top of the 
-            Java platform, Nextflow is only compatible with Linux and OSX \tristan{How about using Linux everywhere instead of UNIX-based? You still have UNIX here and there.} 
+            Java platform, Nextflow is only compatible with Linux and OSX
             environments. These programming languages are not otherwise commonly
             used in neuroimaging, meaning that users must learn specific 
             languages that would not otherwise be used in their field.
@@ -574,11 +568,10 @@
 
             \section{Data structures}\label{ds}
                 
-                The data structures made available by workflow engines dictate
-                the maximum performance available to a workflow. \tristan{I don't understand the previous sentence, 
-                in particular the 'maximum' idea. You should review that.} Scientific
-                workflows are generally file-based, meaning that data, in the 
-                form of files, will be 
+                Performance of workflow engines can be linked to the data structures
+                employed by the workflow. Scientific
+                workflows are generally file-based, meaning that data in the 
+                form of files will be 
                 transferred across the network and I/O must be
                 performed at each workflow activity. It is possible for some 
                 data to remain in memory with scientific workflows, but these 
@@ -625,10 +618,9 @@
                 structures similar to Spark's RDDs and Dataframes, Dask Bag and 
                 DataFrame, but by also providing an abstraction for 
                 larger-than-memory matrices, the Dask array. Furthermore, it is
-                possible to use common Python APIs (e.g. NumPy\note{cite} and 
+                possible to use Dask clones of common Python APIs (e.g. NumPy~\cite{Oliphant:2015:GN:2886196} and 
                 Pandas DataFrame~\cite{mckinney2011pandas}) to process the 
-                data \tristan{I think Dask provides clones of these libraries, but you can't use
-            them directly}. Although Spark does not have a datastructure for large 
+                data. Although Spark does not have a datastructure for large 
                 matrices, it has an RDD-based API, known as \textit{linealg}
                 for similar processing of large 
                 matrices~\cite{BosaghZadeh:2016:MCO:2939672.2939675}.
@@ -667,7 +659,7 @@
             description of their workflow interfaces include: Nipype, PSOM,
             Pydpiper, Toil, OpenMOLE and Make interfaces. 
           
-            Nipype's wrapper, written in Python, can encapsulate CLIs, SPM, 
+            Nipype's wrapper, written in Python, can encapsulate command-line interfaces (CLIs), SPM, 
             MATLAB and Python scripts. InputSpec and OutputSpec are two classes 
             that can are used to describe the inputs and outputs of the 
             interface. The former defines the input parameters of 
@@ -681,9 +673,7 @@
             For SPM interfaces, the job 
             type and name must be specified. Interfaces to MATLAB require 
             definition of the run function, while Python interfaces require
-            the definition of the \textit{\_run\_interface} function. \note{from
-            website}.
-            \tristan{Expand UDF, CLI, CARE.}
+            the definition of the \textit{\_run\_interface} function.
             
             PSOM’s tool interfaces are known as \textit{Bricks}. They are a 
             little less versatile than Nipype'sinterfaces since they can only
@@ -718,7 +708,7 @@
 
             OpenMOLE has the ability to encapsulate UDF Scala scripts and CLI. 
             In the case of CLI tasks, it is also possible to containerize or 
-            encapsulate with CARE \note{cite} to make it portable. OpenMOLE
+            encapsulate with the Comprehensive Archiver for Reproducible Execution (CARE) \cite{Janin:2014:CCA:2618137.2618138} to make it portable. OpenMOLE
             defines several classes to allow for the execution of different 
             types of tools. Like other framworks, it is vital to describe the
             inputs and outputs of the Tasks such that the execution of tasks 
@@ -752,7 +742,7 @@
 
             LONI enables generation of 
             the XML-based module interface through its GUI. The module interface
-            consists of details on \note{from website} module metadata (e.g.
+            consists of details on module metadata (e.g.
             authors, package, version, name) and citation information, 
             command-line syntax, parameter and file types, dependencies and 
             output and error handling.
@@ -782,7 +772,7 @@
             Java services. To interface with a CLI, the XML file must contain 
             the command to execute, file inputs and outputs (if required), if 
             standard input, output and error streams must be conserved and the 
-            location where the command should execute\note{from website}.
+            location where the command should execute.
 
             Pegasus is another workflow engine that uses an XML format to 
             define the CLI tools interface. The XML interfaces are typically 
@@ -795,7 +785,7 @@
             addition to UDFs and CLIs, Pegasus
             can also execute containerized tools. For this, a container 
             identifier, image URL, site identifier of the image, and container
-            profiles must also be defined \note{from website}.
+            profiles must also be defined.
 
             While Galaxy is primarily a GUI-based application, an XML tool
             configuration file is required to add the tool to the application.
@@ -1167,10 +1157,10 @@
             amount of time to execute, a mechanism to checkpoint workflows      
             will need to be added to any Big Data framework used for             
             neuroinformatics.                                                   
-            \note{dont know how Taverna, Pegasus, Galaxy or Toil achieves this} 
-            \note{openMole says it checks to see if outputs exist. similar to   
-            make?}                                                              
-            \note{what about SPM, FastR??}                                      
+            %\note{dont know how Taverna, Pegasus, Galaxy or Toil achieves this} 
+            %\note{openMole says it checks to see if outputs exist. similar to   
+            %make?}                                                              
+            %\note{what about SPM, FastR??}                                      
 
                                                                                 
         \section{Evaluation of Big Data Frameworks for Scientific Computing}\label{eval}     
@@ -1418,15 +1408,15 @@
                 Clinical and Experimental Data Exchange (XCEDE) neuroimaging
                 provenance metadata format~\cite{Maumet:2016aa}. It is a domain-specific extension
                 to the W3C PROV model that aims to provide comprehensive and
-                machine-readable provenance from raw data to its final stage. \tristan{give example? -- vhs: like a figure? No, like what can be described which couldn't in BIDS. 
-                Forget about it for the comp exam, keep this note for the paper.}
+                machine-readable provenance from raw data to its final stage. %\tristan{give example? -- vhs: like a figure? No, like what can be described which couldn't in BIDS. 
+                %Forget about it for the comp exam, keep this note for the paper.}
                 However, it is currently limited in the provenance 
                 information it can provide, such as details on computational 
-                environments. It is also limited by the fact that consensus lacks
-                within the community on paradigms. \tristan{I disagree with the last sentence
-                but this is fine. The main limitation imo is due to the use of RDF and an ontology: it is
-                very powerful but difficult to use: performance sucks, queries are hell to write, 
-                and format is not human-readable.}
+                environments. It is also limited by the fact that it is difficult to use and that consensus lacks
+                within the community on paradigms. %\tristan{I disagree with the last sentence
+                %but this is fine. The main limitation imo is due to the use of RDF and an ontology: it is
+                %very powerful but difficult to use: performance sucks, queries are hell to write, 
+                %and format is not human-readable.}
 
             \subsection{BIDS Derivatives}
                 The BIDS-Derivatives metadata specification is the newest 
@@ -1512,10 +1502,10 @@
             and Big Data frameworks like Spark and Dask mainly rely on 
             lineage.
 
-            \tristan{The rest of this section is very difficult to read because
-            it lacks structure. Perhaps you could classify provenance tracking in PROV-based, lineage-based,
-            and other custom formats? -- It is still a bit 'boring' :) No worries for the comp report,
-            but could be discussed and fixed in the paper.}
+            %\tristan{The rest of this section is very difficult to read because
+            %it lacks structure. Perhaps you could classify provenance tracking in PROV-based, lineage-based,
+            %and other custom formats? -- It is still a bit 'boring' :) No worries for the comp report,
+            %but could be discussed and fixed in the paper.}
             At minumum, provenance tracking should include 
             capturing details on the workflow stages as well as the inputs and
             outputs. LONI, Pegasus, Pydpiper and Galaxy all satisfy this 
@@ -1601,10 +1591,9 @@
     
     
     \chapter{Discussion}
-    \tristan{You should refer to figure 1 in the text. You could start your discussion by mentioning that
-    a summary of your review is available in Figure 1.}
+    
         While mainy neuroimaging workflow engines exist, none of them are well
-        suited for the processing of neuroimaging Big Data \tristan{due to? be more specific}. Even more general
+        suited for the processing of neuroimaging Big Data due to lack of data-centric optimizations. Even more general
         scientific workflows are not equipped for the handling of these datasets.
         Currently existing workflow engines cannot be adapted for Big Data without
         necessitating a major structural changes, as they would need to be converted
@@ -1618,14 +1607,15 @@
         improving the performance of scientific workflows. This was even shown
         to be the case when workflows were compute-intensive, as is the case 
         with many neuroimaging frameworks. Performance of Spark and Dask is 
-        comparable, however, Dask has been found \weird{to be lose efficiency} during 
+        comparable, however, Dask has been found to become less efficient during 
         the processing of larger datasets, whereas Spark exhibits reduced 
         performance when significant amounts of shuffling occur. However, both
         of these frameworks need to be adapted to better support the processing
         of scientific data. 
 
         Effective neuroimaging workflows need to meet certain criteria: 
-        ease-of-use, performance, portability and reproducibility. In order for
+        ease-of-use, performance, portability and reproducibility. A summary of
+        the workflow engines and how they meet this criteria can be found in Figure~\ref{fig:summary}. In order for
         a workflow language to be easy to use, it is recommended that it is 
         based on simple programming languages commonly used in the field, such 
         as Python or MATLAB (GNU/Octave). Using other programming languages 
@@ -1726,6 +1716,7 @@
         \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{Figures/summary.pdf}
         \caption{Summary table comparing the 17 workflow engines on four axes:
         workflow composition, performance, portability and reproducibility.}
+        \label{fig:summary}
     \end{sidewaysfigure} 
     \addcontentsline{toc}
         {chapter}{Bibliography} 
